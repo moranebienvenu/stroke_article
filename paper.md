@@ -5,7 +5,9 @@ numbering:
     template: Fig. %s
 ---
 
-## Can sex-specific neurotransmitter dynamics allow tailored treatment? A preview from a dashboard.
+## Can sex-specific neurotransmitter dynamics allow tailored treatment? 
+
+## *A preview from a dashboard.*
 
 ### Introduction
 
@@ -63,7 +65,7 @@ To visualize disruptions, group-averaged male (n = 23) and female (n = 15) data 
 <!-- [](https://doi.org/10.31219/osf.io/h89js) -->
 <!-- :::{figure} static/banner.jpg -->
 
-A funny take on the difference between articles with code and articles from code.
+<!-- A funny take on the difference between articles with code and articles from code.
 :::
 
 Let's see how directives work with a simple example by rendering a video from an external source:
@@ -81,18 +83,6 @@ Yet, the main purpose of this article is to not to showcase all the [authoring t
 :::{seealso}
 You can refer to the [MyST Guide](https://mystmd.org/guide/typography) to see all the cool stuff you can do with MyST Markdown, such as creating a `mermaid` diagram like this:
 
-```{mermaid}
-flowchart LR
-  A[Jupyter Notebook] --> C
-  B[MyST Markdown] --> C
-  C(mystmd) --> D{AST}
-  D <--> E[LaTeX]
-  E --> F[PDF]
-  D --> G[Word]
-  D --> H[React]
-  D --> I[HTML]
-  D <--> J[JATS]
-```
 
 Or you can see how hover-over links work for [wikipedia sources](https://en.wikipedia.org/wiki/Wikipedia#:~:text=Wikipedia%20is%20a%20free%20content,and%20the%20wiki%20software%20MediaWiki.) and cross references figures (e.g., [Fig. %sf](#fig1), [Figure %sf](#fig2), [Video %sf](#figvid)).
 :::
@@ -101,9 +91,9 @@ Typically, when publishing an article following the traditional route, you would
 
 > Where is the endnote reference folder I used for this article?
 
-> What is the name of the script I used to generate the second figure? This script has the title `fig_2_working.py` and is in the  `karakuzu_et_al_2016_mrm` folder, but it does not seem to be the one that generated the figure...
+> What is the name of the script I used to generate the second figure? This script has the title `fig_2_working.py` and is in the  `karakuzu_et_al_2016_mrm` folder, but it does not seem to be the one that generated the figure... -->
 
-> I cannot create the same runtime environment that I used for this analysis in my current project because `python 3.8` is not available in the current distribution of Anaconda... It is so tricky to get this running on my new computer...
+<!-- > I cannot create the same runtime environment that I used for this analysis in my current project because `python 3.8` is not available in the current distribution of Anaconda... It is so tricky to get this running on my new computer...
 
 MyST Markdown offers a powerful solution to this by allowing you to create an article ✨from code✨, linking all the pieces of your executable and narrative content together in the body of this one document: your canvas.
 
@@ -115,9 +105,9 @@ An article with two figures created in Jupyter Notebooks. Each figure can be lab
 Figure reused from [mystmd.org](https://mystmd.org) (CC-BY-4.0, [source](https://mystmd.org/guide/reuse-jupyter-outputs#reuse-jupyter-outputs)).
 :::
 
+ -->
 
-
-For example, the following figure is the output of the `content/fig_1.ipynb` notebook:
+<!-- For example, the following figure is the output of the `content/fig_1.ipynb` notebook:
 
 :::{figure} #fig1cell
 :label: fig1
@@ -243,4 +233,4 @@ ISMRM RRSG 2020 interactive dashboard at [https://rrsg2020.db.neurolibre.org/](h
 
 These dashboards [](#intdashboard) and [](#intdashboard2) are embedded in their respective NeuroLibre preprints! If you are interested in publishing your own dashboard with NeuroLibre, please open an issue using [this template](https://github.com/neurolibre/info/issues/new?assignees=agahkarakuzu&labels=dashboard&projects=&template=new_dashboard.md&title=%5BNEW+DASHBOARD%5D).
 
-If you have any questions or need further assistance, please reach out to us at `info@neurolibre.org`.
+If you have any questions or need further assistance, please reach out to us at `info@neurolibre.org`. --> -->
