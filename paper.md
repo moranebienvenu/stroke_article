@@ -61,6 +61,11 @@ We first examined sex-related differences in neurotransmitter system disruption 
 
 To visualize disruptions, group-averaged male (n = 23) and female (n = 15) data were overlaid on circular graphs showing lesion effects on receptor/transporter density maps, tract projection maps, and derived synaptic disruption ratios (Fig.1), computed with the NeuroT-Map method by Alves et al.. Note that these sample sizes differ from those used for statistical analyses, as not all participants had clinical data but all had lesion masks.
 
+:::{figure} #fig1cell
+:label: fig1
+:::
+
+<!-- [Voir Figure 1 interactive] https://mybinder.org/v2/gh/moranebienvenu/stroke_article/tree/main/HEAD?urlpath=%2Fdoc%2Ftree%2Fcontent%2Ffigure_1.ipynb -->
 
 <!-- [](https://doi.org/10.31219/osf.io/h89js) -->
 <!-- :::{figure} static/banner.jpg -->
@@ -89,9 +94,9 @@ Or you can see how hover-over links work for [wikipedia sources](https://en.wiki
 
 Typically, when publishing an article following the traditional route, you would write your article in a word processor where you need to deal with the generation of figures, tables etc. elsewhere, and then bring them together in the final document manually. This eventually leads to a cluttered set of files, code, dependencies, and even data that are hard to manage in the long run. If you've been publishing articles for a while, you probably know what we are talking about:
 
-> Where is the endnote reference folder I used for this article?
+> Where is the endnote reference folder I used for this article? -->
 
-> What is the name of the script I used to generate the second figure? This script has the title `fig_2_working.py` and is in the  `karakuzu_et_al_2016_mrm` folder, but it does not seem to be the one that generated the figure... -->
+<!-- > What is the name of the script I used to generate the second figure? This script has the title `fig_2_working.py` and is in the  `karakuzu_et_al_2016_mrm` folder, but it does not seem to be the one that generated the figure... --> -->
 
 <!-- > I cannot create the same runtime environment that I used for this analysis in my current project because `python 3.8` is not available in the current distribution of Anaconda... It is so tricky to get this running on my new computer...
 
