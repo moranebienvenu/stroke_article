@@ -756,11 +756,11 @@
 #         observers_active = True
 #         for widget in [session1, sex1, outcome1, session2, sex2, outcome2]:
 #             widget.observe(on_change, names='value')
-        
 import requests
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import json
+from IPython.display import HTML, display
 
 class DashNeuroTmapClient:
     def __init__(self, dash_url="http://127.0.0.1:8050"):
@@ -876,7 +876,288 @@ class DashNeuroTmapClient:
         except:
             return False
 
-    def create_interactive_figure_html(self):
+    def create_static_figure(self, base_session='V1', base_sex='men', 
+                            overlay_session='V1', overlay_sex='women'):
+        """
+        Crée une figure statique pour un ensemble de paramètres donné
+        Parfait pour l'export HTML/PDF dans MyST
+        """
+        self.clear_overlays()
+        
+        base_title = f"Session {base_session} ({'Men' if base_sex == 'men' else 'Women'})"
+        base_plots = self.generate_plots(
+            dataset="master",
+            analysis_type="session_sex",
+            session=base_session,
+            sex_filter=base_sex,
+            groups=['A'],
+            title=base_title
+        )
+        
+        if not base_plots:
+            return None
+        
+        overlay_plots = self.generate_overlay(
+            dataset="master",
+            analysis_type="session_sex",
+            session=overlay_session,
+            sex_filter=overlay_sex,
+            groups=['A']
+        )
+        
+        combined_data = self.get_combined_plots()
+        if not combined_data:
+            return None
+        
+        # Créer figure avec 3 subplots
+        fig = make_subplots(
+            rows=1, cols=3,
+            subplot_titles=("Brain Region 1", "Brain Region 2", "Brain Region 3"),
+            horizontal_spacing=0.08
+        )
+        
+        fig1_data = go.Figure(combined_data['fig1'])
+        fig2_data = go.Figure(combined_data['fig2'])
+        fig3_data = go.Figure(combined_data['fig3'])
+        
+        # Ajouter traces avec gestion des légendes
+        for trace in fig1_data.data:
+            trace.showlegend = True
+            fig.add_trace(trace, row=1, col=1)
+            
+        for trace in fig2_data.data:
+            trace.showlegend = False  # Éviter duplication légende
+            fig.add_trace(trace, row=1, col=2)
+            
+        for trace in fig3_data.data:
+            trace.showlegend = False
+            fig.add_trace(trace, row=1, col=3)
+        
+        # Mise en forme
+        fig.update_layout(
+            height=450,
+            title_text=f"Base: {base_title} | Overlay: Session {overlay_session} ({overlay_sex.capitalize()})",
+            title_x=0.5,
+            showlegend=True,
+            legend=dict(
+                orientation="h",
+                yanchor="top",
+                y=-0.15,
+                xanchor="center",
+                x=0.5
+            )
+        )
+        
+        # Mise à jour des axes
+        fig.update_xaxes(title_text="X-axis", row=1, col=1)
+        fig.update_xaxes(title_text="X-axis", row=1, col=2)
+        fig.update_xaxes(title_text="X-axis", row=1, col=3)
+        fig.update_yaxes(title_text="Y-axis", row=1, col=1)
+        
+        return fig
+
+    def create_interactive_html(self):
+        """
+        Crée un widget HTML interactif avec JavaScript pur
+        Compatible avec MyST, pas besoin de kernel Jupyter actif
+        """
+        html_template = """
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+            <style>
+                .controls {{
+                    padding: 20px;
+                    background: #f5f5f5;
+                    border-radius: 8px;
+                    margin-bottom: 20px;
+                    display: flex;
+                    gap: 20px;
+                    align-items: center;
+                    flex-wrap: wrap;
+                }}
+                .control-group {{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                }}
+                label {{
+                    font-weight: bold;
+                    font-size: 14px;
+                }}
+                select {{
+                    padding: 8px 12px;
+                    border-radius: 4px;
+                    border: 1px solid #ccc;
+                    font-size: 14px;
+                }}
+                button {{
+                    padding: 10px 20px;
+                    background: #007bff;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    margin-left: auto;
+                }}
+                button:hover {{
+                    background: #0056b3;
+                }}
+                #plotDiv {{
+                    width: 100%;
+                    height: 500px;
+                }}
+                .loading {{
+                    text-align: center;
+                    padding: 20px;
+                    color: #666;
+                }}
+            </style>
+        </head>
+        <body>
+            <div class="controls">
+                <div class="control-group">
+                    <label for="baseSession">Base Session:</label>
+                    <select id="baseSession">
+                        <option value="V1" selected>V1</option>
+                        <option value="V2">V2</option>
+                        <option value="V3">V3</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="baseSex">Base Sex:</label>
+                    <select id="baseSex">
+                        <option value="men" selected>Men</option>
+                        <option value="women">Women</option>
+                        <option value="all">All</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="overlaySession">Overlay Session:</label>
+                    <select id="overlaySession">
+                        <option value="V1" selected>V1</option>
+                        <option value="V2">V2</option>
+                        <option value="V3">V3</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="overlaySex">Overlay Sex:</label>
+                    <select id="overlaySex">
+                        <option value="women" selected>Women</option>
+                        <option value="men">Men</option>
+                        <option value="all">All</option>
+                    </select>
+                </div>
+                
+                <button onclick="updatePlot()">🔄 Update Plot</button>
+            </div>
+            
+            <div id="plotDiv"></div>
+            <div id="loading" class="loading" style="display:none;">Loading...</div>
+            
+            <script>
+                const API_URL = '{api_url}';
+                
+                async function clearOverlays() {{
+                    await fetch(`${{API_URL}}/overlay/clear`, {{ method: 'DELETE' }});
+                }}
+                
+                async function generateBase(session, sex) {{
+                    const response = await fetch(`${{API_URL}}/generate_plots`, {{
+                        method: 'POST',
+                        headers: {{ 'Content-Type': 'application/json' }},
+                        body: JSON.stringify({{
+                            dataset: 'master',
+                            analysis_type: 'session_sex',
+                            session: session,
+                            sex_filter: sex,
+                            groups: ['A'],
+                            title: `Session ${{session}} (${{sex}})`
+                        }})
+                    }});
+                    return response.json();
+                }}
+                
+                async function generateOverlay(session, sex) {{
+                    const response = await fetch(`${{API_URL}}/overlay/generate`, {{
+                        method: 'POST',
+                        headers: {{ 'Content-Type': 'application/json' }},
+                        body: JSON.stringify({{
+                            dataset: 'master',
+                            analysis_type: 'session_sex',
+                            session: session,
+                            sex_filter: sex,
+                            groups: ['A']
+                        }})
+                    }});
+                    return response.json();
+                }}
+                
+                async function getCombinedPlots() {{
+                    const response = await fetch(`${{API_URL}}/overlay/combine`);
+                    return response.json();
+                }}
+                
+                async function updatePlot() {{
+                    const loading = document.getElementById('loading');
+                    loading.style.display = 'block';
+                    
+                    try {{
+                        const baseSession = document.getElementById('baseSession').value;
+                        const baseSex = document.getElementById('baseSex').value;
+                        const overlaySession = document.getElementById('overlaySession').value;
+                        const overlaySex = document.getElementById('overlaySex').value;
+                        
+                        await clearOverlays();
+                        await generateBase(baseSession, baseSex);
+                        await generateOverlay(overlaySession, overlaySex);
+                        
+                        const combined = await getCombinedPlots();
+                        
+                        // Créer subplots
+                        const traces = [
+                            ...combined.combined_plots.fig1.data.map(t => ({{...t, xaxis: 'x', yaxis: 'y'}})),
+                            ...combined.combined_plots.fig2.data.map(t => ({{...t, xaxis: 'x2', yaxis: 'y2'}})),
+                            ...combined.combined_plots.fig3.data.map(t => ({{...t, xaxis: 'x3', yaxis: 'y3'}}))
+                        ];
+                        
+                        const layout = {{
+                            grid: {{ rows: 1, columns: 3, pattern: 'independent' }},
+                            height: 500,
+                            showlegend: true,
+                            legend: {{ orientation: 'h', y: -0.2 }},
+                            xaxis: {{ domain: [0, 0.3] }},
+                            xaxis2: {{ domain: [0.35, 0.65] }},
+                            xaxis3: {{ domain: [0.7, 1] }},
+                            yaxis: {{ anchor: 'x' }},
+                            yaxis2: {{ anchor: 'x2' }},
+                            yaxis3: {{ anchor: 'x3' }}
+                        }};
+                        
+                        Plotly.newPlot('plotDiv', traces, layout);
+                    }} catch (error) {{
+                        console.error('Error updating plot:', error);
+                        alert('Error updating plot. Check console.');
+                    }} finally {{
+                        loading.style.display = 'none';
+                    }}
+                }}
+                
+                // Charger plot initial
+                updatePlot();
+            </script>
+        </body>
+        </html>
+        """
+        
+        html_content = html_template.format(api_url=self.api_url)
+        return HTML(html_content)
+    
         """
         Crée une figure Plotly interactive avec contrôles HTML intégrés
         Compatible avec MyST et exportation HTML statique
