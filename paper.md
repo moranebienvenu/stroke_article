@@ -63,7 +63,11 @@ To visualize disruptions, group-averaged male (n = 23) and female (n = 15) data 
 
 :::{figure} #fig1cell
 :label: fig1
+:name: fig1
+
+Ma figure interactive avec contrôles Plotly
 :::
+
 
 <!-- [Voir Figure 1 interactive] https://mybinder.org/v2/gh/moranebienvenu/stroke_article/tree/main/HEAD?urlpath=%2Fdoc%2Ftree%2Fcontent%2Ffigure_1.ipynb -->
 
