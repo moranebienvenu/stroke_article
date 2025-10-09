@@ -1,8 +1,8 @@
 # See docs at: https://mystmd.org/guide/frontmatter
 version: 1
 project:
-  title: 'Demystifying MyST: The most powerful preprint authoring tool'
-  subtitle: A template for reproducible preprints
+  title: 'Sex-specific early neurotransmitter dynamics and post-stroke aphasia recovery'
+  subtitle: A specific dashboard template for reproducible preprints
   thebe:
     binder:
       url: https://moranebienvenu.github.io/stroke_article #https://terrarium.evidencepub.io
