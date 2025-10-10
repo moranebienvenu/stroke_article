@@ -6,11 +6,13 @@ kernelspec:
 
 # Figure 1: Interactive NeuroTmap Analysis
 
-This figure shows the comparative analysis of neuroimaging sessions with overlay capabilities.
-
 ```{code-cell} python
-:tags: [remove-input]
-:label: fig1cell
+:tags: [thebe-init]
+!pip install plotly ipywidgets requests pandas numpy
+
+{code-cell}
+:tags: [thebe-active]
+:label: fig1-interactive
 
 from Dash_client import DashNeuroTmapClient
 
@@ -19,4 +21,3 @@ client = DashNeuroTmapClient()
 
 # Créer l'interface interactive
 client.create_advanced_interface()
-```

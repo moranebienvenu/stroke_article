@@ -4,6 +4,12 @@ numbering:
   figure:
     template: Fig. %s
 ---
+---
+kernelspec:
+  name: python3
+  display_name: 'Python 3'
+---
+
 
 ## Can sex-specific neurotransmitter dynamics allow tailored treatment? 
 
@@ -64,14 +70,26 @@ To visualize disruptions, group-averaged male (n = 23) and female (n = 15) data 
 
 blabla -----Our analysis reveals significant patterns across sessions and sex groups, as shown in {numref}`fig1cell`.
 
-:::{figure} #fig1cell
+
+# Figure 1: Interactive NeuroTmap Analysis
+:::{figure} #fig1 
+:name: fig-neurotmap-analysis
+:width: 100%
+
+**Interactive NeuroTmap Analysis**  
+*Users can select different sessions (V1, V2, V3) and sex filters (men, women, all) to explore the data interactively.*
+:::
+
+
+
+<!-- :::{figure} #fig1cell
 :label: fig1
 :name: fig-neurotmap-analysis
 
 Interactive NeuroTmap analysis showing base and overlay comparisons. 
 Users can select different sessions (V1, V2, V3) and sex filters (men, women, all) 
 to explore the data interactively.
-:::
+::: -->
 
 The interactive controls allow for real-time comparison between different 
 experimental conditions ......

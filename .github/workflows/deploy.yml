@@ -39,20 +39,27 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip install -r binder/requirements.txt    
-          pip install ipywidgets jupyter-cache
       
       - name: Setup Jupyter kernel
         run: |
-          source venv/bin/activate
-          python -m ipykernel install --user --name=python3
-              
+          python -m ipykernel install --user --name=python3 --display-name="Python 3"
+
       - uses: actions/setup-node@v4
         with:
           node-version: 18.x
+
       - name: Install MyST Markdown
         run: npm install -g mystmd
-      - name: Build HTML Assets
-        run: myst build --execute --html
+
+        #modification pour thebe
+      - name: Build HTML with Thebe
+        run: |
+          myst build --html \
+            -o _build/html \
+            --thebe \
+            --execute
+      # - name: Build HTML Assets
+      #   run: myst build --execute --html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

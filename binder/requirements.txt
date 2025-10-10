@@ -6,4 +6,5 @@ ipykernel
 requests
 pandas
 numpy
+jupyter-client
 nbformat

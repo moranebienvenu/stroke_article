@@ -3,11 +3,15 @@ version: 1
 project:
   title: 'Sex-specific early neurotransmitter dynamics and post-stroke aphasia recovery'
   subtitle: A specific dashboard template for reproducible preprints
+  
   thebe:
+    enabled: true
     binder:
-      url: https://moranebienvenu.github.io/stroke_article #https://terrarium.evidencepub.io
+      url: https://terrarium.evidencepub.io
       repo: moranebienvenu/stroke_article #neurolibre/mystical-article # Production will override this.
       ref: HEAD # Production will override this.
+    kernel:
+      name: python3
   authors:
     - name: Agah Karakuzu
       orcid: 0000-0001-7283-271X
@@ -54,7 +58,9 @@ project:
   keywords:
     - reproducible publishing
     - mystmd
-    - next-gen preprints
+    - next-gen preprints 
+    - interactive 
+    - neuroscience 
   github: https://github.com/moranebienvenu/stroke_article #https://github.com/neurolibre/mystical-article 
   banner: static/banner.jpg
   venue: Neurolibre #Production will override this.
