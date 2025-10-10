@@ -77,8 +77,8 @@ project:
   bibliography:
     - paper.bib
   resources:
-    - content/figure1.ipynb
-    - content/figure2.md
+    - content/figure_1.ipynb
+    - content/figure_2.md
 site:
   template: article-theme # Or book-theme
   url: https://moranebienvenu.github.io/stroke_article
