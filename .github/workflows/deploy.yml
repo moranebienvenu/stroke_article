@@ -46,16 +46,8 @@ jobs:
 
       - name: Install MyST Markdown
         run: npm install -g mystmd
-
-        #modification pour thebe
-      - name: Build HTML with Thebe
-        run: |
-          myst build --html \
-            -o _build/html \
-            --thebe \
-            --execute
-      # - name: Build HTML Assets
-      #   run: myst build --execute --html
+      - name: Build HTML Assets
+        run: myst build --execute --html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
