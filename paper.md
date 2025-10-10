@@ -61,12 +61,20 @@ We first examined sex-related differences in neurotransmitter system disruption 
 
 To visualize disruptions, group-averaged male (n = 23) and female (n = 15) data were overlaid on circular graphs showing lesion effects on receptor/transporter density maps, tract projection maps, and derived synaptic disruption ratios (Fig.1), computed with the NeuroT-Map method by Alves et al.. Note that these sample sizes differ from those used for statistical analyses, as not all participants had clinical data but all had lesion masks.
 
+
+blabla -----Our analysis reveals significant patterns across sessions and sex groups, as shown in {numref}`fig1cell`.
+
 :::{figure} #fig1cell
 :label: fig1
-:name: Interactive NeuroTmap Analysis
+:name: fig-neurotmap-analysis
 
-Analyse comparative des sessions avec overlay interactif
+Interactive NeuroTmap analysis showing base and overlay comparisons. 
+Users can select different sessions (V1, V2, V3) and sex filters (men, women, all) 
+to explore the data interactively.
 :::
+
+The interactive controls allow for real-time comparison between different 
+experimental conditions ......
 
 <!-- [Voir Figure 1 interactive] https://mybinder.org/v2/gh/moranebienvenu/stroke_article/tree/main/HEAD?urlpath=%2Fdoc%2Ftree%2Fcontent%2Ffigure_1.ipynb -->
 

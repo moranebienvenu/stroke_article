@@ -38,7 +38,14 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
-          pip install -r binder/requirements.txt        
+          pip install -r binder/requirements.txt    
+          pip install ipywidgets jupyter-cache
+      
+      - name: Setup Jupyter kernel
+        run: |
+          source venv/bin/activate
+          python -m ipykernel install --user --name=python3
+              
       - uses: actions/setup-node@v4
         with:
           node-version: 18.x

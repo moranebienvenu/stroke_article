@@ -2,3 +2,8 @@ plotly
 networkx
 pandas
 ipywidgets
+ipykernel
+requests
+pandas
+numpy
+nbformat
