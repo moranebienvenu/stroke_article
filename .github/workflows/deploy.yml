@@ -39,10 +39,6 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip install -r binder/requirements.txt    
-      
-      - name: Setup Jupyter kernel
-        run: |
-          python -m ipykernel install --user --name=python3 --display-name="Python 3"
 
       - uses: actions/setup-node@v4
         with:
