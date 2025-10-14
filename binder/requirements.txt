@@ -8,3 +8,4 @@ pandas
 numpy
 jupyter-client
 nbformat
+anywidget

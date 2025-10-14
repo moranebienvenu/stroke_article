@@ -3,12 +3,11 @@ version: 1
 project:
   title: 'Sex-specific early neurotransmitter dynamics and post-stroke aphasia recovery'
   subtitle: A specific dashboard template for reproducible preprints
-  
   thebe:
     enabled: true
     binder:
       url: https://terrarium.evidencepub.io
-      repo: moranebienvenu/stroke_article #neurolibre/mystical-article # Production will override this.
+      repo: moranebienvenu/stroke_article 
       ref: HEAD # Production will override this.
     kernel:
       name: python3
@@ -62,7 +61,7 @@ project:
     - interactive 
     - neuroscience 
   github: https://github.com/moranebienvenu/stroke_article #https://github.com/neurolibre/mystical-article 
-  banner: static/banner.jpg
+  banner: featured.jpg
   venue: Neurolibre #Production will override this.
   subject: Living Preprint # Production will override this.
   numbering:
@@ -76,9 +75,11 @@ project:
     MyST: Markedly Structured Markdown
   bibliography:
     - paper.bib
+  toc: 
+    - file: paper.md
+    - file: content/figure_1.ipynb
   resources:
     - content/figure_1.ipynb
-    - content/figure_2.md
 site:
   template: article-theme # Or book-theme
   url: https://moranebienvenu.github.io/stroke_article
