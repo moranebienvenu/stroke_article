@@ -4,11 +4,6 @@ numbering:
   figure:
     template: Fig. %s
 ---
----
-kernelspec:
-  name: python3
-  display_name: 'Python 3'
----
 
 
 ## Can sex-specific neurotransmitter dynamics allow tailored treatment? 
@@ -71,11 +66,21 @@ To visualize disruptions, group-averaged male (n = 23) and female (n = 15) data 
 blabla -----Our analysis reveals significant patterns across sessions and sex groups, as shown in {numref}`fig1cell`.
 
 
-```{include} ./figure_1.ipynb
+<!-- ```{include} ./figure_1.ipynb
 :relative-docs: content
 :code: python
-```
+``` -->
 
+```{code-cell} python
+:tags: [hide-input]
+from Dash_client import DashNeuroTmapClient
+
+client = DashNeuroTmapClient()
+if client.check_health():
+    client.create_advanced_interface()
+else:
+    print("🔴 Connectez-vous à l'API Dash pour l'interactivité")
+```
 
 <!-- :::{figure} #fig1cell
 :label: fig1
