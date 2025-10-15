@@ -71,3 +71,12 @@ Users can select different sessions (V1, V2, V3) and sex filters (men, women, al
 
 
 blabla -----Our analysis reveals significant patterns across sessions and sex groups, as shown in [](#fig1).
+
+:::{figure} #fig2cell
+:label: fig2
+:name: fig-correlation-analysis
+:placeholder: ./static/tmp.jpg
+
+Interactive correlation heatmaps showing the relationship between predictors and outcomes separately for All participants, Men, and Women.
+Users can select different sessions (V1, V2, V3), systems to analysed (Synaptic ratio, Loc, Tract, Clinical outcomes) and group filters (Aphasic, Non-Aphasic) to explore the data interactively.
+:::
