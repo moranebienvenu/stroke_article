@@ -155,10 +155,16 @@ class DashNeuroTmapClient:
                 fig.update_layout(height=250, width=250, #margin=dict(l=20, r=20, t=20, b=40), 
                     legend=dict(
                         orientation="h",
-                        yanchor="bottom",
-                        y=0,
+                        yanchor="top",
+                        y=-0.1,
                         xanchor="center",
                         x=0.5
+                ), #essai 
+                   title=dict( 
+                    y=0.95,  
+                    x=0.5,
+                    xanchor='center',
+                    yanchor='top'
                 )   )
             
             # organisation en grille (3 colonnes)
@@ -267,12 +273,18 @@ class DashNeuroTmapClient:
                     #margin=dict(l=20, r=20, t=20, b=40),
                     legend=dict(
                         orientation="h",
-                        yanchor="bottom",
-                        y=0,
+                        yanchor="top",
+                        y=-0.1,
                         xanchor="center",
                         x=0.5
-                    )
-                )
+                    ), #essai 
+                    title=dict( 
+                        y=0.95,  
+                        x=0.5,
+                        xanchor='center',
+                        yanchor='top'
+                    )   )
+                
             
             # organisation en grille (3 colonnes) - identique à display_plots
             display(GridBox(

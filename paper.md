@@ -64,6 +64,7 @@ To visualize disruptions, group-averaged male (n = 23) and female (n = 15) data 
 :label: fig1
 :name: fig-neurotmap-analysis
 :placeholder: ./static/tmp.jpg
+:height: 400px
 
 Interactive NeuroTmap analysis showing base and overlay comparisons. 
 Users can select different sessions (V1, V2, V3) and sex filters (men, women, all) to explore the data interactively.
@@ -92,4 +93,4 @@ Interactive correlation heatmaps showing the relationship between predictors and
 Users can select different sessions (V1, V2, V3), outcomes (Synaptic ratio, Loc, Tract, Clinical outcomes) and sex filters (men, women, all) to explore the data interactively.
 :::
 
-blabla ---- , as shown in [](#fig2).
+blabla ---- , as shown in [](#fig3).
