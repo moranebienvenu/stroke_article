@@ -152,11 +152,11 @@ class DashNeuroTmapClient:
             fig3 = go.Figure(plots_data['fig3'])
             
             for fig in [fig1, fig2, fig3]:
-                fig.update_layout(autosize=True, height=250, width=250, margin=dict(l=20, r=20, t=20, b=40), 
+                fig.update_layout(height=250, width=250, #margin=dict(l=20, r=20, t=20, b=40), 
                     legend=dict(
                         orientation="h",
                         yanchor="bottom",
-                        y=-0.05,
+                        y=0,
                         xanchor="center",
                         x=0.5
                 )   )
@@ -170,8 +170,8 @@ class DashNeuroTmapClient:
                 ],
                 layout=Layout(grid_template_columns="repeat(3, 33%)",
                 justify_content='center',
-                align_items='center',      
-                width='100%')
+                align_items='center')      
+                #width='100%')
             ))
             
             return fig1, fig2, fig3
@@ -262,14 +262,13 @@ class DashNeuroTmapClient:
             # Améliorer la légende
             for fig in [fig1, fig2, fig3]:
                 fig.update_layout(
-                    autosize=True, 
                     height=250,
                     width=250, 
-                    margin=dict(l=20, r=20, t=20, b=40),
+                    #margin=dict(l=20, r=20, t=20, b=40),
                     legend=dict(
                         orientation="h",
                         yanchor="bottom",
-                        y=-0.05,
+                        y=0,
                         xanchor="center",
                         x=0.5
                     )
@@ -284,8 +283,8 @@ class DashNeuroTmapClient:
                 ],
                 layout=Layout(grid_template_columns="repeat(3, 33%)",
                 justify_content='center',
-                align_items='center',      
-                width='100%')
+                align_items='center')      
+                #width='100%')
             ))
             
             return fig1, fig2, fig3
