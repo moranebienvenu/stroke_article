@@ -88,7 +88,7 @@ class DashNeuroTmapClient:
             if response.status_code == 200:
                 data = response.json()
                 self.current_plots = data['plots']
-                print(f"✅ {data['message']}")
+                #print(f"✅ {data['message']}")
                 return data['plots']
             else:
                 error_data = response.json()
@@ -108,7 +108,7 @@ class DashNeuroTmapClient:
             if response.status_code == 200:
                 data = response.json()
                 self.current_plots = data['plots']
-                print(f"✅ Plots updated successfully")
+                #print(f"✅ Plots updated successfully")
                 return data['plots']
             else:
                 error_data = response.json()
@@ -152,11 +152,11 @@ class DashNeuroTmapClient:
             fig3 = go.Figure(plots_data['fig3'])
             
             for fig in [fig1, fig2, fig3]:
-                fig.update_layout(height=350,width=350, margin=dict(l=40, r=40, t=40, b=40),
+                fig.update_layout(autosize=True, height=250,margin=dict(l=40, r=40, t=40, b=40), #width=300, 
                     legend=dict(
                         orientation="h",
                         yanchor="bottom",
-                        y=-0.3,
+                        y=-0.15,
                         xanchor="center",
                         x=0.5
                 )   )
@@ -220,7 +220,7 @@ class DashNeuroTmapClient:
             
             if response.status_code == 200:
                 data = response.json()
-                print(f"✅ {data['message']}")
+                #print(f"✅ {data['message']}")
                 self.overlays.append(data['overlay'])
                 return data['overlay']
             else:
@@ -259,13 +259,14 @@ class DashNeuroTmapClient:
             # Améliorer la légende
             for fig in [fig1, fig2, fig3]:
                 fig.update_layout(
-                    height=350,
-                    width=350, 
+                    autosize=True, 
+                    height=250,
+                    #width=300, 
                     margin=dict(l=40, r=40, t=40, b=40),
                     legend=dict(
                         orientation="h",
                         yanchor="bottom",
-                        y=-0.3,
+                        y=-0.15,
                         xanchor="center",
                         x=0.5
                     )
