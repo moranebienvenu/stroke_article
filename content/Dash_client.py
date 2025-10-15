@@ -30,7 +30,7 @@ class DashNeuroTmapClient:
             if response.status_code == 200:
                 data = response.json()
                 print("✅ Dash API is healthy!")
-                print(f"Available datasets: {data['available_datasets']}")
+                #print(f"Available datasets: {data['available_datasets']}")
                 return True
             else:
                 print(f"❌ API health check failed: {response.status_code}")
@@ -152,11 +152,11 @@ class DashNeuroTmapClient:
             fig3 = go.Figure(plots_data['fig3'])
             
             for fig in [fig1, fig2, fig3]:
-                fig.update_layout(autosize=True, height=250,margin=dict(l=40, r=40, t=40, b=40), #width=300, 
+                fig.update_layout(autosize=True, height=250, width=250, margin=dict(l=20, r=20, t=20, b=40), 
                     legend=dict(
                         orientation="h",
                         yanchor="bottom",
-                        y=-0.15,
+                        y=-0.05,
                         xanchor="center",
                         x=0.5
                 )   )
@@ -168,7 +168,10 @@ class DashNeuroTmapClient:
                     go.FigureWidget(fig2),
                     go.FigureWidget(fig3)
                 ],
-                layout=Layout(grid_template_columns="repeat(3, 33%)")
+                layout=Layout(grid_template_columns="repeat(3, 33%)",
+                justify_content='center',
+                align_items='center',      
+                width='100%')
             ))
             
             return fig1, fig2, fig3
@@ -261,12 +264,12 @@ class DashNeuroTmapClient:
                 fig.update_layout(
                     autosize=True, 
                     height=250,
-                    #width=300, 
-                    margin=dict(l=40, r=40, t=40, b=40),
+                    width=250, 
+                    margin=dict(l=20, r=20, t=20, b=40),
                     legend=dict(
                         orientation="h",
                         yanchor="bottom",
-                        y=-0.15,
+                        y=-0.05,
                         xanchor="center",
                         x=0.5
                     )
@@ -279,7 +282,10 @@ class DashNeuroTmapClient:
                     go.FigureWidget(fig2),
                     go.FigureWidget(fig3)
                 ],
-                layout=Layout(grid_template_columns="repeat(3, 33%)")
+                layout=Layout(grid_template_columns="repeat(3, 33%)",
+                justify_content='center',
+                align_items='center',      
+                width='100%')
             ))
             
             return fig1, fig2, fig3
