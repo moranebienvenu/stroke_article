@@ -468,10 +468,10 @@ class DashNeuroTmapClient:
                     
                     # Ajuster seulement la taille pour l'affichage côte à côte
                     fig.update_layout(
-                        height=450,
-                        width=450,
-                        margin=dict(l=60, r=30, t=80, b=100),
-                        title_x=0.5
+                        height=250,
+                        width=250,
+                        #margin=dict(l=60, r=30, t=80, b=100),
+                        title_x=0.001
                     )
                     
                     figures.append(fig)
@@ -486,11 +486,11 @@ class DashNeuroTmapClient:
                         font=dict(size=14, color="red")
                     )
                     fig.update_layout(
-                        height=450,
-                        width=450,
+                        height=250,
+                        width=250,
                         title=dict(
                             text=titles[i],
-                            x=0.5,
+                            x=0.001,
                             xanchor='center'
                         ),
                         xaxis=dict(showticklabels=False),
@@ -498,36 +498,26 @@ class DashNeuroTmapClient:
                     )
                     figures.append(fig)
             
-            # # Supprimer l'erreur de la sortie -- modification test
-            # import warnings
-            # with warnings.catch_warnings():
-            #     warnings.simplefilter("ignore")
-                
-            #     # Capturer la sortie stderr
-            #     import sys
-            #     from io import StringIO
-            #     old_stderr = sys.stderr
-            #     sys.stderr = StringIO()
-            
-                try:
-                    # Afficher les 3 heatmaps côte à côte
-                    display(GridBox(
-                        children=[
-                            go.FigureWidget(figures[0]),
-                            go.FigureWidget(figures[1]),
-                            go.FigureWidget(figures[2])
-                        ],
-                        layout=Layout(
-                            grid_template_columns="repeat(3, 33%)",
-                            width="100%",
-                            justify_content="space-around"
-                        )
-                    ))
-                except Exception as e:
-                    if "nbformat" in str(e):
-                        print("⚠️ Please install nbformat>=4.2.0 to enable interactive Plotly display.")
-                    else:
-                        pass
+            try:
+                # Afficher les 3 heatmaps côte à côte
+                display(GridBox(
+                    children=[
+                        go.FigureWidget(figures[0]),
+                        go.FigureWidget(figures[1]),
+                        go.FigureWidget(figures[2])
+                    ],
+                    layout=Layout(
+                        grid_template_columns="repeat(3, 33%)",
+                        #width="100%",
+                        justify_content='center',
+                        align_items='center'
+                    )
+                ))
+            except Exception as e:
+                if "nbformat" in str(e):
+                    print("⚠️ Please install nbformat>=4.2.0 to enable interactive Plotly display.")
+                else:
+                    pass
                         #print(f"❌ Display error: {e}")
                 # finally:
                 #     sys.stderr = old_stderr
@@ -537,7 +527,6 @@ class DashNeuroTmapClient:
         except Exception as e:
             print(f"❌ Error displaying correlation heatmaps: {e}")
             return None
-
 
     def create_correlation_interface(self):
         """Interface interactive pour les heatmaps de corrélation """
@@ -570,7 +559,7 @@ class DashNeuroTmapClient:
         reset_btn = widgets.Button(
             description='🔄 Reset to Default',
             button_style='warning',
-            layout=widgets.Layout(width='200px')
+            layout=widgets.Layout(width='20px')
         )
 
         # Container pour les graphiques 
@@ -609,7 +598,6 @@ class DashNeuroTmapClient:
         # Afficher l'interface de manière contrôlée 
         interface_elements = [
             widgets.HBox([session_widget,system_widget,groups_widget]),
-            #widgets.HBox([system_widget, groups_widget]),
             widgets.HBox([reset_btn]),
             plot_output
         ]
@@ -630,7 +618,7 @@ class DashNeuroTmapClient:
             widget.observe(on_any_change, names='value')
         
         # Premier affichage (comme create_advanced_interface)
-        display_heatmaps()
+        #display_heatmaps()
     
         return None
    
@@ -638,7 +626,7 @@ class DashNeuroTmapClient:
     #Heatmap avec variables croisée et interactive  
     def generate_cross_correlation_heatmap(self, dataset='master',
                                         session1='V1', sex_filter1='All', outcome1='Synaptic ratio', groups1=['A'],
-                                        session2='V1', sex_filter2='All', outcome2='Synaptic ratio', groups2=['A']):
+                                        session2='V3', sex_filter2='All', outcome2='Synaptic ratio', groups2=['A']):
         """Génère une heatmap de corrélation croisée entre deux sets"""
         payload = {
             'dataset': dataset,
@@ -751,21 +739,30 @@ class DashNeuroTmapClient:
                 update_heatmap()
         
         # Organisation de l'interface
-        set1_controls = widgets.VBox([
+        set1_controls = widgets.HBox([
             widgets.HTML("<h3>Set 1 Parameters</h3>"),
             session1, sex1, outcome1
         ])
         
-        set2_controls = widgets.VBox([
+        set2_controls = widgets.HBox([
             widgets.HTML("<h3>Set 2 Parameters</h3>"),
             session2, sex2, outcome2
         ])
         
-        controls = widgets.HBox([set1_controls, set2_controls])
-        
-        display(controls)
-        display(permanent_message)
-        display(output_container)
+        # display(controls)
+        # display(permanent_message)
+        # display(output_container)
+
+        #Afficher l'interface de manière contrôlée 
+        interface_elements = [
+            widgets.HBox([set1_controls, set2_controls]),
+            permanent_message,
+            output_container
+        ]
+
+        # Afficher tous les éléments
+        for element in interface_elements:
+            display(element)
         
         # Affichage initial
         update_heatmap()
