@@ -305,7 +305,7 @@ class DashNeuroTmapClient:
             print(f"Error displaying combined plots: {e}")
             return None
             
-    def create_advanced_interface(self):
+    def create_advanced_interface(self, base_session_default='V1', base_sex_default='men', overlay_session_default='V1', overlay_sex_default='women', groups_default=['A']):
         """Interface avancée avec gestion des overlays"""
         subjects_data = self.get_available_subjects(dataset="master")
         if not subjects_data:
@@ -313,12 +313,12 @@ class DashNeuroTmapClient:
             return None
 
         # Widgets pour la base
-        base_session = Dropdown(options=['V1', 'V2', 'V3'], value='V1', description='Base Session:')
-        base_sex = Dropdown(options=['all', 'men', 'women'], value='men', description='Base Sex:')
+        base_session = Dropdown(options=['V1', 'V2', 'V3'], value=base_session_default, description='Base Session:')
+        base_sex = Dropdown(options=['all', 'men', 'women'], value=base_sex_default, description='Base Sex:')
         
         # Widgets pour l'overlay (seulement session et sexe)
-        overlay_session = Dropdown(options=['V1', 'V2', 'V3'], value='V1', description='Overlay Session:')
-        overlay_sex = Dropdown(options=['all', 'men', 'women'], value='women', description='Overlay Sex:')
+        overlay_session = Dropdown(options=['V1', 'V2', 'V3'], value=overlay_session_default, description='Overlay Session:')
+        overlay_sex = Dropdown(options=['all', 'men', 'women'], value=overlay_sex_default, description='Overlay Sex:')
         
         # Container pour les graphiques
         plot_output = widgets.Output()
