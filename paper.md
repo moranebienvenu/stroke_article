@@ -111,7 +111,7 @@ To illustrate longitudinal changes in neurotransmitter system disruption and syn
 :placeholder: ./static/tmp.jpg
 
 Interactive NeuroTmap analysis showing base and overlay comparisons for all subjects in acute versus chronic phases. 
-Panels and Abbreviations as [](#Fig.1).
+Panels and Abbreviations as in Fig.1.
 Users can select different sessions (V1, V2, V3) to explore the data interactively.
 :::
 
