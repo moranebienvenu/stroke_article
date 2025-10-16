@@ -463,48 +463,48 @@ class DashNeuroTmapClient:
                     fig = go.Figure(fig_dict)
 
                     # ⚡ TRONQUER LES LABELS DIRECTEMENT DANS LE CLIENT
-                if system_type != "Clinical Outcomes":
-                    short_labels = {
-                        "pre_A4B2": "A4B2", "pre_M1": "M1", "pre_D1": "D1", "pre_D2": "D2",
-                        "pre_5HT1a": "5HT1a", "pre_5HT1b": "5HT1b", "pre_5HT2a": "5HT2a",
-                        "pre_5HT4": "5HT4", "pre_5HT6": "5HT6",
-                        "post_VAChT": "VAChT", "post_DAT": "DAT", "post_5HTT": "5HTT",
-                        "loc_inj_GABAa": "GABAa", "loc_inj_mGluR5": "mGluR5", "loc_inj_MU": "MU",
-                        "loc_inj_H3": "H3", "loc_inj_CB1": "CB1", "loc_inj_A4B2": "A4B2",
-                        "loc_inj_M1": "M1", "loc_inj_VAChT": "VAChT", "loc_inj_D1": "D1",
-                        "loc_inj_D2": "D2", "loc_inj_DAT": "DAT", "loc_inj_Nor": "Nor",
-                        "loc_inj_5HT1a": "5HT1a", "loc_inj_5HT1b": "5HT1b", "loc_inj_5HT2a": "5HT2a",
-                        "loc_inj_5HT4": "5HT4", "loc_inj_5HT6": "5HT6", "loc_inj_5HTT": "5HTT",
-                        "tract_inj_GABAa": "GABAa", "tract_inj_mGluR5": "mGluR5", "tract_inj_MU": "MU",
-                        "tract_inj_H3": "H3", "tract_inj_CB1": "CB1", "tract_inj_A4B2": "A4B2",
-                        "tract_inj_M1": "M1", "tract_inj_VAChT": "VAChT", "tract_inj_D1": "D1",
-                        "tract_inj_D2": "D2", "tract_inj_DAT": "DAT", "tract_inj_Nor": "Nor",
-                        "tract_inj_5HT1a": "5HT1a", "tract_inj_5HT1b": "5HT1b", "tract_inj_5HT2a": "5HT2a",
-                        "tract_inj_5HT4": "5HT4", "tract_inj_5HT6": "5HT6", "tract_inj_5HTT": "5HTT"
-                    }
+                # if system_type != "Clinical Outcomes":
+                #     short_labels = {
+                #         "pre_A4B2": "A4B2", "pre_M1": "M1", "pre_D1": "D1", "pre_D2": "D2",
+                #         "pre_5HT1a": "5HT1a", "pre_5HT1b": "5HT1b", "pre_5HT2a": "5HT2a",
+                #         "pre_5HT4": "5HT4", "pre_5HT6": "5HT6",
+                #         "post_VAChT": "VAChT", "post_DAT": "DAT", "post_5HTT": "5HTT",
+                #         "loc_inj_GABAa": "GABAa", "loc_inj_mGluR5": "mGluR5", "loc_inj_MU": "MU",
+                #         "loc_inj_H3": "H3", "loc_inj_CB1": "CB1", "loc_inj_A4B2": "A4B2",
+                #         "loc_inj_M1": "M1", "loc_inj_VAChT": "VAChT", "loc_inj_D1": "D1",
+                #         "loc_inj_D2": "D2", "loc_inj_DAT": "DAT", "loc_inj_Nor": "Nor",
+                #         "loc_inj_5HT1a": "5HT1a", "loc_inj_5HT1b": "5HT1b", "loc_inj_5HT2a": "5HT2a",
+                #         "loc_inj_5HT4": "5HT4", "loc_inj_5HT6": "5HT6", "loc_inj_5HTT": "5HTT",
+                #         "tract_inj_GABAa": "GABAa", "tract_inj_mGluR5": "mGluR5", "tract_inj_MU": "MU",
+                #         "tract_inj_H3": "H3", "tract_inj_CB1": "CB1", "tract_inj_A4B2": "A4B2",
+                #         "tract_inj_M1": "M1", "tract_inj_VAChT": "VAChT", "tract_inj_D1": "D1",
+                #         "tract_inj_D2": "D2", "tract_inj_DAT": "DAT", "tract_inj_Nor": "Nor",
+                #         "tract_inj_5HT1a": "5HT1a", "tract_inj_5HT1b": "5HT1b", "tract_inj_5HT2a": "5HT2a",
+                #         "tract_inj_5HT4": "5HT4", "tract_inj_5HT6": "5HT6", "tract_inj_5HTT": "5HTT"
+                #     }
                     
-                    # Mettre à jour les axes avec labels courts
-                    if len(fig.data) > 0:
-                        current_x = fig.data[0].x
-                        current_y = fig.data[0].y
+                #     # Mettre à jour les axes avec labels courts
+                #     if len(fig.data) > 0:
+                #         current_x = fig.data[0].x
+                #         current_y = fig.data[0].y
                         
-                        fig.update_xaxes(
-                            ticktext=[short_labels.get(str(tick), str(tick)) for tick in current_x],
-                            tickvals=current_x
-                        )
-                        fig.update_yaxes(
-                            ticktext=[short_labels.get(str(tick), str(tick)) for tick in current_y],
-                            tickvals=current_y
-                        )
+                #         fig.update_xaxes(
+                #             ticktext=[short_labels.get(str(tick), str(tick)) for tick in current_x],
+                #             tickvals=current_x
+                #         )
+                #         fig.update_yaxes(
+                #             ticktext=[short_labels.get(str(tick), str(tick)) for tick in current_y],
+                #             tickvals=current_y
+                #         )
                     
                     # Ajuster seulement la taille pour l'affichage côte à côte
-                    # fig.update_layout(
-                    #     title=dict(
-                    #         text=titles[i],
-                    #         x=0.5,
-                    #         xanchor='center'
-                    #     )
-                    # )
+                    fig.update_layout(
+                        title=dict(
+                            text=titles[i],
+                            x=0.5,
+                            xanchor='center'
+                        )
+                    )
                     
                     figures.append(fig)
                 else:
@@ -534,7 +534,7 @@ class DashNeuroTmapClient:
             fig_combined = make_subplots(
                 rows=1, cols=3,
                 subplot_titles=titles,
-                horizontal_spacing=0.05,  # Espace entre les heatmaps
+                horizontal_spacing=0.03,  # Espace entre les heatmaps
                 specs=[[{"type": "heatmap"}, {"type": "heatmap"}, {"type": "heatmap"}]]
             )
             
@@ -548,7 +548,7 @@ class DashNeuroTmapClient:
             # Mise en page globale
             fig_combined.update_layout(
                 height=350,
-                width=900,  # Large pour 3 heatmaps à modifier si ca ne va pas
+                width=850,  # Large pour 3 heatmaps à modifier si ca ne va pas
                 showlegend=False,
                 margin=dict(l=10, r=10, t=10, b=10)
             )
