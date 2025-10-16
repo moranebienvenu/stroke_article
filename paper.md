@@ -68,29 +68,69 @@ To visualize disruptions, group-averaged male (n = 23) and female (n = 15) data 
 
 Interactive NeuroTmap analysis showing base and overlay comparisons. 
 Users can select different sessions (V1, V2, V3) and sex filters (men, women, all) to explore the data interactively.
+Left panel: Proportion of each neurotransmitter system affected by the lesion based on receptor/transporter location density maps. Middle panel: Proportion of each neurotransmitter system affected by the lesion based on receptor/transporter tract projection maps. Right panel: Synaptic disruption ratios for men and women, shown in natural logarithmic scale. Abbreviations: 5HT1a serotonin receptor 1a, 5HT1b serotonin receptor 1b, 5HT2a serotonin receptor 2a, 5HT4 serotonin receptor 4, 5HT6 serotonin receptor 6, 5HTT serotonin transporter, α4β2 acetylcholine receptor α4β2, D1 dopamine receptor 1, D2 dopamine receptor 2, DAT dopamine transporter, M1 muscarinic 1 receptor, Nor noradrenaline transporter, VAChT acetylcholine vesicular transporter.
+
 :::
 
 
-blabla -----Our analysis reveals significant patterns across sessions and sex groups, as shown in [](#fig1).
+When controlling for equal lesion volume, women exhibited greater damage to neurotransmitter systems than men on both density and projection maps, although overall involvement was low (< 2.5%), except for the serotonin transporter in women (3.5%) on location maps injury  [](#fig1).
+
+Concerning the synaptic disruption graph, the presynaptic ratio compares transporter damage to receptor damage. A positive value means transporters are more affected, while a negative value means receptors are more affected. The postsynaptic ratio does the opposite, comparing receptor to transporter damage. Since one transporter can be linked to several receptors, the postsynaptic damage is averaged across them. Both ratios are calculated from the overlap between lesion maps and the density or projection maps of transporters and receptors (Alves et al., 2025).
+Synaptic ratios revealed opposite sex-specific patterns: men showed a predominance of transporters over receptors damages in dopaminergic systems, while women showed the reverse, with the opposite holding true for cholinergic systems. Serotonergic disruption imbalance was also more pronounced in women (Fig.1). In addition, statistical testing revealed a significant sex difference for only the presynaptic 5HT1A ratio (Mann–Whitney U = 106, p = 0.049), with women showing higher values compared to men. This corresponds to an estimated +37.7% (=e0.32) increase in transporter damage relative to receptor damage. 
+Global and sex-stratified GLM analyses including age and lesion volume covariates showed no significant associations between synaptic ratios and language outcomes (naming, repetition, comprehension, composite score), although sex-specific trends were apparent (Table 1). These nonsignificant results (p >0.05), likely reflect the limited sample size.
+
+
+
+**TABLE 1**
+
+Table 1 summarizes the estimated effects of a 0.1 increase in pre- or post-synaptic damage imbalance on language performance (naming, repetition, comprehension, and composite score), stratified by sex and neurotransmitter system. In the cholinergic system, pre-α4β2 imbalance was estimated to enhance repetition, particularly in men, but reduce naming and comprehension scores in men, whereas pre-M1 showed negative effects in men and modest benefits in women. Post-VAChT effects were overall estimated as unfavorable, yet sex-specific: predicted improvements in naming and comprehension for men and declines across tasks for women. In the dopaminergic system, pre-D2 was estimated to support repetition in men but impair comprehension, with women showing consistent negative associations; post-DAT exhibited the reverse pattern for women and men exhibited an unfavorable pattern for all scores except comprehension. In the serotonergic system, presynaptic imbalances were generally predicted to benefit women and be neutral or negative in men, while post-5HTT showed the opposite trend.
+We then examined correlations between pre- and post-synaptic ratios in the acute phase (n = 38). Several strong positive associations emerged across neurotransmitter systems (e.g., pre-M1 with pre-5HT1b/2a, r > 0.8, p < 0.05). Post-hoc power was high (mean = 0.904). Stratified analyses revealed sex-related differences: women exhibited more and stronger correlations, including strong positive associations between post-DAT and serotonergic presynaptic ratios, and strong negative associations between pre-D2 and both pre-M1 and serotonergic presynaptic ratios. These patterns were not observed in men. The mean post-hoc statistical power for all significant correlations remained high in both subgroups (0.948 in men, 0.927 in women) [](#fig2).
+
 
 :::{figure} #fig2cell
 :label: fig2
 :name: fig-correlation-analysis
 :placeholder: ./static/tmp.jpg
 
-Interactive correlation heatmaps showing the relationship between predictors and outcomes separately for All participants, Men, and Women.
+Interactive correlation heatmaps showing the relationship between pre- and post-synaptic ratios across location and projection maps in the acute phase separately for All participants, Men, and Women. Pearson’s r was used for normally distributed pairs (Shapiro-Wilk test, p > 0.05), Spearman’s rₛ otherwise. Colors indicate correlation (–1 = blue, +1 = red); only FDR-significant correlations (p < 0.05) are shown in bright colors, non-significant in grey. Panels: all participants (left, n=38), men (center, n=23), women (right, n=15). 
 Users can select different sessions (V1, V2, V3), systems to analysed (Synaptic ratio, Loc, Tract, Clinical outcomes) and group filters (Aphasic, Non-Aphasic) to explore the data interactively.
 :::
 
-blabla ---- , as shown in [](#fig2).
+We then applied linear mixed-effects modeling for each bounded clinical language outcome (0–10 for naming, repetition, and comprehension; 0–30 for the composite), with fixed effects for time (acute, subacute and chronic phases), sex (reference: women in the acute phase), and their interaction, while adjusting for lesion volume. A random intercept accounted for within-subject variability, and residual diagnostics (QQ plots, Shapiro-Wilk tests) supported the model assumptions (Table 2).
+
+**Table 2**
+
+Table 2 showed naturally that for each clinical score, lesion volume was negatively associated with most scores (p < 0.001; p < 0.05 for repetition). Women improved in repetition over time (β = 2,177, p = 0.021). Naming showed a significant time × sex interaction at V3 (β = 4.651, p = 0.003), with men improving more than women in chronic phase. Comprehension and composite scores improved in women (p < 0.001 and p < 0.05 at V3, respectively), with a non-significant trend for greater composite score improvement in men (β = 6.664, p = 0.053).
+
+To illustrate longitudinal changes in neurotransmitter system disruption and synaptic ratio imbalance, we overlaid acute (n=38) and chronic (n=17) group-averaged data in circular graphs as we did in [](#fig1), as shown in [](#fig3).
+
 
 :::{figure} #fig3cell
 :label: fig3
 :name: fig-cross-correlation-analysis
 :placeholder: ./static/tmp.jpg
 
+Interactive NeuroTmap analysis showing base and overlay comparisons for all subjects in acute versus chronic phases. 
+Panels and Abbreviations as [](#Fig.1).
+Users can select different sessions (V1, V2, V3) to explore the data interactively.
+:::
+
+Neurotransmitter system damage was slightly higher in the chronic phase than in the acute, with each percentage difference being significant according to a Wilcoxon signed-rank test (p < 0.05). Synaptic ratios were more imbalanced in the chronic phase for the cholinergic and serotonergic systems (except pre-5HT4 and pre-5HT1a), whereas dopaminergic ratios tended toward zero in the chronic phase, with pre-D2 reversing sign compared to acute phase. Only, post-VAChT showed a negative significant increase in the chronic phase (Paired t-test, t = 2.18, p = 0.044).
+After that, we assessed whether acute synaptic disruption imbalance predicted chronic language outcomes using GLM models, including sex and lesion volume as covariates. Table 3 reports the estimated percentage change in chronic scores per 0.1-unit increase in acute ratio. Although the results did not reach statistical significance (p > 0.05), this may be due to the relatively small sample size (n = 15), which limits statistical power.
+
+**TABLE 3**
+
+The cholinergic system, particularly the post-VAChT ratio, was the strongest predictor of chronic language outcomes. While it conferred notable benefits for naming, it was associated with a detrimental effect on repetition, and minor effects on comprehension and the composite score. Moderate associations were also observed for the pre-α4β2 and pre-M1 ratios across several outcomes, with pre-α4β2 generally linked to reduced scores and pre-M1 showing a negative effect mainly on naming. In the dopaminergic system, pre-D1 and pre-D2 showed modest but opposite trends, while serotonergic markers exhibited overall moderate to weak associations, with pre-synaptic ratios favoring repetition but negatively impacting naming score.
+
+Mann–Whitney U tests showed chronic scores exceeded acute scores for the whole sample,  reaching statistical significance for comprehension (meanV1 = 5.49; meanV3 = 8.41; p = 0.019) and the composite score (meanV1= 15.79; meanV3 = 23.24; p = 0.028).
+
+Correlation between pre- and post-synaptic ratios in acute and chronic phases (n=17) were strong for serotonergic ratios, pre-M1, pre-D2, and post-DAT (r > 0.55; p < 0.05; mean post-hoc power = 0.786). Also, early pre-M1 positively correlated with late serotonergic presynaptic ratios, while early pre-D2 showed negative correlations with late serotonergic presynaptic ratios and pre-M1 [](#fig4).
+
+:::{figure} #fig4cell
+:label: fig4
+:name: fig-cross-correlation-analysis
+:placeholder: ./static/tmp.jpg
+
 Interactive correlation heatmaps showing the relationship between predictors and outcomes. 
 Users can select different sessions (V1, V2, V3), outcomes (Synaptic ratio, Loc, Tract, Clinical outcomes) and sex filters (men, women, all) to explore the data interactively.
 :::
-
-blabla ---- , as shown in [](#fig3).

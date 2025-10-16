@@ -499,7 +499,7 @@ class DashNeuroTmapClient:
             fig_combined = make_subplots(
                 rows=1, cols=3,
                 subplot_titles=titles,
-                horizontal_spacing=0.05,  # Espace entre les heatmaps
+                horizontal_spacing=0.15,  # Espace entre les heatmaps
                 specs=[[{"type": "heatmap"}, {"type": "heatmap"}, {"type": "heatmap"}]]
             )
             
@@ -515,7 +515,7 @@ class DashNeuroTmapClient:
                 height=300,
                 width=900,  # Large pour 3 heatmaps à modifier si ca ne va pas
                 showlegend=False,
-                #margin=dict(l=40, r=20, t=60, b=70)
+                margin=dict(l=10, r=10, t=60, b=70)
             )
             
             # Mettre à jour les axes pour chaque subplot
