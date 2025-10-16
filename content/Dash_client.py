@@ -291,7 +291,7 @@ class DashNeuroTmapClient:
                 fig.update_layout(
                     height=250,
                     width=250, 
-                    showlegend=False, 
+                    #showlegend=False, 
                     #margin=dict(l=20, r=20, t=20, b=40),
                     # legend=dict(
                     #     orientation="h",
