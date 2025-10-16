@@ -492,8 +492,8 @@ class DashNeuroTmapClient:
                         font=dict(size=14, color="red")
                     )
                     fig.update_layout(
-                        height=400,
-                        width=400,
+                        height=300,
+                        width=300,
                         title=dict(
                             text=titles[i],
                             x=0.5,
@@ -520,8 +520,8 @@ class DashNeuroTmapClient:
             
             # Mise en page globale
             fig_combined.update_layout(
-                height=500,
-                width=1400,  # Large pour 3 heatmaps à modifier si ca ne va pas
+                height=300,
+                width=900,  # Large pour 3 heatmaps à modifier si ca ne va pas
                 showlegend=False,
                 margin=dict(l=80, r=100, t=80, b=150)
             )
