@@ -403,7 +403,7 @@ class DashNeuroTmapClient:
         for widget in [base_session, base_sex, overlay_session, overlay_sex]:
             widget.observe(on_any_change, names='value')
         
-        return None 
+        return None
         
     def clear_overlays(self):
         """Efface tous les overlays localement et via l'API"""

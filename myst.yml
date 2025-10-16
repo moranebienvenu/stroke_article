@@ -77,13 +77,14 @@ project:
     - paper.bib
   toc: 
     - file: paper.md
-    - file: content/figure_1.ipynb
-    - file: content/figure_2.ipynb
-    - file: content/figure_3.ipynb
+    # - file: content/figure_1.ipynb
+    # - file: content/figure_2.ipynb
+    # - file: content/figure_3.ipynb
   resources:
     - content/figure_1.ipynb
     - content/figure_2.ipynb
     - content/figure_3.ipynb
+    - content/figure_4.ipynb
 site:
   template: article-theme # Or book-theme
   url: https://moranebienvenu.github.io/stroke_article
