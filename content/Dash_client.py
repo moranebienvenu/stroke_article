@@ -265,91 +265,61 @@ class DashNeuroTmapClient:
             fig2 = go.Figure(combined_data['fig2'])
             fig3 = go.Figure(combined_data['fig3'])
 
-            
-            # Améliorer la légende
-            for fig in [fig1, fig2, fig3]:
-                fig.update_layout(
-                    height=250,
-                    width=250, 
-                    showlegend=False, 
-                    #margin=dict(l=20, r=20, t=20, b=40),
-                    # legend=dict(
-                    #     orientation="h",
-                    #     yanchor="top",
-                    #     y=-0.1,
-                    #     xanchor="center",
-                    #     x=0.5
-                    # ), #essai 
+            fig1.update_layout(height=250, width=250, showlegend=False, 
                     title=dict( 
                         y=0.95,  
                         x=0.5,
                         xanchor='center',
                         yanchor='top'
-                    )   )
-            # ⚡ CRÉER UNE FIGURE POUR LA LÉGENDE UNIQUE
-            fig_legend = go.Figure()
-            
-            # Ajouter une trace de chaque type pour avoir la légende complète
-            # (Utilisez les traces de la première figure comme référence)
-            if len(fig1.data) > 0:
-                for trace in fig1.data:
-                    # Créer une copie de la trace juste pour la légende
-                    legend_trace = go.Scatter(
-                        x=[None], y=[None],  # Points invisibles
-                        mode=trace.mode,
-                        marker=trace.marker,
-                        line=trace.line,
-                        name=trace.name,  # ⚡ Garder le même nom
-                        showlegend=True
-                    )
-                    fig_legend.add_trace(legend_trace)
-            
-            # ⚡ APPLIQUER LA MÊME LÉGENDE QUE VOUS AVIEZ AVANT
-            fig_legend.update_layout(
-                height=80,  # Petit, juste pour la légende
-                width=600,
-                showlegend=True,
-                legend=dict(
-                    orientation="h",      # ⚡ Même que avant
-                    yanchor="top",        # ⚡ Même que avant  
-                    y=-0.1,               # ⚡ Même que avant
-                    xanchor="center",     # ⚡ Même que avant
-                    x=0.5,                # ⚡ Même que avant
-                    font=dict(size=10)    # Ajustez si besoin
-                ),
-                margin=dict(l=0, r=0, t=0, b=0),
-                xaxis=dict(visible=False),
-                yaxis=dict(visible=False)
-            )
+                    ))
+            fig2.update_layout(height=250, width=250, showlegend=True, 
+                    title=dict( 
+                        y=0.95,  
+                        x=0.5,
+                        xanchor='center',
+                        yanchor='top'
+                    ))
+            fig3.update_layout(height=250, width=250, showlegend=False, 
+                    title=dict( 
+                        y=0.95,  
+                        x=0.5,
+                        xanchor='center',
+                        yanchor='top'
+                    ))
+            # # Améliorer la légende
+            # for fig in [fig1, fig2, fig3]:
+            #     fig.update_layout(
+            #         height=250,
+            #         width=250, 
+            #         showlegend=False, 
+            #         #margin=dict(l=20, r=20, t=20, b=40),
+            #         # legend=dict(
+            #         #     orientation="h",
+            #         #     yanchor="top",
+            #         #     y=-0.1,
+            #         #     xanchor="center",
+            #         #     x=0.5
+            #         # ), #essai 
+            #         title=dict( 
+            #             y=0.95,  
+            #             x=0.5,
+            #             xanchor='center',
+            #             yanchor='top'
+            #         )   )
             
             # organisation en grille (3 colonnes) - identique à display_plots
-            # display(GridBox(
-            #     children=[
-            #         go.FigureWidget(fig1),
-            #         go.FigureWidget(fig2),
-            #         go.FigureWidget(fig3)
-            #     ],
-            #     layout=Layout(grid_template_columns="repeat(3, 33%)",
-            #     justify_content='center',
-            #     align_items='center')      
-            #     #width='100%')
-            # ))
-            display(VBox([
-            GridBox(
+            display(GridBox(
                 children=[
                     go.FigureWidget(fig1),
-                    go.FigureWidget(fig2), 
+                    go.FigureWidget(fig2),
                     go.FigureWidget(fig3)
                 ],
-                layout=Layout(
-                    grid_template_columns="repeat(3, 33%)",
-                    justify_content='center',
-                    align_items='center'
-                )      
-            ),
-                go.FigureWidget(fig_legend)  # ⚡ Légende unique centrée en dessous
-            ]))
-            
+                layout=Layout(grid_template_columns="repeat(3, 33%)",
+                justify_content='center',
+                align_items='center')      
+                #width='100%')
+            ))
+
             return fig1, fig2, fig3
             
         except Exception as e:
@@ -563,7 +533,7 @@ class DashNeuroTmapClient:
             
             # Mise en page globale
             fig_combined.update_layout(
-                height=300,
+                height=600,
                 width=850,  # Large pour 3 heatmaps à modifier si ca ne va pas
                 showlegend=False,
                 #margin=dict(l=10, r=10, t=10, b=10)
