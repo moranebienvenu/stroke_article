@@ -265,47 +265,47 @@ class DashNeuroTmapClient:
             fig2 = go.Figure(combined_data['fig2'])
             fig3 = go.Figure(combined_data['fig3'])
 
-            fig1.update_layout(height=250, width=250, showlegend=False, 
-                    title=dict( 
-                        y=0.95,  
-                        x=0.5,
-                        xanchor='center',
-                        yanchor='top'
-                    ))
-            fig2.update_layout(height=250, width=250, showlegend=True, 
-                    title=dict( 
-                        y=0.95,  
-                        x=0.5,
-                        xanchor='center',
-                        yanchor='top'
-                    ))
-            fig3.update_layout(height=250, width=250, showlegend=False, 
-                    title=dict( 
-                        y=0.95,  
-                        x=0.5,
-                        xanchor='center',
-                        yanchor='top'
-                    ))
-            # # Améliorer la légende
-            # for fig in [fig1, fig2, fig3]:
-            #     fig.update_layout(
-            #         height=250,
-            #         width=250, 
-            #         showlegend=False, 
-            #         #margin=dict(l=20, r=20, t=20, b=40),
-            #         # legend=dict(
-            #         #     orientation="h",
-            #         #     yanchor="top",
-            #         #     y=-0.1,
-            #         #     xanchor="center",
-            #         #     x=0.5
-            #         # ), #essai 
+            # fig1.update_layout(height=250, width=250, showlegend=False, 
             #         title=dict( 
             #             y=0.95,  
             #             x=0.5,
             #             xanchor='center',
             #             yanchor='top'
-            #         )   )
+            #         ))
+            # fig2.update_layout(height=250, width=250, showlegend=True, 
+            #         title=dict( 
+            #             y=0.95,  
+            #             x=0.5,
+            #             xanchor='center',
+            #             yanchor='top'
+            #         ))
+            # fig3.update_layout(height=250, width=250, showlegend=False, 
+            #         title=dict( 
+            #             y=0.95,  
+            #             x=0.5,
+            #             xanchor='center',
+            #             yanchor='top'
+            #         ))
+            # # Améliorer la légende
+            for fig in [fig1, fig2, fig3]:
+                fig.update_layout(
+                    height=250,
+                    width=250, 
+                    showlegend=False, 
+                    #margin=dict(l=20, r=20, t=20, b=40),
+                    # legend=dict(
+                    #     orientation="h",
+                    #     yanchor="top",
+                    #     y=-0.1,
+                    #     xanchor="center",
+                    #     x=0.5
+                    # ), #essai 
+                    title=dict( 
+                        y=0.95,  
+                        x=0.5,
+                        xanchor='center',
+                        yanchor='top'
+                    )   )
             
             # organisation en grille (3 colonnes) - identique à display_plots
             display(GridBox(
