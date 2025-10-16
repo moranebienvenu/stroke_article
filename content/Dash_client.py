@@ -264,40 +264,91 @@ class DashNeuroTmapClient:
             fig1 = go.Figure(combined_data['fig1'])
             fig2 = go.Figure(combined_data['fig2'])
             fig3 = go.Figure(combined_data['fig3'])
+
             
             # Améliorer la légende
             for fig in [fig1, fig2, fig3]:
                 fig.update_layout(
                     height=250,
                     width=250, 
+                    showlegend=False, 
                     #margin=dict(l=20, r=20, t=20, b=40),
-                    legend=dict(
-                        orientation="h",
-                        yanchor="top",
-                        y=-0.1,
-                        xanchor="center",
-                        x=0.5
-                    ), #essai 
+                    # legend=dict(
+                    #     orientation="h",
+                    #     yanchor="top",
+                    #     y=-0.1,
+                    #     xanchor="center",
+                    #     x=0.5
+                    # ), #essai 
                     title=dict( 
                         y=0.95,  
                         x=0.5,
                         xanchor='center',
                         yanchor='top'
                     )   )
-                
+            # ⚡ CRÉER UNE FIGURE POUR LA LÉGENDE UNIQUE
+            fig_legend = go.Figure()
+            
+            # Ajouter une trace de chaque type pour avoir la légende complète
+            # (Utilisez les traces de la première figure comme référence)
+            if len(fig1.data) > 0:
+                for trace in fig1.data:
+                    # Créer une copie de la trace juste pour la légende
+                    legend_trace = go.Scatter(
+                        x=[None], y=[None],  # Points invisibles
+                        mode=trace.mode,
+                        marker=trace.marker,
+                        line=trace.line,
+                        name=trace.name,  # ⚡ Garder le même nom
+                        showlegend=True
+                    )
+                    fig_legend.add_trace(legend_trace)
+            
+            # ⚡ APPLIQUER LA MÊME LÉGENDE QUE VOUS AVIEZ AVANT
+            fig_legend.update_layout(
+                height=80,  # Petit, juste pour la légende
+                width=600,
+                showlegend=True,
+                legend=dict(
+                    orientation="h",      # ⚡ Même que avant
+                    yanchor="top",        # ⚡ Même que avant  
+                    y=-0.1,               # ⚡ Même que avant
+                    xanchor="center",     # ⚡ Même que avant
+                    x=0.5,                # ⚡ Même que avant
+                    font=dict(size=10)    # Ajustez si besoin
+                ),
+                margin=dict(l=0, r=0, t=0, b=0),
+                xaxis=dict(visible=False),
+                yaxis=dict(visible=False)
+            )
             
             # organisation en grille (3 colonnes) - identique à display_plots
-            display(GridBox(
+            # display(GridBox(
+            #     children=[
+            #         go.FigureWidget(fig1),
+            #         go.FigureWidget(fig2),
+            #         go.FigureWidget(fig3)
+            #     ],
+            #     layout=Layout(grid_template_columns="repeat(3, 33%)",
+            #     justify_content='center',
+            #     align_items='center')      
+            #     #width='100%')
+            # ))
+            display(VBox([
+            GridBox(
                 children=[
                     go.FigureWidget(fig1),
-                    go.FigureWidget(fig2),
+                    go.FigureWidget(fig2), 
                     go.FigureWidget(fig3)
                 ],
-                layout=Layout(grid_template_columns="repeat(3, 33%)",
-                justify_content='center',
-                align_items='center')      
-                #width='100%')
-            ))
+                layout=Layout(
+                    grid_template_columns="repeat(3, 33%)",
+                    justify_content='center',
+                    align_items='center'
+                )      
+            ),
+                go.FigureWidget(fig_legend)  # ⚡ Légende unique centrée en dessous
+            ]))
             
             return fig1, fig2, fig3
             
@@ -461,41 +512,6 @@ class DashNeuroTmapClient:
                     # Utiliser directement la figure Plotly générée par Dash
                     fig_dict = heatmaps_data[sex_filter]['heatmap']
                     fig = go.Figure(fig_dict)
-
-                    # ⚡ TRONQUER LES LABELS DIRECTEMENT DANS LE CLIENT
-                # if system_type != "Clinical Outcomes":
-                #     short_labels = {
-                #         "pre_A4B2": "A4B2", "pre_M1": "M1", "pre_D1": "D1", "pre_D2": "D2",
-                #         "pre_5HT1a": "5HT1a", "pre_5HT1b": "5HT1b", "pre_5HT2a": "5HT2a",
-                #         "pre_5HT4": "5HT4", "pre_5HT6": "5HT6",
-                #         "post_VAChT": "VAChT", "post_DAT": "DAT", "post_5HTT": "5HTT",
-                #         "loc_inj_GABAa": "GABAa", "loc_inj_mGluR5": "mGluR5", "loc_inj_MU": "MU",
-                #         "loc_inj_H3": "H3", "loc_inj_CB1": "CB1", "loc_inj_A4B2": "A4B2",
-                #         "loc_inj_M1": "M1", "loc_inj_VAChT": "VAChT", "loc_inj_D1": "D1",
-                #         "loc_inj_D2": "D2", "loc_inj_DAT": "DAT", "loc_inj_Nor": "Nor",
-                #         "loc_inj_5HT1a": "5HT1a", "loc_inj_5HT1b": "5HT1b", "loc_inj_5HT2a": "5HT2a",
-                #         "loc_inj_5HT4": "5HT4", "loc_inj_5HT6": "5HT6", "loc_inj_5HTT": "5HTT",
-                #         "tract_inj_GABAa": "GABAa", "tract_inj_mGluR5": "mGluR5", "tract_inj_MU": "MU",
-                #         "tract_inj_H3": "H3", "tract_inj_CB1": "CB1", "tract_inj_A4B2": "A4B2",
-                #         "tract_inj_M1": "M1", "tract_inj_VAChT": "VAChT", "tract_inj_D1": "D1",
-                #         "tract_inj_D2": "D2", "tract_inj_DAT": "DAT", "tract_inj_Nor": "Nor",
-                #         "tract_inj_5HT1a": "5HT1a", "tract_inj_5HT1b": "5HT1b", "tract_inj_5HT2a": "5HT2a",
-                #         "tract_inj_5HT4": "5HT4", "tract_inj_5HT6": "5HT6", "tract_inj_5HTT": "5HTT"
-                #     }
-                    
-                #     # Mettre à jour les axes avec labels courts
-                #     if len(fig.data) > 0:
-                #         current_x = fig.data[0].x
-                #         current_y = fig.data[0].y
-                        
-                #         fig.update_xaxes(
-                #             ticktext=[short_labels.get(str(tick), str(tick)) for tick in current_x],
-                #             tickvals=current_x
-                #         )
-                #         fig.update_yaxes(
-                #             ticktext=[short_labels.get(str(tick), str(tick)) for tick in current_y],
-                #             tickvals=current_y
-                #         )
                     
                     # Ajuster seulement la taille pour l'affichage côte à côte
                     fig.update_layout(
@@ -547,10 +563,10 @@ class DashNeuroTmapClient:
             
             # Mise en page globale
             fig_combined.update_layout(
-                height=350,
+                height=300,
                 width=850,  # Large pour 3 heatmaps à modifier si ca ne va pas
                 showlegend=False,
-                margin=dict(l=10, r=10, t=10, b=10)
+                #margin=dict(l=10, r=10, t=10, b=10)
             )
             
             # Mettre à jour les axes pour chaque subplot
@@ -789,18 +805,15 @@ class DashNeuroTmapClient:
         
         # Organisation de l'interface
         set1_controls = widgets.HBox([
-            widgets.HTML("<h3>Set 1 Parameters</h3>"),
+            widgets.HTML("<h3>Set 1</h3>"),
             session1, sex1, outcome1
         ])
         
         set2_controls = widgets.HBox([
-            widgets.HTML("<h3>Set 2 Parameters</h3>"),
+            widgets.HTML("<h3>Set 2</h3>"),
             session2, sex2, outcome2
         ])
         
-        # display(controls)
-        # display(permanent_message)
-        # display(output_container)
 
         #Afficher l'interface de manière contrôlée 
         interface_elements = [
