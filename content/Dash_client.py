@@ -448,12 +448,7 @@ class DashNeuroTmapClient:
     def display_correlation_heatmaps(self, heatmaps_data=None):
         """Affiche les 3 heatmaps de corrélation identiques à Dash"""
         if heatmaps_data is None:
-            #heatmaps_data = self.get_correlation_heatmaps()
             return None
-            
-        # if not heatmaps_data:
-            #print("No correlation heatmaps to display. Generate heatmaps first.")
-            # return None
         
         try:
             figures = []
@@ -474,10 +469,6 @@ class DashNeuroTmapClient:
                             x=0.5,
                             xanchor='center'
                         )
-                        # height=250,
-                        # width=250,
-                        #margin=dict(l=60, r=30, t=80, b=100),
-                        # title_x=0.001
                     )
                     
                     figures.append(fig)
@@ -503,11 +494,12 @@ class DashNeuroTmapClient:
                         yaxis=dict(showticklabels=False)
                     )
                     figures.append(fig)
+
             # Créer une figure avec 3 subplots
             fig_combined = make_subplots(
                 rows=1, cols=3,
                 subplot_titles=titles,
-                horizontal_spacing=0.01,  # Espace entre les heatmaps
+                horizontal_spacing=0,  # Espace entre les heatmaps
                 specs=[[{"type": "heatmap"}, {"type": "heatmap"}, {"type": "heatmap"}]]
             )
             
@@ -523,7 +515,7 @@ class DashNeuroTmapClient:
                 height=300,
                 width=750,  # Large pour 3 heatmaps à modifier si ca ne va pas
                 showlegend=False,
-                margin=dict(l=40, r=20, t=60, b=70)
+                #margin=dict(l=40, r=20, t=60, b=70)
             )
             
             # Mettre à jour les axes pour chaque subplot
