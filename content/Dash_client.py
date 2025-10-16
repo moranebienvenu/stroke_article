@@ -293,13 +293,13 @@ class DashNeuroTmapClient:
                     width=250, 
                     #showlegend=False, 
                     #margin=dict(l=20, r=20, t=20, b=40),
-                    # legend=dict(
-                    #     orientation="h",
-                    #     yanchor="top",
-                    #     y=-0.1,
-                    #     xanchor="center",
-                    #     x=0.5
-                    # ), #essai 
+                    legend=dict(
+                        orientation="h",
+                        yanchor="top",
+                        y=-0.1,
+                        xanchor="center",
+                        x=0.5
+                    ), #essai 
                     title=dict( 
                         y=0.95,  
                         x=0.5,
