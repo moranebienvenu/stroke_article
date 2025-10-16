@@ -344,7 +344,7 @@ class DashNeuroTmapClient:
                     analysis_type="session_sex",
                     session=base_session.value,
                     sex_filter=base_sex.value,
-                    groups=['A'],
+                    groups=groups_default,
                     title=base_title
                 )
                 
@@ -355,7 +355,7 @@ class DashNeuroTmapClient:
                         analysis_type="session_sex",
                         session=overlay_session.value,
                         sex_filter=overlay_sex.value,
-                        groups=['A']  # Groupe fixe pour l'état naturel
+                        groups=groups_default  # Groupe fixe pour l'état naturel
                     )
                     
                     if overlay_plots:
@@ -416,6 +416,7 @@ class DashNeuroTmapClient:
         except Exception as e:
             return False
 
+   #Affichez 3 heatmaps côte à côte, "All", "Men" et "Women", pour même variable, même session
     def generate_correlation_heatmaps(self, dataset='master', session='V1', 
                                         system_type='Synaptic ratio', groups=['A']):
             """
@@ -444,7 +445,6 @@ class DashNeuroTmapClient:
                 print(f"❌ Heatmap generation failed: {e}")
                 return None
 
-   #Affichez 3 heatmaps côte à côte, "All", "Men" et "Women", pour même variable, même session
     def display_correlation_heatmaps(self, heatmaps_data=None, system_type="Synaptic ratio"):
         """Affiche les 3 heatmaps de corrélation identiques à Dash"""
         if heatmaps_data is None:
@@ -577,7 +577,6 @@ class DashNeuroTmapClient:
             traceback.print_exc()
             return None
             
-
     def create_correlation_interface(self):
         """Interface interactive pour les heatmaps de corrélation """
         
