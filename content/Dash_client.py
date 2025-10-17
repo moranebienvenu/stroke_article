@@ -426,15 +426,15 @@ class DashNeuroTmapClient:
             )
             # Pour 3 graphiques égaux SANS espace :
             fig.update_polars(
-                domain=dict(x=[0, 0.33], y=[0.1, 0.9]),  # Graphique 1
+                domain=dict(x=[0, 0.32], y=[0.1, 0.9]),  # Graphique 1
                 row=1, col=1
             )
             fig.update_polars(
-                domain=dict(x=[0.33, 0.66], y=[0.1, 0.9]),  # Graphique 2
+                domain=dict(x=[0.34, 0.66], y=[0.1, 0.9]),  # Graphique 2
                 row=1, col=2
             )
             fig.update_polars(
-                domain=dict(x=[0.67, 1.0], y=[0.1, 0.9]),   # Graphique 3
+                domain=dict(x=[0.66, 1.0], y=[0.1, 0.9]),   # Graphique 3
                 row=1, col=3
             )
             
@@ -691,15 +691,13 @@ class DashNeuroTmapClient:
                     # Utiliser directement la figure Plotly générée par Dash
                     fig_dict = heatmaps_data[sex_filter]['heatmap']
                     fig = go.Figure(fig_dict)
-                    
-                    # Ajuster seulement la taille pour l'affichage côte à côte
-                    fig.update_layout(
-                        title=dict(
-                            text=titles[i],
-                            x=0.5,
-                            xanchor='center'
-                        )
-                    )
+                    # fig.update_layout(
+                    #     title=dict(
+                    #         text=titles[i],
+                    #         x=0.5,
+                    #         xanchor='center'
+                    #     )
+                    # )
                     
                     figures.append(fig)
                 else:
@@ -712,24 +710,25 @@ class DashNeuroTmapClient:
                         showarrow=False,
                         font=dict(size=14, color="red")
                     )
-                    fig.update_layout(
-                        height=300,
-                        width=300,
-                        title=dict(
-                            text=titles[i],
-                            x=0.5,
-                            xanchor='center'
-                        ),
-                        xaxis=dict(showticklabels=False),
-                        yaxis=dict(showticklabels=False)
-                    )
+                    # fig.update_layout(
+                    #     height=250,
+                    #     width=250,
+                    #     title=dict(
+                    #         text=titles[i],
+                    #         x=0.5,
+                    #         xanchor='center'
+                    #     ),
+                    #     xaxis=dict(showticklabels=False),
+                    #     yaxis=dict(showticklabels=False)
+                    # )
                     figures.append(fig)
 
             # Créer une figure avec 3 subplots
             fig_combined = make_subplots(
                 rows=1, cols=3,
                 subplot_titles=titles,
-                horizontal_spacing=0.03,  # Espace entre les heatmaps
+                horizontal_spacing=0.10,  # Espace entre les heatmaps
+                vertical_spacing=0.05,
                 specs=[[{"type": "heatmap"}, {"type": "heatmap"}, {"type": "heatmap"}]]
             )
             
@@ -742,25 +741,31 @@ class DashNeuroTmapClient:
             
             # Mise en page globale
             fig_combined.update_layout(
-                height=600,
-                width=850,  # Large pour 3 heatmaps à modifier si ca ne va pas
+                height=550,
+                width=1300,  # Large pour 3 heatmaps à modifier si ca ne va pas
                 showlegend=False,
-                #margin=dict(l=10, r=10, t=10, b=10)
+                margin=dict(l=80, r=80, t=60, b=120),
+                xaxis=dict(showgrid=False),
+                yaxis=dict(showgrid=False)
             )
             
             # Mettre à jour les axes pour chaque subplot
             for i in range(1, 4):
                 fig_combined.update_xaxes(
-                    tickangle=45,
-                    tickfont=dict(size=9),
+                    tickangle=-45,
+                    tickfont=dict(size=8),
+                    side='bottom',
+                    showgrid=False,
                     row=1, col=i
                 )
                 fig_combined.update_yaxes(
                     autorange='reversed',
-                    tickfont=dict(size=9),
+                    tickfont=dict(size=8),
+                    showgrid=False,
                     row=1, col=i
                 )
             
+            fig_combined.update_annotations(font_size=10)
             # Afficher la figure combinée
             fig_combined.show()
             
