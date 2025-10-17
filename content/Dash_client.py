@@ -151,36 +151,69 @@ class DashNeuroTmapClient:
             fig2 = go.Figure(plots_data['fig2'])
             fig3 = go.Figure(plots_data['fig3'])
             
+            titles = []
             for fig in [fig1, fig2, fig3]:
-                fig.update_layout(height=250, width=250, #margin=dict(l=20, r=20, t=20, b=40), 
-                    legend=dict(
-                        orientation="h",
-                        yanchor="top",
-                        y=-0.1,
-                        xanchor="center",
-                        x=0.5
-                ), #essai 
-                   title=dict( 
-                    y=0.95,  
-                    x=0.5,
-                    xanchor='center',
-                    yanchor='top'
-                )   )
+                fig.update_layout(showlegend=False)
+                title_text = ""
+                if hasattr(fig.layout, 'title') and fig.layout.title.text:
+                    title_text = fig.layout.title.text
+                titles.append(title_text)
+
+            fig_combined = make_subplots(
+                rows=1, cols=3,
+                subplot_titles=titles,
+                horizontal_spacing=0.05
+            )
+
+            # Ajouter chaque trace de vos figures originales
+            for i, fig in enumerate([fig1, fig2, fig3], 1):
+                for trace in fig.data:
+                    trace.showlegend = (i == 2) 
+                    fig_combined.add_trace(trace, row=1, col=i)
+
+            # Ajouter une légende unique en bas
+            fig_combined.update_layout(
+                height=250,
+                width=750,  
+                legend=dict(
+                    orientation="h",
+                    yanchor="top",
+                    y=-0.15,  
+                    xanchor="center",
+                    x=0.5
+                )
+            )
+
+            return fig_combined
+            #     fig.update_layout(height=250, width=250, #margin=dict(l=20, r=20, t=20, b=40), 
+            #         legend=dict(
+            #             orientation="h",
+            #             yanchor="top",
+            #             y=-0.1,
+            #             xanchor="center",
+            #             x=0.5
+            #     ), #essai 
+            #        title=dict( 
+            #         y=1.05,  
+            #         x=0.5,
+            #         xanchor='center',
+            #         yanchor='top'
+            #     )   )
             
-            # organisation en grille (3 colonnes)
-            display(GridBox(
-                children=[
-                    go.FigureWidget(fig1),
-                    go.FigureWidget(fig2),
-                    go.FigureWidget(fig3)
-                ],
-                layout=Layout(grid_template_columns="repeat(3, 33%)",
-                justify_content='center',
-                align_items='center')      
-                #width='100%')
-            ))
+            # # organisation en grille (3 colonnes)
+            # display(GridBox(
+            #     children=[
+            #         go.FigureWidget(fig1),
+            #         go.FigureWidget(fig2),
+            #         go.FigureWidget(fig3)
+            #     ],
+            #     layout=Layout(grid_template_columns="repeat(3, 33%)",
+            #     justify_content='center',
+            #     align_items='center')      
+            #     #width='100%')
+            # ))
             
-            return fig1, fig2, fig3
+            # return fig1, fig2, fig3
         
         except Exception as e:
             print(f"❌ Error displaying plots: {e}")
@@ -266,40 +299,70 @@ class DashNeuroTmapClient:
             fig3 = go.Figure(combined_data['fig3'])
             
             # Améliorer la légende
+            titles = []
             for fig in [fig1, fig2, fig3]:
-                fig.update_layout(
-                    height=250,
-                    width=250, 
-                    #showlegend=False, 
-                    margin=dict(l=20, r=20, t=20, b=40),
-                    legend=dict(
-                        orientation="h",
-                        yanchor="top",
-                        y=-0.1,
-                        xanchor="center",
-                        x=0.5
-                    ), #essai 
-                    title=dict( 
-                        y=0.95,  
-                        x=0.5,
-                        xanchor='center',
-                        yanchor='top'
-                    )   )
+                fig.update_layout(showlegend=False)
+                title_text = ""
+                if hasattr(fig.layout, 'title') and fig.layout.title.text:
+                    title_text = fig.layout.title.text
+                titles.append(title_text)
             
-            # organisation en grille (3 colonnes) - identique à display_plots
-            display(GridBox(
-                children=[
-                    go.FigureWidget(fig1),
-                    go.FigureWidget(fig2),
-                    go.FigureWidget(fig3)
-                ],
-                layout=Layout(grid_template_columns="repeat(3, 33%)",
-                justify_content='center',
-                align_items='center')      
-                #width='100%')
-            ))
+            fig_combined = make_subplots(
+            rows=1, cols=3,
+            subplot_titles=titles,
+            horizontal_spacing=0.05)
 
-            return fig1, fig2, fig3
+            # Ajouter chaque trace
+            figures = [fig1, fig2, fig3]
+            for i, fig in enumerate(figures, 1):
+                for trace in fig.data:
+                    trace.showlegend = (i == 1)  # Légende seulement sur le 1er
+                    fig_combined.add_trace(trace, row=1, col=i)
+
+            # Légende unique en bas
+            fig_combined.update_layout(
+                height=300,
+                width=800,
+                legend=dict(
+                    orientation="h",
+                    yanchor="top",
+                    y=-0.25,
+                    xanchor="center",
+                    x=0.5
+                )),
+            #     fig.update_layout(
+            #         height=250,
+            #         width=250, 
+            #         #showlegend=False, 
+            #         margin=dict(l=20, r=20, t=20, b=40),
+            #         legend=dict(
+            #             orientation="h",
+            #             yanchor="top",
+            #             y=-0.1,
+            #             xanchor="center",
+            #             x=0.5
+            #         ), #essai 
+            #         title=dict( 
+            #             y=0.95,  
+            #             x=0.5,
+            #             xanchor='center',
+            #             yanchor='top'
+            #         )   )
+            
+            # # organisation en grille (3 colonnes) - identique à display_plots
+            # display(GridBox(
+            #     children=[
+            #         go.FigureWidget(fig1),
+            #         go.FigureWidget(fig2),
+            #         go.FigureWidget(fig3)
+            #     ],
+            #     layout=Layout(grid_template_columns="repeat(3, 33%)",
+            #     justify_content='center',
+            #     align_items='center')      
+            #     #width='100%')
+            # ))
+
+            # return fig1, fig2, fig3
             
         except Exception as e:
             print(f"Error displaying combined plots: {e}")
