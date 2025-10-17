@@ -306,13 +306,14 @@ class DashNeuroTmapClient:
             fig3 = go.Figure(combined_data['fig3'])
 
             fig = make_subplots(
-            rows=1, cols=3,
-            specs=[[{'type': 'polar'}, {'type': 'polar'}, {'type': 'polar'}]],
-            subplot_titles=(fig1.layout.title.text, 
-                          fig2.layout.title.text, 
-                          fig3.layout.title.text),
-            horizontal_spacing=0.15
-            )
+                rows=1, cols=3,
+                specs=[[{'type': 'polar'}, {'type': 'polar'}, {'type': 'polar'}]],
+                subplot_titles=(fig1.layout.title.text, 
+                            fig2.layout.title.text, 
+                            fig3.layout.title.text),
+                horizontal_spacing=0.05,
+                vertical_spacing=0.05
+                )
         
             # Collecter tous les noms de traces uniques
             all_trace_names = set()
@@ -400,8 +401,8 @@ class DashNeuroTmapClient:
                 )
             # Mise en page globale
             fig.update_layout(
-                height=300,
-                width=900,
+                height=320,
+                width=800,
                 showlegend=True,
                 # title=dict( 
                 #         y=1,  
@@ -419,10 +420,22 @@ class DashNeuroTmapClient:
                 hovermode='closest'
                 )
             fig.update_annotations(
-                y=1.15,  # Position verticale plus haute
-                yanchor='bottom',  # Ancrer en bas de la position
+                y=1.15, 
+                yanchor='bottom', 
                 font=dict(size=10, color='black'),
-                #yshift=20  # Décalage supplémentaire vers le haut
+            )
+            # Pour 3 graphiques égaux SANS espace :
+            fig.update_polars(
+                domain=dict(x=[0, 0.33], y=[0.1, 0.9]),  # Graphique 1
+                row=1, col=1
+            )
+            fig.update_polars(
+                domain=dict(x=[0.33, 0.66], y=[0.1, 0.9]),  # Graphique 2
+                row=1, col=2
+            )
+            fig.update_polars(
+                domain=dict(x=[0.67, 1.0], y=[0.1, 0.9]),   # Graphique 3
+                row=1, col=3
             )
             
             display(fig)
