@@ -131,6 +131,6 @@ Correlation between pre- and post-synaptic ratios in acute and chronic phases (n
 :name: fig-cross-correlation-analysis
 :placeholder: ./static/tmp.jpg
 
-Interactive correlation heatmaps showing the relationship between predictors and outcomes. 
-Users can select different sessions (V1, V2, V3), outcomes (Synaptic ratio, Loc, Tract, Clinical outcomes) and sex filters (men, women, all) to explore the data interactively.
+Interactive correlation heatmaps showing the relationship between pre- and post-synaptic ratios. 
+Users can select different sessions (V1, V2, V3) and sex filters (men, women, all) to explore the data interactively.
 :::

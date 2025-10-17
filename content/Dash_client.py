@@ -304,43 +304,53 @@ class DashNeuroTmapClient:
             fig1 = go.Figure(combined_data['fig1'])
             fig2 = go.Figure(combined_data['fig2'])
             fig3 = go.Figure(combined_data['fig3'])
+
+            # Récupérer les informations de base et overlay
+            base_title = combined_data.get('base_title', 'Base Plot')
+            overlay_titles = combined_data.get('overlay_titles', [])
             
             # Améliorer la légende
-            for fig in [fig1, fig2]:
-                fig.update_layout(height=250, 
-                                  width=250,
-                                  showlegend=False,
-                                  title=dict( 
-                                    y=1,  
-                                    x=0.5,
-                                    xanchor='center',
-                                    yanchor='top'
-                                  ))
-            fig3.update_layout(height=250, 
-                                width=250,
-                                legend=dict(
-                                    orientation="h",
-                                    yanchor="top",
-                                    y=-0.2,
-                                    xanchor="center",
-                                    x=0.5
-                                ), 
-                                title=dict( 
-                                y=1,  
-                                x=0.5,
-                                xanchor='center',
-                                yanchor='top'
-                                ))
+            # Filtrer les légendes au niveau des traces SEULEMENT
+            for trace in fig1.data:
+                if hasattr(trace, 'name'):
+                    # fig1: seulement les traces de base
+                    trace.showlegend = not any(ov_title in trace.name for ov_title in overlay_titles)
+            
+            for trace in fig3.data:
+                if hasattr(trace, 'name'):
+                    # fig3: seulement les traces d'overlay
+                    trace.showlegend = base_title not in trace.name
+            
+            for trace in fig2.data:
+                if hasattr(trace, 'showlegend'):
+                    # fig2: aucune légende
+                    trace.showlegend = False
+            
+            for fig in [fig1, fig2, fig3]:
+                fig.update_layout(
+                    height=250, 
+                    width=250,
+                    title=dict(y=1, x=0.5, xanchor='center', yanchor='top')
+                )
+            
+            for fig in [fig1, fig3]:
+                fig.update_layout(
+                    legend=dict(
+                        orientation="h",
+                        yanchor="top", 
+                        y=-0.2,
+                        xanchor="center",
+                        x=0.5
+                    )
+                )
 
             display(GridBox(
-                children=[
-                    go.FigureWidget(fig1),
-                    go.FigureWidget(fig2),
-                    go.FigureWidget(fig3)
-                ],
-                layout=Layout(grid_template_columns="repeat(3, 33%)",
-                justify_content='center',
-                align_items='center')      
+                children=[go.FigureWidget(fig1), go.FigureWidget(fig2), go.FigureWidget(fig3)],
+                layout=Layout(
+                    grid_template_columns="repeat(3, 33%)",
+                    justify_content='center', 
+                    align_items='center'
+                )      
             ))
             
             return fig1, fig2, fig3
