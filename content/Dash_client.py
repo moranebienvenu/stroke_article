@@ -340,7 +340,7 @@ class DashNeuroTmapClient:
                         yanchor="top", 
                         y=-0.2,
                         xanchor="center",
-                        x=0.5
+                        x=0
                     )
                 )
 
