@@ -305,55 +305,185 @@ class DashNeuroTmapClient:
             fig2 = go.Figure(combined_data['fig2'])
             fig3 = go.Figure(combined_data['fig3'])
 
-            # Récupérer les informations de base et overlay
-            base_title = combined_data.get('base_title', 'Base Plot')
-            overlay_titles = combined_data.get('overlay_titles', [])
-            
-            # Améliorer la légende
-            # Filtrer les légendes au niveau des traces SEULEMENT
+            fig = make_subplots(
+            rows=1, cols=3,
+            specs=[[{'type': 'polar'}, {'type': 'polar'}, {'type': 'polar'}]],
+            subplot_titles=(fig1.layout.title.text, 
+                          fig2.layout.title.text, 
+                          fig3.layout.title.text),
+            horizontal_spacing=0.15
+            )
+        
+            # Collecter tous les noms de traces uniques
+            all_trace_names = set()
             for trace in fig1.data:
-                if hasattr(trace, 'name'):
-                    # fig1: seulement les traces de base
-                    trace.showlegend = not any(ov_title in trace.name for ov_title in overlay_titles)
-            
-            for trace in fig3.data:
-                if hasattr(trace, 'name'):
-                    # fig3: seulement les traces d'overlay
-                    trace.showlegend = base_title not in trace.name
-            
+                all_trace_names.add(trace.name)
             for trace in fig2.data:
-                if hasattr(trace, 'showlegend'):
-                    # fig2: aucune légende
-                    trace.showlegend = False
+                all_trace_names.add(trace.name)
+            for trace in fig3.data:
+                all_trace_names.add(trace.name)
             
-            for fig in [fig1, fig2, fig3]:
-                fig.update_layout(
-                    height=250, 
-                    width=250,
-                    title=dict(y=1, x=0.5, xanchor='center', yanchor='top')
+            # Ajouter les traces de fig1 (colonne 1)
+            for i, trace in enumerate(fig1.data):
+                fig.add_trace(
+                    go.Barpolar(
+                        r=trace.r,
+                        theta=trace.theta,
+                        marker_color=trace.marker.color,
+                        name=trace.name,
+                        legendgroup=trace.name,
+                        showlegend=True,  # Afficher la légende seulement pour fig1
+                        hovertemplate=trace.hovertemplate,
+                        width=trace.width,
+                        base=trace.base if hasattr(trace, 'base') else None
+                    ),
+                    row=1, col=1
                 )
             
-            for fig in [fig1, fig3]:
-                fig.update_layout(
-                    legend=dict(
-                        orientation="h",
-                        yanchor="top", 
-                        y=-0.2,
-                        xanchor="center",
-                        x=0
-                    )
+            # Ajouter les traces de fig2 (colonne 2)
+            for i, trace in enumerate(fig2.data):
+                fig.add_trace(
+                    go.Barpolar(
+                        r=trace.r,
+                        theta=trace.theta,
+                        marker_color=trace.marker.color,
+                        name=trace.name,
+                        legendgroup=trace.name,
+                        showlegend=False,  # Pas de légende pour fig2
+                        hovertemplate=trace.hovertemplate,
+                        width=trace.width,
+                        base=trace.base if hasattr(trace, 'base') else None
+                    ),
+                    row=1, col=2
                 )
+            
+            # Ajouter les traces de fig3 (colonne 3)
+            for i, trace in enumerate(fig3.data):
+                fig.add_trace(
+                    go.Barpolar(
+                        r=trace.r,
+                        theta=trace.theta,
+                        marker_color=trace.marker.color,
+                        name=trace.name,
+                        legendgroup=trace.name,
+                        showlegend=False,  # Pas de légende pour fig3
+                        hovertemplate=trace.hovertemplate,
+                        width=trace.width,
+                        base=trace.base if hasattr(trace, 'base') else None
+                    ),
+                    row=1, col=3
+                )
+            
+            # Copier les configurations polaires des figures originales
+            if hasattr(fig1.layout, 'polar'):
+                fig.update_polars(
+                    angularaxis=fig1.layout.polar.angularaxis,
+                    radialaxis=fig1.layout.polar.radialaxis,
+                    bargap=fig1.layout.polar.bargap if hasattr(fig1.layout.polar, 'bargap') else 0.1,
+                    row=1, col=1
+                )
+            
+            if hasattr(fig2.layout, 'polar'):
+                fig.update_polars(
+                    angularaxis=fig2.layout.polar.angularaxis,
+                    radialaxis=fig2.layout.polar.radialaxis,
+                    bargap=fig2.layout.polar.bargap if hasattr(fig2.layout.polar, 'bargap') else 0.1,
+                    row=1, col=2
+                )
+            
+            if hasattr(fig3.layout, 'polar'):
+                fig.update_polars(
+                    angularaxis=fig3.layout.polar.angularaxis,
+                    radialaxis=fig3.layout.polar.radialaxis,
+                    bargap=fig3.layout.polar.bargap if hasattr(fig3.layout.polar, 'bargap') else 0.1,
+                    row=1, col=3
+                )
+            # Mise en page globale
+            fig.update_layout(
+                height=300,
+                width=900,
+                showlegend=True,
+                # title=dict( 
+                #         y=1,  
+                #         x=0.5,
+                #         xanchor='center',
+                #         yanchor='top'
+                #     ),
+                legend=dict(
+                    orientation="h",
+                    yanchor="top",
+                    y=-0.15,
+                    xanchor="center",
+                    x=0.5
+                ),
+                hovermode='closest'
+                )
+            fig.update_annotations(
+                y=1.15,  # Position verticale plus haute
+                yanchor='bottom',  # Ancrer en bas de la position
+                font=dict(size=10, color='black'),
+                #yshift=20  # Décalage supplémentaire vers le haut
+            )
+            
+            display(fig)
+            
+            return fig
 
-            display(GridBox(
-                children=[go.FigureWidget(fig1), go.FigureWidget(fig2), go.FigureWidget(fig3)],
-                layout=Layout(
-                    grid_template_columns="repeat(3, 33%)",
-                    justify_content='center', 
-                    align_items='center'
-                )      
-            ))
+            #code fonctionnant mais juste Fig1 et Fig 3 interactif legende pour base OU overlay
+            # Récupérer les informations de base et overlay
+            # base_title = combined_data.get('base_title', 'Base Plot')
+            # overlay_titles = combined_data.get('overlay_titles', [])
             
-            return fig1, fig2, fig3
+            # # Améliorer la légende
+            # # Filtrer les légendes au niveau des traces SEULEMENT
+            # for trace in fig1.data:
+            #     if hasattr(trace, 'name'):
+            #         # fig1: seulement les traces de base
+            #         trace.showlegend = not any(ov_title in trace.name for ov_title in overlay_titles)
+            
+            # for trace in fig3.data:
+            #     if hasattr(trace, 'name'):
+            #         # fig3: seulement les traces d'overlay
+            #         trace.showlegend = base_title not in trace.name
+            
+            # for trace in fig2.data:
+            #     if hasattr(trace, 'showlegend'):
+            #         # fig2: aucune légende
+            #         trace.showlegend = False
+            
+            # for fig in [fig1, fig2, fig3]:
+            #     fig.update_layout(
+            #         height=250, 
+            #         width=250,
+            #         title=dict(y=1, x=0.5, xanchor='center', yanchor='top')
+            #     )
+            
+            # for fig in [fig1, fig3]:
+            #     fig.update_layout(
+            #         legend=dict(
+            #             orientation="h",
+            #             yanchor="top", 
+            #             y=-0.2,
+            #             xanchor="center",
+            #             x=0
+            #         )
+            #     )
+
+            # display(GridBox(
+            #     children=[go.FigureWidget(fig1), go.FigureWidget(fig2), go.FigureWidget(fig3)],
+            #     layout=Layout(
+            #         grid_template_columns="repeat(3, 33%)",
+            #         justify_content='center', 
+            #         align_items='center'
+            #     )      
+            # ))
+            
+            # return fig1, fig2, fig3
+        
+
+
+
+            #code initial
             #     fig.update_layout(
             #         height=250,
             #         width=250, 
