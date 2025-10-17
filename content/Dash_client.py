@@ -151,40 +151,47 @@ class DashNeuroTmapClient:
             fig2 = go.Figure(plots_data['fig2'])
             fig3 = go.Figure(plots_data['fig3'])
             
-            titles = []
-            for fig in [fig1, fig2, fig3]:
-                fig.update_layout(showlegend=False)
-                title_text = ""
-                if hasattr(fig.layout, 'title') and fig.layout.title.text:
-                    title_text = fig.layout.title.text
-                titles.append(title_text)
+          
+            for fig in [fig2, fig3]:
+                fig.update_layout(height=250, 
+                                  width=250,
+                                  showlegend=False,
+                                  title=dict( 
+                                    y=1.05,  
+                                    x=0.5,
+                                    xanchor='center',
+                                    yanchor='top'
+                                  ))
+            fig1.update_layout(height=250, 
+                                width=250,
+                                legend=dict(
+                                    orientation="h",
+                                    yanchor="top",
+                                    y=-0.2,
+                                    xanchor="center",
+                                    x=0.5
+                                ), 
+                                title=dict( 
+                                y=1.05,  
+                                x=0.5,
+                                xanchor='center',
+                                yanchor='top'
+                                ))
 
-            fig_combined = make_subplots(
-                rows=1, cols=3,
-                subplot_titles=titles,
-                horizontal_spacing=0.05
-            )
-
-            # Ajouter chaque trace de vos figures originales
-            for i, fig in enumerate([fig1, fig2, fig3], 1):
-                for trace in fig.data:
-                    trace.showlegend = (i == 2) 
-                    fig_combined.add_trace(trace, row=1, col=i)
-
-            # Ajouter une légende unique en bas
-            fig_combined.update_layout(
-                height=250,
-                width=750,  
-                legend=dict(
-                    orientation="h",
-                    yanchor="top",
-                    y=-0.15,  
-                    xanchor="center",
-                    x=0.5
-                )
-            )
-
-            return fig_combined
+            display(GridBox(
+                children=[
+                    go.FigureWidget(fig1),
+                    go.FigureWidget(fig2),
+                    go.FigureWidget(fig3)
+                ],
+                layout=Layout(grid_template_columns="repeat(3, 33%)",
+                justify_content='center',
+                align_items='center')      
+            ))
+            
+            return fig1, fig2, fig3
+        
+            #for fig in [fig1, fig2, fig3]:
             #     fig.update_layout(height=250, width=250, #margin=dict(l=20, r=20, t=20, b=40), 
             #         legend=dict(
             #             orientation="h",
@@ -299,37 +306,44 @@ class DashNeuroTmapClient:
             fig3 = go.Figure(combined_data['fig3'])
             
             # Améliorer la légende
-            titles = []
-            for fig in [fig1, fig2, fig3]:
-                fig.update_layout(showlegend=False)
-                title_text = ""
-                if hasattr(fig.layout, 'title') and fig.layout.title.text:
-                    title_text = fig.layout.title.text
-                titles.append(title_text)
+            for fig in [fig1, fig2]:
+                fig.update_layout(height=250, 
+                                  width=250,
+                                  showlegend=False,
+                                  title=dict( 
+                                    y=1.05,  
+                                    x=0.5,
+                                    xanchor='center',
+                                    yanchor='top'
+                                  ))
+            fig3.update_layout(height=250, 
+                                width=250,
+                                legend=dict(
+                                    orientation="h",
+                                    yanchor="top",
+                                    y=-0.2,
+                                    xanchor="center",
+                                    x=0.5
+                                ), 
+                                title=dict( 
+                                y=1.05,  
+                                x=0.5,
+                                xanchor='center',
+                                yanchor='top'
+                                ))
+
+            display(GridBox(
+                children=[
+                    go.FigureWidget(fig1),
+                    go.FigureWidget(fig2),
+                    go.FigureWidget(fig3)
+                ],
+                layout=Layout(grid_template_columns="repeat(3, 33%)",
+                justify_content='center',
+                align_items='center')      
+            ))
             
-            fig_combined = make_subplots(
-            rows=1, cols=3,
-            subplot_titles=titles,
-            horizontal_spacing=0.05)
-
-            # Ajouter chaque trace
-            figures = [fig1, fig2, fig3]
-            for i, fig in enumerate(figures, 1):
-                for trace in fig.data:
-                    trace.showlegend = (i == 1)  # Légende seulement sur le 1er
-                    fig_combined.add_trace(trace, row=1, col=i)
-
-            # Légende unique en bas
-            fig_combined.update_layout(
-                height=300,
-                width=800,
-                legend=dict(
-                    orientation="h",
-                    yanchor="top",
-                    y=-0.25,
-                    xanchor="center",
-                    x=0.5
-                )),
+            return fig1, fig2, fig3
             #     fig.update_layout(
             #         height=250,
             #         width=250, 
