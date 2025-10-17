@@ -157,7 +157,7 @@ class DashNeuroTmapClient:
                                   width=250,
                                   showlegend=False,
                                   title=dict( 
-                                    y=1.05,  
+                                    y=1,  
                                     x=0.5,
                                     xanchor='center',
                                     yanchor='top'
@@ -172,7 +172,7 @@ class DashNeuroTmapClient:
                                     x=0.5
                                 ), 
                                 title=dict( 
-                                y=1.05,  
+                                y=1,  
                                 x=0.5,
                                 xanchor='center',
                                 yanchor='top'
@@ -311,7 +311,7 @@ class DashNeuroTmapClient:
                                   width=250,
                                   showlegend=False,
                                   title=dict( 
-                                    y=1.05,  
+                                    y=1,  
                                     x=0.5,
                                     xanchor='center',
                                     yanchor='top'
@@ -326,7 +326,7 @@ class DashNeuroTmapClient:
                                     x=0.5
                                 ), 
                                 title=dict( 
-                                y=1.05,  
+                                y=1,  
                                 x=0.5,
                                 xanchor='center',
                                 yanchor='top'
