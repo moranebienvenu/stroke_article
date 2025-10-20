@@ -604,38 +604,34 @@ class DashNeuroTmapClient:
             overlay_sex.value = 'women'
             
 
-        # Afficher l'interface de manière contrôlée
-        interface_elements = [
+        # Créer le bouton reset
+        reset_btn = widgets.Button(description="🔄 Reset to Default", button_style='warning')
+        reset_btn.on_click(lambda b: reset_to_default())
+
+        # Créer le conteneur principal
+        main_container = VBox([
             HBox([base_session, base_sex]),
             HBox([overlay_session, overlay_sex]),
-            HBox([widgets.Button(description="🔄 Reset to Default", button_style='warning')]),
+            HBox([reset_btn]),
             plot_output
-        ]
-    
-        # Afficher tous les éléments
-        for element in interface_elements:
-            display(element)
-        
-        # Configurer le bouton reset
-        reset_btn = interface_elements[2].children[0]  # Récupérer le bouton
-        reset_btn.on_click(lambda b: reset_to_default())
-        
+        ])
+
         # Premier affichage (base + overlay par défaut)
         display_base_with_overlay()
-        
-        
+
         # Lier les événements des widgets - mise à jour automatique
         def on_any_change(change):
             """Quand un paramètre change, mettre à jour base + overlay"""
             if observers_active:
                 display_base_with_overlay()
-        
+
         observers_active = True
         # Tous les widgets déclenchent une mise à jour automatique
         for widget in [base_session, base_sex, overlay_session, overlay_sex]:
             widget.observe(on_any_change, names='value')
-        
-        return None
+
+        # Retourner le conteneur pour qu'il soit sauvegardé comme output du notebook
+        return main_container
         
     def clear_overlays(self):
         """Efface tous les overlays localement et via l'API"""
@@ -846,32 +842,29 @@ class DashNeuroTmapClient:
         # Configuration du bouton reset
         reset_btn.on_click(reset_to_default)
 
-        # Afficher l'interface de manière contrôlée 
-        interface_elements = [
-            widgets.HBox([session_widget,system_widget,groups_widget]),
+        # Créer le conteneur principal
+        main_container = widgets.VBox([
+            widgets.HBox([session_widget, system_widget, groups_widget]),
             widgets.HBox([reset_btn]),
             plot_output
-        ]
+        ])
 
-        # Afficher tous les éléments
-        for element in interface_elements:
-            display(element)
-        
         #  Lier les événements des widgets - mise à jour automatique
         def on_any_change(change):
             """Quand un paramètre change, mettre à jour les heatmaps"""
             if observers_active:
                 display_heatmaps()
-        
+
         observers_active = True
         # Tous les widgets déclenchent une mise à jour automatique
         for widget in [session_widget, system_widget, groups_widget]:
             widget.observe(on_any_change, names='value')
-        
+
         # Premier affichage (comme create_advanced_interface)
         display_heatmaps()
-    
-        return None
+
+        # Retourner le conteneur pour qu'il soit sauvegardé comme output du notebook
+        return main_container
    
    
     #Heatmap avec variables croisée et interactive  
@@ -1001,21 +994,20 @@ class DashNeuroTmapClient:
         ])
         
 
-        #Afficher l'interface de manière contrôlée 
-        interface_elements = [
+        # Créer le conteneur principal
+        main_container = widgets.VBox([
             widgets.HBox([set1_controls, set2_controls]),
             permanent_message,
             output_container
-        ]
+        ])
 
-        # Afficher tous les éléments
-        for element in interface_elements:
-            display(element)
-        
         # Affichage initial
         update_heatmap()
-        
+
         # Activer les observers après le premier affichage
         observers_active = True
         for widget in [session1, sex1, outcome1, session2, sex2, outcome2]:
             widget.observe(on_change, names='value')
+
+        # Retourner le conteneur pour qu'il soit sauvegardé comme output du notebook
+        return main_container
