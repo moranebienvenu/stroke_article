@@ -947,35 +947,45 @@ class DashNeuroTmapClient:
         # Container pour la figure et les stats
         output_container = widgets.VBox()
         observers_active = False
-        
+
         def update_heatmap():
-            result = self.generate_cross_correlation_heatmap(
-                dataset='master',
-                session1=session1.value,
-                sex_filter1=sex1.value,
-                outcome1=outcome1.value,
-                groups1=['A'],
-                session2=session2.value,
-                sex_filter2=sex2.value,
-                outcome2=outcome2.value,
-                groups2=['A']
-            )
-            
-            if result and result['status'] == 'success':
-                # Créer un NOUVEAU FigureWidget à chaque mise à jour
-                fig = go.FigureWidget(result['heatmap'])
-                
-                # Créer le widget de statistiques
-                stats_text = widgets.HTML(
-                    value=f"<p><b>Set 1:</b> {result['subject_count_set1']} subjects | "
-                        f"<b>Set 2:</b> {result['subject_count_set2']} subjects | "
-                        f"<b>Common:</b> {result['common_subjects']} subjects</p>"
+            """Update the heatmap display with current widget values"""
+            try:
+                result = self.generate_cross_correlation_heatmap(
+                    dataset='master',
+                    session1=session1.value,
+                    sex_filter1=sex1.value,
+                    outcome1=outcome1.value,
+                    groups1=['A'],
+                    session2=session2.value,
+                    sex_filter2=sex2.value,
+                    outcome2=outcome2.value,
+                    groups2=['A']
                 )
-                
-                # Mettre à jour le container avec la nouvelle figure
-                output_container.children = [stats_text, fig]
-            else:
-                error_text = widgets.HTML(value="<p style='color: red;'>Failed to generate heatmap</p>")
+
+                if result and result['status'] == 'success':
+                    # Créer un NOUVEAU FigureWidget à chaque mise à jour
+                    fig = go.FigureWidget(result['heatmap'])
+
+                    # Créer le widget de statistiques
+                    stats_text = widgets.HTML(
+                        value=f"<p><b>Set 1:</b> {result['subject_count_set1']} subjects | "
+                            f"<b>Set 2:</b> {result['subject_count_set2']} subjects | "
+                            f"<b>Common:</b> {result['common_subjects']} subjects</p>"
+                    )
+
+                    # Mettre à jour le container avec la nouvelle figure
+                    output_container.children = [stats_text, fig]
+                else:
+                    # Show informative message instead of error
+                    info_text = widgets.HTML(
+                        value="<p style='color: #666;'><i>Unable to load data. Please check connection to dashboard server.</i></p>"
+                    )
+                    output_container.children = [info_text]
+            except Exception as e:
+                error_text = widgets.HTML(
+                    value=f"<p style='color: #666;'><i>Unable to connect to server. Error: {str(e)}</i></p>"
+                )
                 output_container.children = [error_text]
         
         def on_change(change):
@@ -994,14 +1004,27 @@ class DashNeuroTmapClient:
         ])
         
 
+        # Add a manual update button for better control
+        update_btn = widgets.Button(
+            description='🔄 Update Plot',
+            button_style='info',
+            layout=widgets.Layout(width='150px')
+        )
+
+        def on_update_click(_):
+            update_heatmap()
+
+        update_btn.on_click(on_update_click)
+
         # Créer le conteneur principal
         main_container = widgets.VBox([
             widgets.HBox([set1_controls, set2_controls]),
             permanent_message,
+            widgets.HBox([update_btn]),
             output_container
         ])
 
-        # Affichage initial
+        # Try initial display, but don't fail if server unavailable
         update_heatmap()
 
         # Activer les observers après le premier affichage
