@@ -59,13 +59,13 @@ We first examined sex-related differences in neurotransmitter system disruption 
 
 To visualize disruptions, group-averaged male (n = 23) and female (n = 15) data were overlaid on circular graphs showing lesion effects on receptor/transporter density maps, tract projection maps, and derived synaptic disruption ratios (Fig.1), computed with the NeuroT-Map method by Alves et al.. Note that these sample sizes differ from those used for statistical analyses, as not all participants had clinical data but all had lesion masks.
 
-:::{tip} Enable Computational Interactivity 
+:::{attention} Enable Computational Interactivity 
 
 If you see the following message above a figure caption, the interactive display needs an in-page computation:
 
-`ipywidgets` — a Jupyter kernel connection is required to fully display this output.
+> `ipywidgets` — a Jupyter kernel connection is required to fully display this output.
 
-To enable interactivity, attach a runtime by clicking the ⏻ icon in the top-right corner of the figure panel. If no runtime is attached, the figure will remain in its default state: hover and basic interactions are available.
+To enable interactivity, attach a runtime by clicking the `⏻` icon in the top-right corner of the figure panel. If no runtime is attached, the figure will remain in its default state: hover and basic interactions are available.
 
 :::
 
