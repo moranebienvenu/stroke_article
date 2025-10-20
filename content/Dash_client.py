@@ -9,7 +9,9 @@ from ipywidgets import interact, Dropdown, SelectMultiple, Checkbox
 from ipywidgets import HBox, VBox, GridBox, Layout
 import numpy as np
 from plotly.subplots import make_subplots
+import plotly.io as pio
 
+pio.renderers.default = "plotly_mimetype"
 class DashNeuroTmapClient:
     def __init__(self, dash_url="http://127.0.0.1:8050"):
         """

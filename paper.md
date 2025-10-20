@@ -63,7 +63,6 @@ To visualize disruptions, group-averaged male (n = 23) and female (n = 15) data 
 :::{figure} #fig1cell
 :label: fig1
 :name: fig-neurotmap-analysis
-:placeholder: ./static/tmp.jpg
 :height: 400px
 
 Interactive NeuroTmap analysis showing base and overlay comparisons. 
@@ -137,7 +136,7 @@ We then examined correlations between pre- and post-synaptic ratios in the acute
 :::{figure} #fig2cell
 :label: fig2
 :name: fig-correlation-analysis
-:placeholder: ./static/tmp.jpg
+:placeholder: ./static/fig2.png
 
 Interactive correlation heatmaps showing the relationship between pre- and post-synaptic ratios across location and projection maps in the acute phase separately for All participants, Men, and Women. Pearson’s r was used for normally distributed pairs (Shapiro-Wilk test, p > 0.05), Spearman’s rₛ otherwise. Colors indicate correlation (–1 = blue, +1 = red); only FDR-significant correlations (p < 0.05) are shown in bright colors, non-significant in grey. Panels: all participants (left, n=38), men (center, n=23), women (right, n=15). 
 Users can select different sessions (V1, V2, V3), systems to analysed (Synaptic ratio, Loc, Tract, Clinical outcomes) and group filters (Aphasic, Non-Aphasic) to explore the data interactively.
@@ -192,7 +191,7 @@ To illustrate longitudinal changes in neurotransmitter system disruption and syn
 :::{figure} #fig3cell
 :label: fig3
 :name: fig-cross-correlation-analysis
-:placeholder: ./static/tmp.jpg
+:placeholder: ./static/fig3.png
 
 Interactive NeuroTmap analysis showing base and overlay comparisons for all subjects in acute versus chronic phases. 
 Panels and Abbreviations as in Fig.1.
@@ -234,7 +233,7 @@ Correlation between pre- and post-synaptic ratios in acute and chronic phases (n
 :::{figure} #fig4cell
 :label: fig4
 :name: fig-cross-correlation-analysis
-:placeholder: ./static/tmp.jpg
+:placeholder: ./static/fig4.png
 
 Interactive correlation heatmaps showing the relationship between pre- and post-synaptic ratios. 
 Users can select different sessions (V1, V2, V3) and sex filters (men, women, all) to explore the data interactively.
