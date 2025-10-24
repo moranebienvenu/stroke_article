@@ -537,7 +537,7 @@ class DashNeuroTmapClient:
             print(f"Error displaying combined plots: {e}")
             return None
             
-    def create_advanced_interface(self, base_session_default='V1', base_sex_default='men', overlay_session_default='V1', overlay_sex_default='women', groups_default=['A']):
+    def create_advanced_interface(self, base_session_default='V1', base_sex_default='men', overlay_session_default='V1', overlay_sex_default='women', groups_default=['A'], dataset ='master'):
         """Interface avancée avec gestion des overlays"""
         subjects_data = self.get_available_subjects(dataset="master")
         if not subjects_data:
@@ -572,7 +572,7 @@ class DashNeuroTmapClient:
                 
                 # Générer la base
                 base_plots = self.generate_plots(
-                    dataset="master",
+                    dataset=dataset,
                     analysis_type="session_sex",
                     session=base_session.value,
                     sex_filter=base_sex.value,
@@ -583,7 +583,7 @@ class DashNeuroTmapClient:
                 if base_plots:
                     # Générer l'overlay (groupes fixes pour l'état naturel)
                     overlay_plots = self.generate_overlay(
-                        dataset="master",
+                        dataset=dataset,
                         analysis_type="session_sex",
                         session=overlay_session.value,
                         sex_filter=overlay_sex.value,
