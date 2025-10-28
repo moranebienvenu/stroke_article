@@ -77,10 +77,11 @@ Finally, Pearson or Spearman correlations were computed between neurotransmitter
 
 The following figure illustrates the architecture behind our results {numref}`fig-methode`. 
 
-```{figure} static/fig6.jpg
+:::{figure} static/fig6.jpg
 :name: fig-methode
 
 Explanatory figure summarizing the main points of the methodology.
+:::
 
 </div>
 
