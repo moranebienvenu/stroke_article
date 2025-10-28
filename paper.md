@@ -75,15 +75,16 @@ Linear mixed models (LMMs) with time (acute, subacute, chronic) and biological s
 
 Finally, Pearson or Spearman correlations were computed between neurotransmitter ratios, between ratios and clinical scores, and between damage metrics and outcomes. All correlation tests were performed separately and jointly for males and females in the acute phase, as specified in the first objective. Also, the same correlation tests were made with acute metrics and chronic outcomes, aligned with the second objective. Group-level descriptive statistics (mean, median, SD) were also computed.
 
-The following figure illustrates the architecture behind our results {numref}`fig-methode`. 
+The following figure illustrates the architecture behind our results {numref}`fig-methode`. </div>
 
 :::{figure} static/fig6.jpg
+:label: fig-methode
 :name: fig-methode
 
 Explanatory figure summarizing the main points of the methodology.
 :::
 
-</div>
+
 
 # Results
 
