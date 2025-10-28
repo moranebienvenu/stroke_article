@@ -403,8 +403,8 @@ class DashNeuroTmapClient:
                 )
             # Mise en page globale
             fig.update_layout(
-                height=320,
-                width=800,
+                height=550,
+                width=900,
                 showlegend=True,
                 # title=dict( 
                 #         y=1,  
@@ -644,6 +644,7 @@ class DashNeuroTmapClient:
         except Exception as e:
             return False
 
+
    #Affichez 3 heatmaps côte à côte, "All", "Men" et "Women", pour même variable, même session
     def generate_correlation_heatmaps(self, dataset='master', session='V1', 
                                         system_type='Synaptic ratio', groups=['A']):
@@ -846,7 +847,7 @@ class DashNeuroTmapClient:
         # Retourner le conteneur pour qu'il soit sauvegardé comme output du notebook
         return main_container
    
-    #essai de plotly animation sans dropdown
+    # plotly animation without dropdown
     def create_interactive_correlation_viewer(self, dataset='master', session='V1',
                                              system_type='Synaptic ratio', groups=['A']):
         """
@@ -863,7 +864,7 @@ class DashNeuroTmapClient:
             Widget container avec slider p-value
         """
         
-        print(f"⏳ Loading data for {session} - {system_type}...")
+        #print(f"⏳ Loading data for {session} - {system_type}...")
         
         # Générer les heatmaps UNE SEULE FOIS
         heatmaps_data = self.generate_correlation_heatmaps(
@@ -877,7 +878,7 @@ class DashNeuroTmapClient:
             print("❌ Failed to load heatmaps data")
             return None
         
-        print("✅ Data loaded successfully")
+        #print("✅ Data loaded successfully")
         
         # Slider pour p-value threshold
         p_threshold_slider = widgets.FloatSlider(
@@ -1060,7 +1061,9 @@ class DashNeuroTmapClient:
         update_heatmap_display()
         
         return main_container
-    #Heatmap avec variables croisée et interactive  
+   
+   
+   #Heatmap avec variables croisée et interactive  
     def generate_cross_correlation_heatmap(self, dataset='master',
                                         session1='V1', sex_filter1='All', outcome1='Synaptic ratio', groups1=['A'],
                                         session2='V3', sex_filter2='All', outcome2='Synaptic ratio', groups2=['A']):

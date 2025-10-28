@@ -24,23 +24,28 @@ The objective of this study is twofold: (1) to use a dashboard-based framework t
 # Materials and methods
 
 ## Participants
+
 <div style="text-align: justify;">
-
 Forty-eight individuals with aphasia (PWA) were recruited from the Neurology Unit of Hôpital du Sacré-Cœur de Montréal (HSCM), part of the CIUSSS du Nord-de-l’Île-de-Montréal, for a longitudinal study including three timepoints: the acute stage (24–72 h post-stroke), the subacute stage (8–14 days post-stroke), and the chronic stage (approximately 6 months post-stroke). Thirty-eight participants (23 men and 15 women) completed the first assessment during the acute phase, and ultimately, seventeen participants (9 men and 8 women) completed all three timepoints up to the chronic phase. Inclusion and exclusion criteria for PWA were based on those described in [Boucher et al., 2023](https://doi.org/10.1093/braincomms/fcad313). 
-
+</div>
 
 ## Language Assessment
 
+<div style="text-align: justify;">
 At each timepoint, participants completed a language assessment battery as described in [Boucher et al., 2023](https://doi.org/10.1093/braincomms/fcad313) Three core language subscores were derived: naming, repetition, and comprehension. Based on the previous work of [Osa García et al.](https://doi.org/10.3389/fneur.2020.00120), each subscore was scaled from 0 to 10 according to task-specific maximums, yielding a total aphasia severity index, referred to as the Composite Score, ranging from 0 to 30.
+</div>
 
 ## MRI acquisition and lesion processing
 
+<div style="text-align: justify;">
 Participants underwent MRI scans at all three timepoints. Longitudinal T1-weighted images were processed with *FreeSurfer* to generate within-subject templates. Lesion segmentation was performed semi-automatically using the *Clusterize* toolbox on T1-weighted images and MD maps for the acute phase, and on T1-weighted images maps for the subacute and chronic phases. All segmentations were manually reviewed and corrected by an experienced researcher specialized in lesion tracing in PWA. Binary lesion masks were then generated for each timepoint in RAS orientation (1 mm isotropic resolution). These masks and their corresponding anatomical images were registered to MNI152 2 mm space using FSL’s FLIRT (nearest-neighbor interpolation, no smoothing, zero padding).
 
 The NeuroT-Map pipeline [@Alves2025] was then applied to compute neurotransmitter-specific lesion metrics, including the sum of receptor and transporter location density map voxels or white matter projection map voxels intersecting the lesion, as well as pre- and postsynaptic ratios for the studied neurotransmitter systems. The NeuroT-Map tool and associated scripts are publicly available on GitHub: https://github.com/Pedro-N-Alves/NeuroT-Map. 
+</div>
 
 ## Dashboard template
 
+<div style="text-align: justify;">
 An interactive dashboard was developed using the Dash framework (available at https://stroke-dashboard.onrender.com; source code: https://github.com/moranebienvenu/stroke_dashboard). The dashboard allows users to upload a .zip file containing:
 
 - individual **NeuroT-Map outputs** for each participant: 
@@ -62,9 +67,11 @@ In addition, the application integrates statistical modules to perform analyses 
 - **Correlation analyses**: Pearson or Spearman, with automatic visualization as heatmaps or correlation matrices.
 
 All significant effects are displayed as bar plots for the GLMs, and group-level distributions can be visualized through violin or box plots. These features allow for standardized, transparent, and reproducible data exploration and statistical reporting across aphasia subtypes, sexes, and timepoints.
+</div>
 
 ## Statistical Analysis 
 
+<div style="text-align: justify;">
 To address our first objective, thanks to the dashboard, we performed a series of generalized linear models (GLMs) using a Tweedie distribution (variance power =1.4) with a logarithmic link function to accommodate continuous outcomes with skewed distributions and potential zero-values. In the acute full-sample analysis (n = 38), models included interaction terms between sex, lesion volume, and age to explore their potential modulatory effects on the relationship between acute phase neurotransmitter metrics (voxelwise damage to density and projection maps, as well as pre- and post-synaptic ratios) and early language outcomes. We also ran stratified GLMs in men and women separately, without interaction terms but controlling for lesion volume. 
 
 To address the second objective, an additional GLM was conducted using acute-phase neurotransmitter metrics as early predictors of chronic-phase language outcomes (n=17), adjusting for sex and lesion volume as covariates. 
@@ -75,7 +82,8 @@ Linear mixed models (LMMs) with time (acute, subacute, chronic) and biological s
 
 Finally, Pearson or Spearman correlations were computed between neurotransmitter ratios, between ratios and clinical scores, and between damage metrics and outcomes. All correlation tests were performed separately and jointly for males and females in the acute phase, as specified in the first objective. Also, the same correlation tests were made with acute metrics and chronic outcomes, aligned with the second objective. Group-level descriptive statistics (mean, median, SD) were also computed.
 
-The following figure illustrates the architecture behind our results {numref}`fig-methode`. </div>
+The following figure illustrates the architecture behind our results {numref}`fig-methode`. 
+</div>
 
 :::{figure} static/fig6.jpg
 :label: fig-methode
@@ -88,9 +96,11 @@ Explanatory figure summarizing the main points of the methodology.
 
 # Results
 
+<div style="text-align: justify;">
 We first examined sex-related differences in neurotransmitter system disruption and language outcomes during the acute phase after stroke, and whether early post-stroke imbalance could predict long-term language recovery.
 
 To visualize disruptions, group-averaged male (n = 23) and female (n = 15) data were overlaid on circular graphs showing lesion effects on receptor/transporter density maps, tract projection maps, and derived synaptic disruption ratios [](#fig1), computed with the NeuroT-Map method by Alves et al.. Note that these sample sizes differ from those used for statistical analyses, as not all participants had clinical data but all had lesion masks.
+</div>
 
 :::{attention} Enable Computational Interactivity 
 
@@ -112,14 +122,14 @@ Left panel: Proportion of each neurotransmitter system affected by the lesion ba
 
 :::
 
-
+<div style="text-align: justify;">
 When controlling for equal lesion volume, women exhibited greater damage to neurotransmitter systems than men on both density and projection maps, although overall involvement was low (< 2.5%), except for the serotonin transporter in women (3.5%) on location maps injury  [](#fig1).
 
 Concerning the synaptic disruption graph, the presynaptic ratio compares transporter damage to receptor damage. A positive value means transporters are more affected, while a negative value means receptors are more affected. The postsynaptic ratio does the opposite, comparing receptor to transporter damage. Since one transporter can be linked to several receptors, the postsynaptic damage is averaged across them. Both ratios are calculated from the overlap between lesion maps and the density or projection maps of transporters and receptors (Alves et al., 2025).
 Synaptic ratios revealed opposite sex-specific patterns: men showed a predominance of transporters over receptors damages in dopaminergic systems, while women showed the reverse, with the opposite holding true for cholinergic systems. Serotonergic disruption imbalance was also more pronounced in women (Fig.1). In addition, statistical testing revealed a significant sex difference for only the presynaptic 5HT1A ratio (Mann–Whitney U = 106, p = 0.049), with women showing higher values compared to men. This corresponds to an estimated +37.7% (=e0.32) increase in transporter damage relative to receptor damage. 
 
 Global and sex-stratified GLM analyses, performed using the dashboard with a Tweedie distribution (power = 1.4) and a log link, including age and lesion volume as covariates, showed no significant associations between synaptic ratios and language outcomes (naming, repetition, comprehension, composite score), although sex-specific trends were apparent ({numref}`tab1-glm`). These non-significant results (p >0.05), likely reflect the limited sample size.
-
+</div>
 
 :::{table} Table 1 – Percentage change in acute clinical scores per 0.1 unit increase in acute neurotransmitter ratio
 :widths: auto
@@ -169,21 +179,24 @@ Global and sex-stratified GLM analyses, performed using the dashboard with a Twe
 
 :::
 
-
+<div style="text-align: justify;">
 {numref}`tab1-glm` summarizes the estimated effects of a 0.1 increase in pre- or post-synaptic damage imbalance on language performance (naming, repetition, comprehension, and composite score), stratified by sex and neurotransmitter system. In the cholinergic system, pre-α4β2 imbalance was estimated to enhance repetition, particularly in men, but reduce naming and comprehension scores in men, whereas pre-M1 showed negative effects in men and modest benefits in women. Post-VAChT effects were overall estimated as unfavorable, yet sex-specific: predicted improvements in naming and comprehension for men and declines across tasks for women. In the dopaminergic system, pre-D2 was estimated to support repetition in men but impair comprehension, with women showing consistent negative associations; post-DAT exhibited the reverse pattern for women and men exhibited an unfavorable pattern for all scores except comprehension. In the serotonergic system, presynaptic imbalances were generally predicted to benefit women and be neutral or negative in men, while post-5HTT showed the opposite trend.
 
 We then examined correlations between pre- and post-synaptic ratios in the acute phase (n = 38) by selecting all subjects, men only, and women only for the V1 session and synaptic ratio variables in the dashboard. Several strong positive associations emerged across neurotransmitter systems (e.g., pre-M1 with pre-5HT1b/2a, r > 0.8, p < 0.05). Post-hoc power was high (mean = 0.904). Stratified analyses revealed sex-related differences: women exhibited more and stronger correlations, including strong positive associations between post-DAT and serotonergic presynaptic ratios, and strong negative associations between pre-D2 and both pre-M1 and serotonergic presynaptic ratios. These patterns were not observed in men. The mean post-hoc statistical power for all significant correlations remained high in both subgroups (0.948 in men, 0.927 in women) [](#fig2).
-
+</div>
 
 :::{figure} #fig2cell
 :label: fig2
 :name: fig-correlation-analysis
 
 Interactive correlation heatmaps showing the relationship between pre- and post-synaptic ratios across location and projection maps in the acute phase separately for All participants, Men, and Women. Pearson’s r was used for normally distributed pairs (Shapiro-Wilk test, p > 0.05), Spearman’s rₛ otherwise. Colors indicate correlation (–1 = blue, +1 = red); only FDR-significant correlations (p < 0.05) are shown in bright colors, non-significant in grey. Panels: all participants (left, n=38), men (center, n=23), women (right, n=15). 
-Users can select different sessions (V1, V2, V3), systems to analysed (Synaptic ratio, Loc, Tract, Clinical outcomes) and group filters (Aphasic, Non-Aphasic) to explore the data interactively.
+Users can toggle the display of significant correlations in bright colors and adjust the p-value threshold with the slider to explore the data interactively.
 :::
 
+<div style="text-align: justify;">
+
 We then applied linear mixed-effects modeling for each bounded clinical language outcome (0–10 for naming, repetition, and comprehension; 0–30 for the composite), with fixed effects for time (acute, subacute and chronic phases), sex (reference: women in the acute phase), and their interaction, while adjusting for lesion volume. A random intercept accounted for within-subject variability, and residual diagnostics (QQ plots, Shapiro-Wilk tests) supported the model assumptions ({numref}`tab2-mixed-model`).
+</div>
 
 ::::{table} Table 2 – Mixed Linear Model Regression
 :widths: auto
@@ -224,10 +237,12 @@ We then applied linear mixed-effects modeling for each bounded clinical language
 
 ::::
 
+<div style="text-align: justify;">
+
 {numref}`tab2-mixed-model` showed naturally that for each clinical score, lesion volume was negatively associated with most scores (p < 0.001; p < 0.05 for repetition). Women improved in repetition over time (β = 2,177, p = 0.021). Naming showed a significant time × sex interaction at V3 (β = 4.651, p = 0.003), with men improving more than women in chronic phase. Comprehension and composite scores improved in women (p < 0.001 and p < 0.05 at V3, respectively), with a non-significant trend for greater composite score improvement in men (β = 6.664, p = 0.053).
 
 To illustrate longitudinal changes in neurotransmitter system disruption and synaptic ratio imbalance, we overlaid acute (n=38) and chronic (n=17) group-averaged data in circular graphs as we did in [](#fig1), as shown in [](#fig3).
-
+</div>
 
 :::{figure} #fig3cell
 :label: fig3
@@ -238,9 +253,11 @@ Panels and Abbreviations as in Fig.1.
 Users can select different sessions (V1, V2, V3) to explore the data interactively.
 :::
 
+<div style="text-align: justify;">
 Neurotransmitter system damage was slightly higher in the chronic phase than in the acute, with each percentage difference being significant according to a Wilcoxon signed-rank test (p < 0.05). Synaptic ratios were more imbalanced in the chronic phase for the cholinergic and serotonergic systems (except pre-5HT4 and pre-5HT1a), whereas dopaminergic ratios tended toward zero in the chronic phase, with pre-D2 reversing sign compared to acute phase. Only, post-VAChT showed a negative significant increase in the chronic phase (Paired t-test, t = 2.18, p = 0.044).
 
 After that, we assessed whether acute synaptic disruption imbalance predicted chronic language outcomes using GLM models, , performed using the dashboard with a Tweedie distribution (power = 1.4) and a log link, including sex and lesion volume as covariates. {numref}`tab3-chronic-scores` reports the estimated percentage change in chronic scores per 0.1-unit increase in acute ratio. Although the results did not reach statistical significance (p > 0.05), this may be due to the relatively small sample size (n = 15), which limits statistical power.
+</div>
 
 ::::{table} Table 3 – Percentage change in chronic clinical scores per 0.1 unit increase in acute neurotransmitter ratio
 :widths: auto
@@ -265,11 +282,13 @@ After that, we assessed whether acute synaptic disruption imbalance predicted ch
 
 ::::
 
+<div style="text-align: justify;">
 The cholinergic system, particularly the post-VAChT ratio, was the strongest predictor of chronic language outcomes. While it conferred notable benefits for naming, it was associated with a detrimental effect on repetition, and minor effects on comprehension and the composite score. Moderate associations were also observed for the pre-α4β2 and pre-M1 ratios across several outcomes, with pre-α4β2 generally linked to reduced scores and pre-M1 showing a negative effect mainly on naming. In the dopaminergic system, pre-D1 and pre-D2 showed modest but opposite trends, while serotonergic markers exhibited overall moderate to weak associations, with pre-synaptic ratios favoring repetition but negatively impacting naming score.
 
 Mann–Whitney U tests showed chronic scores exceeded acute scores for the whole sample,  reaching statistical significance for comprehension (meanV1 = 5.49; meanV3 = 8.41; p = 0.019) and the composite score (meanV1= 15.79; meanV3 = 23.24; p = 0.028).
 
 Correlation between pre- and post-synaptic ratios in acute and chronic phases (n=17) were strong for serotonergic ratios, pre-M1, pre-D2, and post-DAT (r > 0.55; p < 0.05; mean post-hoc power = 0.786). Also, early pre-M1 positively correlated with late serotonergic presynaptic ratios, while early pre-D2 showed negative correlations with late serotonergic presynaptic ratios and pre-M1 [](#fig4).
+</div>
 
 :::{figure} #fig4cell
 :label: fig4
@@ -285,6 +304,7 @@ Correlations between acute pre-synaptic ratios and chronic clinical outcomes wer
 
 ***whether and how biological sex influences neurotransmitter receptor and transporter dynamics during the acute phase of post-stroke aphasia:***
 
+<div style="text-align: justify;">
 Our results indicate that biological sex influences neurotransmitter receptor and transporter dynamics during the acute phase of post-stroke aphasia. Statistical testing revealed a significant sex difference for the pre-5HT1A ratio, indicating more damage in the transporter 5HTT than in this receptor, with women showing higher values than men, whereas other sex effects did not reach statistical significance, likely due to limited sample size. Notably, the 5-HT1A receptor is known to be involved in the modulation of depressive symptoms and stress responses [@Tahiri2024], suggesting that sex-specific differences in this receptor could have functional consequences beyond language outcomes. Also, women exhibited greater lesion-related damage across neurotransmitter systems, particularly serotonergic transporter (5HTT) pathways. This relative damage to transporters compared to receptors could thereby create a neurobiological vulnerability for mood disorders. The mechanism is hypothetically twofold: initially, post-stroke damage to 5-HTT impairs serotonin reuptake  and leads to increased synaptic serotonin availability; subsequently, dysregulation of 5-HT1A receptors, possibly including upregulation or altered sensitivity through negative feedback, leads to a functional deficit in serotonergic neurotransmission which is a well-established endophenotype of major depression [@Albert2013]. This specific neuropathological profile may thus contribute to the higher incidence of post-stroke depression documented in women compared to men (reference). In contrast, men tended to show a predominance of transporters over receptors damage in dopaminergic systems and the reverse in cholinergic systems, suggesting distinct sex-specific neurochemical vulnerabilities after stroke.
 
 Stratified correlation analyses revealed stronger interdependencies between neurotransmitter systems damage in women, suggesting a more integrated neurochemical network architecture. This pattern was less evident in men. Thus, a lesion disrupting one system in men may have more localized effects, while in women, stronger cross-system coupling could allow the disruption to cascade, amplifying the impact on acute language performance. This sex difference aligns with established brain connectivity concepts where women typically show stronger inter-hemispheric connectivity, facilitating integration, while men show stronger intra-hemispheric connectivity, supporting modular processing [@Ingahalikar2013]. 
@@ -305,6 +325,7 @@ Taken together, these findings indicate that while our predictive models were un
 *Several limitations* of our study must be considered. First, our analysis relied on normative neurotransmitter maps, which do not account for individual variability. The absence of a healthy control group prevents the establishment of reference transporter-to-receptor ratios, making it difficult to definitively classify the observed imbalances as purely maladaptive or potentially compensatory. Next, the use of a single, sex-combined white matter projection map, although necessary, may obscure inherent sex differences in structural connectivity, as well as the sex-specific distribution and predominance of neurotransmitter system densities. A major limitation in comparing cohorts lies in their fundamental dissimilarity. The larger OpenNeuro cohort was not only younger but also disproportionately comprised individuals with Broca’s or anomic aphasia due to lesions in the middle cerebral artery territory, whereas the smaller cohort included heterogeneous aphasia types with a predominance of anomic aphasia. cThese disparities in age distribution, clinical and lesion characteristics are likely major contributors to the divergent neurochemical profiles observed, limiting direct comparability and highlighting the challenge of generalizing findings across different post-stroke populations.
 
 In conclusion, age, sex and lesion location could possibly alter the direction and magnitude of post-aphasia neurochemistry differences. This emphasizes that a simplistic binary view of sex effects is insufficient. Future research and clinical trials must adopt a multi-dimensional perspective that considers the role of sex, age, and neurochemical profile to truly personalize predictions and interventions for stroke recovery. Our study provides initial evidence and a methodological framework for this nuanced approach, which, with further analysis, could pave the way for personalized medication and therapy for each PSA patient.
+</div>
 
 # Data availability
 
