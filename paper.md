@@ -28,20 +28,24 @@ The objective of this study is twofold: (1) to use a dashboard-based framework t
 <div style="text-align: justify;">
 Forty-eight individuals with aphasia (PWA) were recruited from the Neurology Unit of Hôpital du Sacré-Cœur de Montréal (HSCM), part of the CIUSSS du Nord-de-l’Île-de-Montréal, for a longitudinal study including three timepoints: the acute stage (24–72 h post-stroke), the subacute stage (8–14 days post-stroke), and the chronic stage (approximately 6 months post-stroke). Thirty-eight participants (23 men and 15 women) completed the first assessment during the acute phase, and ultimately, seventeen participants (9 men and 8 women) completed all three timepoints up to the chronic phase. Inclusion and exclusion criteria for PWA were based on those described in [Boucher et al., 2023](https://doi.org/10.1093/braincomms/fcad313). 
 </div>
+<br>
 
 ## Language Assessment
 
 <div style="text-align: justify;">
 At each timepoint, participants completed a language assessment battery as described in [Boucher et al., 2023](https://doi.org/10.1093/braincomms/fcad313) Three core language subscores were derived: naming, repetition, and comprehension. Based on the previous work of [Osa García et al.](https://doi.org/10.3389/fneur.2020.00120), each subscore was scaled from 0 to 10 according to task-specific maximums, yielding a total aphasia severity index, referred to as the Composite Score, ranging from 0 to 30.
 </div>
+<br>
 
 ## MRI acquisition and lesion processing
 
 <div style="text-align: justify;">
 Participants underwent MRI scans at all three timepoints. Longitudinal T1-weighted images were processed with *FreeSurfer* to generate within-subject templates. Lesion segmentation was performed semi-automatically using the *Clusterize* toolbox on T1-weighted images and MD maps for the acute phase, and on T1-weighted images maps for the subacute and chronic phases. All segmentations were manually reviewed and corrected by an experienced researcher specialized in lesion tracing in PWA. Binary lesion masks were then generated for each timepoint in RAS orientation (1 mm isotropic resolution). These masks and their corresponding anatomical images were registered to MNI152 2 mm space using FSL’s FLIRT (nearest-neighbor interpolation, no smoothing, zero padding).
+<br>
 
 The NeuroT-Map pipeline [@Alves2025] was then applied to compute neurotransmitter-specific lesion metrics, including the sum of receptor and transporter location density map voxels or white matter projection map voxels intersecting the lesion, as well as pre- and postsynaptic ratios for the studied neurotransmitter systems. The NeuroT-Map tool and associated scripts are publicly available on GitHub: https://github.com/Pedro-N-Alves/NeuroT-Map. 
 </div>
+<br>
 
 ## Dashboard template
 
@@ -81,9 +85,10 @@ Additionally, two-sample tests (Student’s or Welch’s t-test, Wilcoxon or Man
 Linear mixed models (LMMs) with time (acute, subacute, chronic) and biological sex as fixed effects were conducted to evaluate longitudinal changes in language scores in accordance with the second objective.
 
 Finally, Pearson or Spearman correlations were computed between neurotransmitter ratios, between ratios and clinical scores, and between damage metrics and outcomes. All correlation tests were performed separately and jointly for males and females in the acute phase, as specified in the first objective. Also, the same correlation tests were made with acute metrics and chronic outcomes, aligned with the second objective. Group-level descriptive statistics (mean, median, SD) were also computed.
+</div>
 
 The following figure illustrates the architecture behind our results {numref}`fig-methode`. 
-</div>
+
 
 :::{figure} static/fig6.jpg
 :label: fig-methode
