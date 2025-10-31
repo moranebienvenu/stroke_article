@@ -87,11 +87,11 @@ Linear mixed models (LMMs) with time (acute, subacute, chronic) and biological s
 Finally, Pearson or Spearman correlations were computed between neurotransmitter ratios, between ratios and clinical scores, and between damage metrics and outcomes. All correlation tests were performed separately and jointly for males and females in the acute phase, as specified in the first objective. Also, the same correlation tests were made with acute metrics and chronic outcomes, aligned with the second objective. Group-level descriptive statistics (mean, median, SD) were also computed.
 </div>
 
-The following figure illustrates the architecture behind our results {numref}`fig-methode`. 
+The following figure illustrates the architecture behind our results [](#fig1). 
 
 
-:::{figure} static/fig6.jpg
-:label: fig-methode
+:::{figure} static/fig1.jpg
+:label: fig1
 :name: fig-methode
 
 Explanatory figure summarizing the main points of the methodology.
@@ -117,8 +117,8 @@ To enable interactivity, attach a runtime by clicking the `⏻` icon in the top-
 
 :::
 
-:::{figure} #fig1cell
-:label: fig1
+:::{figure} #fig2cell
+:label: fig2
 :name: fig-neurotmap-analysis
 
 Interactive NeuroTmap analysis showing base and overlay comparisons. 
@@ -128,10 +128,10 @@ Left panel: Proportion of each neurotransmitter system affected by the lesion ba
 :::
 
 <div style="text-align: justify;">
-When controlling for equal lesion volume, women exhibited greater damage to neurotransmitter systems than men on both density and projection maps, although overall involvement was low (< 2.5%), except for the serotonin transporter in women (3.5%) on location maps injury  [](#fig1).
+When controlling for equal lesion volume, women exhibited greater damage to neurotransmitter systems than men on both density and projection maps, although overall involvement was low (< 2.5%), except for the serotonin transporter in women (3.5%) on location maps injury  [](#fig2).
 
-Concerning the synaptic disruption graph, the presynaptic ratio compares transporter damage to receptor damage. A positive value means transporters are more affected, while a negative value means receptors are more affected. The postsynaptic ratio does the opposite, comparing receptor to transporter damage. Since one transporter can be linked to several receptors, the postsynaptic damage is averaged across them. Both ratios are calculated from the overlap between lesion maps and the density or projection maps of transporters and receptors (Alves et al., 2025).
-Synaptic ratios revealed opposite sex-specific patterns: men showed a predominance of transporters over receptors damages in dopaminergic systems, while women showed the reverse, with the opposite holding true for cholinergic systems. Serotonergic disruption imbalance was also more pronounced in women (Fig.1). In addition, statistical testing revealed a significant sex difference for only the presynaptic 5HT1A ratio (Mann–Whitney U = 106, p = 0.049), with women showing higher values compared to men. This corresponds to an estimated +37.7% (=e0.32) increase in transporter damage relative to receptor damage. 
+Concerning the synaptic disruption graph, the presynaptic ratio compares transporter damage to receptor damage. A positive value means transporters are more affected, while a negative value means receptors are more affected. The postsynaptic ratio does the opposite, comparing receptor to transporter damage. Since one transporter can be linked to several receptors, the postsynaptic damage is averaged across them. Both ratios are calculated from the overlap between lesion maps and the density or projection maps of transporters and receptors [@Alves2025].
+Synaptic ratios revealed opposite sex-specific patterns: men showed a predominance of transporters over receptors damages in dopaminergic systems, while women showed the reverse, with the opposite holding true for cholinergic systems. Serotonergic disruption imbalance was also more pronounced in women ([](#fig2)). In addition, statistical testing revealed a significant sex difference for only the presynaptic 5HT1A ratio (Mann–Whitney U = 106, p = 0.049), with women showing higher values compared to men. This corresponds to an estimated +37.7% (=e0.32) increase in transporter damage relative to receptor damage. 
 
 Global and sex-stratified GLM analyses, performed using the dashboard with a Tweedie distribution (power = 1.4) and a log link, including age and lesion volume as covariates, showed no significant associations between synaptic ratios and language outcomes (naming, repetition, comprehension, composite score), although sex-specific trends were apparent ({numref}`tab1-glm`). These non-significant results (p >0.05), likely reflect the limited sample size.
 </div>
@@ -187,11 +187,11 @@ Global and sex-stratified GLM analyses, performed using the dashboard with a Twe
 <div style="text-align: justify;">
 {numref}`tab1-glm` summarizes the estimated effects of a 0.1 increase in pre- or post-synaptic damage imbalance on language performance (naming, repetition, comprehension, and composite score), stratified by sex and neurotransmitter system. In the cholinergic system, pre-α4β2 imbalance was estimated to enhance repetition, particularly in men, but reduce naming and comprehension scores in men, whereas pre-M1 showed negative effects in men and modest benefits in women. Post-VAChT effects were overall estimated as unfavorable, yet sex-specific: predicted improvements in naming and comprehension for men and declines across tasks for women. In the dopaminergic system, pre-D2 was estimated to support repetition in men but impair comprehension, with women showing consistent negative associations; post-DAT exhibited the reverse pattern for women and men exhibited an unfavorable pattern for all scores except comprehension. In the serotonergic system, presynaptic imbalances were generally predicted to benefit women and be neutral or negative in men, while post-5HTT showed the opposite trend.
 
-We then examined correlations between pre- and post-synaptic ratios in the acute phase (n = 38) by selecting all subjects, men only, and women only for the V1 session and synaptic ratio variables in the dashboard. Several strong positive associations emerged across neurotransmitter systems (e.g., pre-M1 with pre-5HT1b/2a, r > 0.8, p < 0.05). Post-hoc power was high (mean = 0.904). Stratified analyses revealed sex-related differences: women exhibited more and stronger correlations, including strong positive associations between post-DAT and serotonergic presynaptic ratios, and strong negative associations between pre-D2 and both pre-M1 and serotonergic presynaptic ratios. These patterns were not observed in men. The mean post-hoc statistical power for all significant correlations remained high in both subgroups (0.948 in men, 0.927 in women) [](#fig2).
+We then examined correlations between pre- and post-synaptic ratios in the acute phase (n = 38) by selecting all subjects, men only, and women only for the V1 session and synaptic ratio variables in the dashboard. Several strong positive associations emerged across neurotransmitter systems (e.g., pre-M1 with pre-5HT1b/2a, r > 0.8, p < 0.05). Post-hoc power was high (mean = 0.904). Stratified analyses revealed sex-related differences: women exhibited more and stronger correlations, including strong positive associations between post-DAT and serotonergic presynaptic ratios, and strong negative associations between pre-D2 and both pre-M1 and serotonergic presynaptic ratios. These patterns were not observed in men. The mean post-hoc statistical power for all significant correlations remained high in both subgroups (0.948 in men, 0.927 in women) [](#fig3).
 </div>
 
-:::{figure} #fig2cell
-:label: fig2
+:::{figure} #fig3cell
+:label: fig3
 :name: fig-correlation-analysis
 
 Interactive correlation heatmaps showing the relationship between pre- and post-synaptic ratios across location and projection maps in the acute phase separately for All participants, Men, and Women. Pearson’s r was used for normally distributed pairs (Shapiro-Wilk test, p > 0.05), Spearman’s rₛ otherwise. Colors indicate correlation (–1 = blue, +1 = red); only FDR-significant correlations (p < 0.05) are shown in bright colors, non-significant in grey. Panels: all participants (left, n=38), men (center, n=23), women (right, n=15). 
@@ -246,11 +246,11 @@ We then applied linear mixed-effects modeling for each bounded clinical language
 
 {numref}`tab2-mixed-model` showed naturally that for each clinical score, lesion volume was negatively associated with most scores (p < 0.001; p < 0.05 for repetition). Women improved in repetition over time (β = 2,177, p = 0.021). Naming showed a significant time × sex interaction at V3 (β = 4.651, p = 0.003), with men improving more than women in chronic phase. Comprehension and composite scores improved in women (p < 0.001 and p < 0.05 at V3, respectively), with a non-significant trend for greater composite score improvement in men (β = 6.664, p = 0.053).
 
-To illustrate longitudinal changes in neurotransmitter system disruption and synaptic ratio imbalance, we overlaid acute (n=38) and chronic (n=17) group-averaged data in circular graphs as we did in [](#fig1), as shown in [](#fig3).
+To illustrate longitudinal changes in neurotransmitter system disruption and synaptic ratio imbalance, we overlaid acute (n=38) and chronic (n=17) group-averaged data in circular graphs as we did in [](#fig2), as shown in [](#fig4).
 </div>
 
-:::{figure} #fig3cell
-:label: fig3
+:::{figure} #fig4cell
+:label: fig4
 :name: fig-cross-correlation-analysis
 
 Interactive NeuroTmap analysis showing base and overlay comparisons for all subjects in acute versus chronic phases. 
@@ -292,11 +292,11 @@ The cholinergic system, particularly the post-VAChT ratio, was the strongest pre
 
 Mann–Whitney U tests showed chronic scores exceeded acute scores for the whole sample,  reaching statistical significance for comprehension (meanV1 = 5.49; meanV3 = 8.41; p = 0.019) and the composite score (meanV1= 15.79; meanV3 = 23.24; p = 0.028).
 
-Correlation between pre- and post-synaptic ratios in acute and chronic phases (n=17) were strong for serotonergic ratios, pre-M1, pre-D2, and post-DAT (r > 0.55; p < 0.05; mean post-hoc power = 0.786). Also, early pre-M1 positively correlated with late serotonergic presynaptic ratios, while early pre-D2 showed negative correlations with late serotonergic presynaptic ratios and pre-M1 [](#fig4).
+Correlation between pre- and post-synaptic ratios in acute and chronic phases (n=17) were strong for serotonergic ratios, pre-M1, pre-D2, and post-DAT (r > 0.55; p < 0.05; mean post-hoc power = 0.786). Also, early pre-M1 positively correlated with late serotonergic presynaptic ratios, while early pre-D2 showed negative correlations with late serotonergic presynaptic ratios and pre-M1 [](#fig5).
 </div>
 
-:::{figure} #fig4cell
-:label: fig4
+:::{figure} #fig5cell
+:label: fig5
 :name: fig-cross-correlation-analysis
 
 Interactive correlation heatmaps showing the relationship between pre- and post-synaptic ratios. 
