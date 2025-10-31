@@ -3,13 +3,14 @@ import requests
 import plotly.graph_objects as go
 import pandas as pd
 import json
-from IPython.display import display, HTML
+from IPython.display import display, HTML, clear_output
 import ipywidgets as widgets
 from ipywidgets import interact, Dropdown, SelectMultiple, Checkbox
 from ipywidgets import HBox, VBox, GridBox, Layout
 import numpy as np
 from plotly.subplots import make_subplots
 import plotly.io as pio
+
 
 pio.renderers.default = "plotly_mimetype"
 class DashNeuroTmapClient:
@@ -1019,25 +1020,27 @@ class DashNeuroTmapClient:
                     )
                 
                 fig_combined.update_annotations(font_size=10)
+
+                with plot_output:
+                    clear_output(wait=True) 
                 
-                # Mettre à jour le widget en place ou créer si première fois
-                if fig_widget_container['widget'] is None:
-                    fig_widget = go.FigureWidget(fig_combined)
-                    fig_widget_container['widget'] = fig_widget
-                    with plot_output:
+                    # Mettre à jour le widget en place ou créer si première fois
+                    if fig_widget_container['widget'] is None:
+                        fig_widget = go.FigureWidget(fig_combined)
+                        fig_widget_container['widget'] = fig_widget
                         display(fig_widget)
-                else:
-                    # Mettre à jour en place
-                    with fig_widget_container['widget'].batch_update():
-                        # Mettre à jour les traces
-                        for idx, trace in enumerate(fig_combined.data):
-                            if idx < len(fig_widget_container['widget'].data):
-                                fig_widget_container['widget'].data[idx].z = trace.z
-                                fig_widget_container['widget'].data[idx].text = trace.text
-                        
-                        # Mettre à jour le titre
-                        fig_widget_container['widget'].layout.title.text = fig_combined.layout.title.text
-                
+                    else:
+                        # Mettre à jour en place
+                        with fig_widget_container['widget'].batch_update():
+                            # Mettre à jour les traces
+                            for idx, trace in enumerate(fig_combined.data):
+                                if idx < len(fig_widget_container['widget'].data):
+                                    fig_widget_container['widget'].data[idx].z = trace.z
+                                    fig_widget_container['widget'].data[idx].text = trace.text
+                            
+                            # Mettre à jour le titre
+                            fig_widget_container['widget'].layout.title.text = fig_combined.layout.title.text
+                    
             except Exception as e:
                 print(f"❌ Error updating display: {e}")
                 import traceback
