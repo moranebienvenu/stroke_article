@@ -403,8 +403,8 @@ class DashNeuroTmapClient:
                 )
             # Mise en page globale
             fig.update_layout(
-                height=400,
-                width=850,
+                height=375,
+                width=820,
                 showlegend=True,
                 # title=dict( 
                 #         y=1,  
