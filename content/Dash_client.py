@@ -1278,7 +1278,8 @@ class DashNeuroTmapClient:
         update_heatmap_display()
         
         return main_container
-   #Heatmap avec variables croisée et interactive  
+   
+    #Heatmap avec variables croisée et interactive  
     def generate_cross_correlation_heatmap(self, dataset='master',
                                         session1='V1', sex_filter1='All', outcome1='Synaptic ratio', groups1=['A'],
                                         session2='V3', sex_filter2='All', outcome2='Synaptic ratio', groups2=['A']):
