@@ -43,7 +43,7 @@ The NeuroT-Map pipeline [@Alves2025] was then applied to compute neurotransmitte
 
 ## Dashboard template
 
-An interactive dashboard was developed using the Dash framework (available at https://stroke-dashboard.onrender.com; source code: https://github.com/moranebienvenu/stroke_dashboard). The dashboard allows users to upload a .zip file containing:
+An interactive dashboard was developed using the Dash framework (available at https://stroke-dashboard.db.neurolibre.org/; source code: https://github.com/moranebienvenu/stroke_dashboard). The dashboard allows users to upload a .zip file containing:
 
 - individual **NeuroT-Map outputs** for each participant: 
   - ***output_les_dis_sub-XXX_ses-VX.csv*** and,
