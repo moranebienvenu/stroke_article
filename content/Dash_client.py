@@ -1064,19 +1064,12 @@ class DashNeuroTmapClient:
                 # Créer un NOUVEAU FigureWidget à chaque mise à jour
                 fig = go.FigureWidget(result['heatmap'])
 
-                # fig.update_layout(
-                #     width=600,   
-                #     height=600, 
-                #     #margin=dict(l=50, r=50, t=50, b=50)  
-                # )
-            
                 fig.update_layout(
-                    title=dict(
-                        text="Titre de la heatmap",
-                        x=0.5,      # position horizontale
-                        xanchor='center'
-                    )
+                    width=600,   
+                    height=600, 
+                    #margin=dict(l=50, r=50, t=50, b=50)  
                 )
+            
                 # Créer le widget de statistiques
                 stats_text = widgets.HTML(
                     value=f"<p><b>Set 1:</b> {result['subject_count_set1']} subjects | "
@@ -1094,18 +1087,20 @@ class DashNeuroTmapClient:
                 update_heatmap()
         
         # Organisation de l'interface
-        set1_controls = widgets.VBox([ #widgets.HBox([
+        set1_controls = widgets.HBox([
             widgets.HTML("<h3>Set 1</h3>"),
-            widgets.HBox([session1, sex1]),   # première ligne : session + sexe
-            widgets.HBox([outcome1])          # deuxième ligne : outcome
-        ])
+            session1, sex1, outcome1
+            # [session1, sex1],   # première ligne : session + sexe
+            # outcome1         # deuxième ligne : outcome
+             ])
         #     session1, sex1, outcome1
         # ])
         
-        set2_controls = widgets.VBox([ #widgets.HBox([
+        set2_controls = widgets.HBox([
             widgets.HTML("<h3>Set 2</h3>"),
-            widgets.HBox([session2, sex2]),   # première ligne : session + sexe
-            widgets.HBox([outcome2])          # deuxième ligne : outcome
+            session2, sex2, outcome2
+            # [session2, sex2],   # première ligne : session + sexe
+            # outcome2,          # deuxième ligne : outcome
         ])
         #     session2, sex2, outcome2
         # ])
