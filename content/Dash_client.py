@@ -193,37 +193,7 @@ class DashNeuroTmapClient:
             ))
             
             return fig1, fig2, fig3
-        
-            #for fig in [fig1, fig2, fig3]:
-            #     fig.update_layout(height=250, width=250, #margin=dict(l=20, r=20, t=20, b=40), 
-            #         legend=dict(
-            #             orientation="h",
-            #             yanchor="top",
-            #             y=-0.1,
-            #             xanchor="center",
-            #             x=0.5
-            #     ), #essai 
-            #        title=dict( 
-            #         y=1.05,  
-            #         x=0.5,
-            #         xanchor='center',
-            #         yanchor='top'
-            #     )   )
-            
-            # # organisation en grille (3 colonnes)
-            # display(GridBox(
-            #     children=[
-            #         go.FigureWidget(fig1),
-            #         go.FigureWidget(fig2),
-            #         go.FigureWidget(fig3)
-            #     ],
-            #     layout=Layout(grid_template_columns="repeat(3, 33%)",
-            #     justify_content='center',
-            #     align_items='center')      
-            #     #width='100%')
-            # ))
-            
-            # return fig1, fig2, fig3
+    
         
         except Exception as e:
             print(f"❌ Error displaying plots: {e}")
@@ -251,8 +221,7 @@ class DashNeuroTmapClient:
             title = f"Session {session}"
             if sex_filter != 'all':
                 title += f" ({'Men' if sex_filter == 'men' else 'Women'})"
-            # if groups:
-            #     title += f" | Groups: {', '.join(groups)}"
+          
         
         payload = {
             'dataset': dataset,
@@ -272,7 +241,6 @@ class DashNeuroTmapClient:
             
             if response.status_code == 200:
                 data = response.json()
-                #print(f"✅ {data['message']}")
                 self.overlays.append(data['overlay'])
                 return data['overlay']
             else:
@@ -504,10 +472,10 @@ class DashNeuroTmapClient:
         
         def reset_to_default():
             """Réinitialise tous les widgets aux valeurs par défaut"""
-            base_session.value = 'V1'
-            base_sex.value = 'men'
-            overlay_session.value = 'V1'
-            overlay_sex.value = 'women'
+            base_session.value = base_session_default #'V1'
+            base_sex.value = base_sex_default #'men'
+            overlay_session.value = overlay_session_default #'V1'
+            overlay_sex.value = overlay_sex_default #'women'
             
 
         # Créer le bouton reset
