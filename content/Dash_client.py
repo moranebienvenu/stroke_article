@@ -1071,6 +1071,8 @@ class DashNeuroTmapClient:
                 # Créer un NOUVEAU FigureWidget à chaque mise à jour
                 fig = go.FigureWidget(result['heatmap'])
 
+                fig.update_xaxes(side="bottom")   # forcer l’axe X en bas pour myst
+                fig.update_yaxes(side="left")     # forcer l’axe Y à gauche pour myst
                 fig.update_layout(
                     width=500,   
                     height=500, 
