@@ -821,6 +821,8 @@ class DashNeuroTmapClient:
                         vars_list = data['corr_index']
                         display_vars = data['variables']
                         
+                        x_labels = [var.split('_', 1)[1] if '_' in var else var for var in display_vars]
+                        y_labels = [var.split('_', 1)[1] if '_' in var else var for var in display_vars]
                         # Convertir en arrays numpy
                         corr_array = np.array([[corr_matrix_dict[row][col] 
                                             for col in vars_list] 
@@ -835,7 +837,7 @@ class DashNeuroTmapClient:
                         # Préparer le texte pour l'affichage des chiffres
                         if show_numbers:
                             # Afficher les valeurs arrondies
-                            text_array = np.round(corr_array, 2)
+                            text_array = np.round(corr_array, 1)
                             text_template = "%{text}"
                         else:
                             # Masquer les chiffres
@@ -845,14 +847,14 @@ class DashNeuroTmapClient:
                         # Créer la heatmap
                         fig = go.Figure(data=go.Heatmap(
                             z=corr_display,
-                            x=display_vars,
-                            y=display_vars,
+                            x= x_labels,#display_vars,
+                            y= y_labels,#display_vars,
                             colorscale='RdBu_r',
                             zmin=-1,
                             zmax=1,
                             text=text_array,
                             texttemplate=text_template,
-                            textfont={"size": 10},
+                            textfont={"size": 8},
                             hovertemplate=(
                                 "Variable X: %{x}<br>"
                                 "Variable Y: %{y}<br>"
@@ -877,7 +879,7 @@ class DashNeuroTmapClient:
                 fig_combined = make_subplots(
                     rows=1, cols=3,
                     subplot_titles=titles,
-                    horizontal_spacing=0.01, #modification de 0.1 --> 0.02
+                    horizontal_spacing=0.01, 
                     vertical_spacing=0.05,
                     specs=[[{"type": "heatmap"}, {"type": "heatmap"}, {"type": "heatmap"}]]
                 )
@@ -885,14 +887,18 @@ class DashNeuroTmapClient:
                 for idx, fig in enumerate(figures):
                     if len(fig.data) > 0:
                         trace = fig.data[0]
-                        trace.showscale = (idx == 2)
+                        if idx == 2:
+                            trace.showscale = True
+                        else:
+                            trace.showscale = False
+                        #trace.showscale = (idx == 2)
                         fig_combined.add_trace(trace, row=1, col=idx+1)
                 
                 fig_combined.update_layout(
                     height=375,
                     width=900,
                     showlegend=False,
-                    #margin=dict(l=80, r=80, t=80, b=120),
+                    margin=dict(l=30, r=40, t=80, b=80), #test reduction marge avant fig 1
                     title=dict(
                         text=f"Session {session} - {system_type}<br>"
                             f"<sub>p-value threshold: {p_thresh:.3f}</sub>",
@@ -906,6 +912,7 @@ class DashNeuroTmapClient:
                     fig_combined.update_xaxes(
                         tickangle=-45,
                         tickfont=dict(size=8),
+                        automargin=False,
                         side='bottom',
                         showgrid=False,
                         row=1, col=i
