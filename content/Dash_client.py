@@ -849,222 +849,6 @@ class DashNeuroTmapClient:
         return main_container
    
     # plotly animation without dropdown
-    # def create_interactive_correlation_viewer(self, dataset='master', session='V1',
-    #                                          system_type='Synaptic ratio', groups=['A']):
-    #     """
-    #     Crée un visualiseur interactif UNIQUEMENT avec slider p-value
-    #     PAS de dropdowns pour session/system/groups (fixés à l'appel)
-        
-    #     Args:
-    #         dataset: Dataset fixe
-    #         session: Session fixe
-    #         system_type: Type de système fixe
-    #         groups: Groupes fixes
-        
-    #     Returns:
-    #         Widget container avec slider p-value
-    #     """
-        
-    #     #print(f"⏳ Loading data for {session} - {system_type}...")
-        
-    #     # Générer les heatmaps UNE SEULE FOIS
-    #     heatmaps_data = self.generate_correlation_heatmaps(
-    #         dataset=dataset,
-    #         session=session,
-    #         system_type=system_type,
-    #         groups=groups
-    #     )
-        
-    #     if not heatmaps_data:
-    #         print("❌ Failed to load heatmaps data")
-    #         return None
-        
-    #     #print("✅ Data loaded successfully")
-        
-    #     # Slider pour p-value threshold
-    #     p_threshold_slider = widgets.FloatSlider(
-    #         value=0.05,
-    #         min=0.001,
-    #         max=0.1,
-    #         step=0.001,
-    #         description='p-value threshold:',
-    #         continuous_update=True,
-    #         readout=True,
-    #         readout_format='.3f',
-    #         style={'description_width': '130px'},
-    #         layout=widgets.Layout(width='500px')
-    #     )
-        
-    #     # Checkbox pour afficher toutes les corrélations
-    #     show_all_checkbox = widgets.Checkbox(
-    #         value=False,
-    #         description='Show all correlations (including non-significant)',
-    #         style={'description_width': 'initial'},
-    #         indent=False
-    #     )
-
-    #     # Container pour les graphiques 
-    #     plot_output = widgets.Output()
-        
-    #     # Créer un FigureWidget pour mise à jour en place
-    #     fig_widget_container = {'widget': None}
-        
-    #     def update_heatmap_display(change=None):
-    #         """Met à jour UNIQUEMENT l'affichage avec le threshold actuel"""
-    #         try:
-    #             p_thresh = p_threshold_slider.value
-    #             show_all = show_all_checkbox.value
-                
-    #             # Recréer les figures avec le nouveau threshold
-    #             figures = []
-    #             titles = ['All Subjects', 'Men Only', 'Women Only']
-                
-    #             for i, sex_filter in enumerate(['all', 'men', 'women']):
-    #                 if (sex_filter in heatmaps_data and 
-    #                     heatmaps_data[sex_filter]['status'] == 'success'):
-                        
-    #                     data = heatmaps_data[sex_filter]
-    #                     corr_matrix_dict = data['correlation_matrix']
-    #                     pval_matrix_dict = data['pvalue_matrix']
-    #                     vars_list = data['corr_index']
-    #                     display_vars = data['variables']
-                        
-    #                     # Convertir en arrays numpy
-    #                     corr_array = np.array([[corr_matrix_dict[row][col] 
-    #                                            for col in vars_list] 
-    #                                           for row in vars_list])
-    #                     pval_array = np.array([[pval_matrix_dict[row][col] 
-    #                                            for col in vars_list] 
-    #                                           for row in vars_list])
-                        
-    #                     # Appliquer le masque de p-value
-    #                     if not show_all:
-    #                         corr_display = np.where(pval_array < p_thresh, 
-    #                                                corr_array, None)
-    #                     else:
-    #                         corr_display = corr_array
-                        
-    #                     # Créer la heatmap avec le threshold appliqué
-    #                     fig = go.Figure(data=go.Heatmap(
-    #                         z=corr_display,
-    #                         x=display_vars,
-    #                         y=display_vars,
-    #                         colorscale='RdBu_r',
-    #                         zmin=-1,
-    #                         zmax=1,
-    #                         text=np.round(corr_array, 2),
-    #                         texttemplate="%{text}",
-    #                         textfont={"size": 10},
-    #                         hovertemplate=(
-    #                             "Variable X: %{x}<br>"
-    #                             "Variable Y: %{y}<br>"
-    #                             "Correlation: %{text}<br>"
-    #                             "<extra></extra>"
-    #                         )
-    #                     ))
-                        
-    #                     figures.append(fig)
-    #                 else:
-    #                     fig = go.Figure()
-    #                     fig.add_annotation(
-    #                         text=f"No data for {titles[i]}",
-    #                         xref="paper", yref="paper",
-    #                         x=0.5, y=0.5, xanchor='center', yanchor='middle',
-    #                         showarrow=False,
-    #                         font=dict(size=14, color="red")
-    #                     )
-    #                     figures.append(fig)
-                
-    #             # Créer la figure combinée
-    #             fig_combined = make_subplots(
-    #                 rows=1, cols=3,
-    #                 subplot_titles=titles,
-    #                 horizontal_spacing=0.10,
-    #                 vertical_spacing=0.05,
-    #                 specs=[[{"type": "heatmap"}, {"type": "heatmap"}, {"type": "heatmap"}]]
-    #             )
-                
-    #             for idx, fig in enumerate(figures):
-    #                 if len(fig.data) > 0:
-    #                     trace = fig.data[0]
-    #                     trace.showscale = (idx == 2)
-    #                     fig_combined.add_trace(trace, row=1, col=idx+1)
-                
-    #             fig_combined.update_layout(
-    #                 height=550,
-    #                 width=1300,
-    #                 showlegend=False,
-    #                 margin=dict(l=80, r=80, t=80, b=120),
-    #                 title=dict(
-    #                     text=f"Session {session} - {system_type}<br>"
-    #                          f"<sub>p-value threshold: {p_thresh:.3f}</sub>",
-    #                     x=0.5,
-    #                     xanchor='center',
-    #                     font=dict(size=14)
-    #                 )
-    #             )
-                
-    #             for i in range(1, 4):
-    #                 fig_combined.update_xaxes(
-    #                     tickangle=-45,
-    #                     tickfont=dict(size=8),
-    #                     side='bottom',
-    #                     showgrid=False,
-    #                     row=1, col=i
-    #                 )
-    #                 fig_combined.update_yaxes(
-    #                     autorange='reversed',
-    #                     tickfont=dict(size=8),
-    #                     showgrid=False,
-    #                     row=1, col=i
-    #                 )
-                
-    #             fig_combined.update_annotations(font_size=10)
-
-    #             with plot_output:
-    #                 clear_output(wait=True) 
-                
-    #                 # Mettre à jour le widget en place ou créer si première fois
-    #                 if fig_widget_container['widget'] is None:
-    #                     fig_widget = go.FigureWidget(fig_combined)
-    #                     fig_widget_container['widget'] = fig_widget
-    #                     display(fig_widget)
-    #                 else:
-    #                     # Mettre à jour en place
-    #                     with fig_widget_container['widget'].batch_update():
-    #                         # Mettre à jour les traces
-    #                         for idx, trace in enumerate(fig_combined.data):
-    #                             if idx < len(fig_widget_container['widget'].data):
-    #                                 fig_widget_container['widget'].data[idx].z = trace.z
-    #                                 fig_widget_container['widget'].data[idx].text = trace.text
-                            
-    #                         # Mettre à jour le titre
-    #                         fig_widget_container['widget'].layout.title.text = fig_combined.layout.title.text
-                    
-    #         except Exception as e:
-    #             print(f"❌ Error updating display: {e}")
-    #             import traceback
-    #             traceback.print_exc()
-        
-    #     # Lier les widgets
-    #     p_threshold_slider.observe(update_heatmap_display, names='value')
-    #     show_all_checkbox.observe(update_heatmap_display, names='value')
-        
-    #     # Créer le conteneur principal
-    #     main_container = widgets.VBox([
-    #         widgets.HTML(value=f"<h3>Session {session} - {system_type}</h3>"),
-    #         widgets.HTML(value="<hr style='margin: 10px 0;'>"),
-    #         show_all_checkbox,
-    #         p_threshold_slider,
-    #         widgets.HTML(value="<hr style='margin: 10px 0;'>"),
-    #         plot_output
-    #     ])
-        
-    #     # Affichage initial
-    #     update_heatmap_display()
-        
-    #     return main_container
-    
     def create_interactive_correlation_viewer(self, dataset='master', session='V1',
                                             system_type='Synaptic ratio', groups=['A']):
         """
@@ -1192,7 +976,7 @@ class DashNeuroTmapClient:
                 fig_combined = make_subplots(
                     rows=1, cols=3,
                     subplot_titles=titles,
-                    horizontal_spacing=0.10,
+                    horizontal_spacing=0.02, #modification de 0.1 --> 0.02
                     vertical_spacing=0.05,
                     specs=[[{"type": "heatmap"}, {"type": "heatmap"}, {"type": "heatmap"}]]
                 )
@@ -1225,12 +1009,32 @@ class DashNeuroTmapClient:
                         showgrid=False,
                         row=1, col=i
                     )
+                    # fig_combined.update_yaxes(
+                    #     autorange='reversed',
+                    #     tickfont=dict(size=8),
+                    #     showgrid=False,
+                    #     row=1, col=i
+                    # )
+
+                if i == 1:
+                    # Première colonne: afficher l'axe Y
                     fig_combined.update_yaxes(
                         autorange='reversed',
                         tickfont=dict(size=8),
                         showgrid=False,
                         row=1, col=i
                     )
+                else:
+                    # Colonnes 2 et 3: MASQUER l'axe Y
+                    fig_combined.update_yaxes(
+                        autorange='reversed',
+                        tickfont=dict(size=8),
+                        showgrid=False,
+                        showticklabels=False,  # Masquer les labels
+                        row=1, col=i
+                    )
+
+                    
                 
                 fig_combined.update_annotations(font_size=10)
 
@@ -1316,7 +1120,7 @@ class DashNeuroTmapClient:
 
         """Interface interactive avec mise à jour automatique"""
     
-        from IPython.display import display, clear_output
+        from IPython.display import clear_output
         
         # Widgets pour Set 1
         session1 = widgets.Dropdown(options=['V1', 'V2', 'V3'], value='V1', description='Session 1:')
@@ -1339,7 +1143,7 @@ class DashNeuroTmapClient:
             description='Outcome 2:'
         )
         
-       
+
         permanent_message = widgets.HTML(
             value="""
             <div style='
@@ -1372,19 +1176,24 @@ class DashNeuroTmapClient:
                 outcome2=outcome2.value,
                 groups2=['A']
             )
-            
+
             if result and result['status'] == 'success':
                 # Créer un NOUVEAU FigureWidget à chaque mise à jour
                 fig = go.FigureWidget(result['heatmap'])
-                
+
+                fig.update_layout(
+                    width=800,   
+                    height=700, 
+                    margin=dict(l=50, r=50, t=50, b=50)  
+                )
+            
                 # Créer le widget de statistiques
                 stats_text = widgets.HTML(
                     value=f"<p><b>Set 1:</b> {result['subject_count_set1']} subjects | "
                         f"<b>Set 2:</b> {result['subject_count_set2']} subjects | "
                         f"<b>Common:</b> {result['common_subjects']} subjects</p>"
                 )
-                
-                # Mettre à jour le container avec la nouvelle figure
+                # Mettre à jour le container avec la nouvelle figure 
                 output_container.children = [stats_text, fig]
             else:
                 error_text = widgets.HTML(value="<p style='color: red;'>Failed to generate heatmap</p>")
@@ -1410,16 +1219,17 @@ class DashNeuroTmapClient:
         main_container = widgets.VBox([
             widgets.HBox([set1_controls, set2_controls]),
             permanent_message,
-            output_container
+            output_container,
         ])
 
-        # Affichage initial
+        # Affichage initial 
         update_heatmap()
 
         # Activer les observers après le premier affichage
         observers_active = True
         for widget in [session1, sex1, outcome1, session2, sex2, outcome2]:
             widget.observe(on_change, names='value')
+  
 
         # Retourner le conteneur pour qu'il soit sauvegardé comme output du notebook
         return main_container
