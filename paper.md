@@ -15,7 +15,7 @@ Ischaemic stroke, caused by an obstruction of cerebral blood flow, is the most c
 
 Recent advances in molecular neuroimaging now allow investigation of these mechanisms.  Hansen et al. published a neurotransmitter atlas of normative receptor and transporter densities, later used by Alves et al. to build an MRI-based white matter atlas of neurotransmitter circuits representing the axonal projections of acetylcholine, dopamine, noradrenaline, and serotonin receptors and transporters. This framework maps how stroke lesions disrupt neurotransmission, distinguishes pre- and postsynaptic effects, and could further help identify sex-specific differences in early neurotransmitter dynamics, guiding more personalized recovery strategies.
 
-To ensure a standardized and reproducible analysis, an interactive dashboard was developed to extract, organize, and visualize the data from Alves et al., facilitating interpretation in relation to the research question.
+To ensure a standardized and reproducible analysis, an interactive dashboard was developed to extract, organize, and visualize the data from [Alves et al.](https://doi.org/10.1038/s41467-025-57680-2), facilitating interpretation in relation to the research question.
 
 The objective of this study is twofold: (1) to use a dashboard-based framework to investigate whether and how biological sex influences neurotransmitter receptor and transporter characteristics during the acute phase of post-stroke aphasia; and (2) to assess whether these early neurochemical patterns can help predict long-term language recovery. Ultimately, this work aims to contribute to more personalized stroke rehabilitation approaches, including the tailored use of receptor agonists or transporter inhibitors, recognizing that men and women may respond differently to the same pharmacological intervention.
 
@@ -38,12 +38,12 @@ At each timepoint, participants completed a language assessment battery as descr
 Participants underwent MRI scans at all three timepoints. Longitudinal T1-weighted images were processed with *FreeSurfer* to generate within-subject templates. Lesion segmentation was performed semi-automatically using the *Clusterize* toolbox on T1-weighted images and MD maps for the acute phase, and on T1-weighted images maps for the subacute and chronic phases. All segmentations were manually reviewed and corrected by an experienced researcher specialized in lesion tracing in PWA. Binary lesion masks were then generated for each timepoint in RAS orientation (1 mm isotropic resolution). These masks and their corresponding anatomical images were registered to MNI152 2 mm space using FSL’s FLIRT (nearest-neighbor interpolation, no smoothing, zero padding).
 
 
-The NeuroT-Map pipeline [@Alves2025] was then applied to compute neurotransmitter-specific lesion metrics, including the sum of receptor and transporter location density map voxels or white matter projection map voxels intersecting the lesion, as well as pre- and postsynaptic ratios for the studied neurotransmitter systems. The NeuroT-Map tool and associated scripts are publicly available on GitHub: https://github.com/Pedro-N-Alves/NeuroT-Map. 
+The NeuroT-Map pipeline [@Alves2025] was then applied to compute neurotransmitter-specific lesion metrics, including the sum of receptor and transporter location density map voxels or white matter projection map voxels intersecting the lesion, as well as pre- and postsynaptic ratios for the studied neurotransmitter systems. The NeuroT-Map tool and associated scripts are publicly available on [GitHub](https://github.com/Pedro-N-Alves/NeuroT-Map). 
 
 
 ## Dashboard template
 
-An interactive dashboard was developed using the Dash framework (available at https://stroke-dashboard.db.neurolibre.org/; source code: https://github.com/moranebienvenu/stroke_dashboard). The dashboard allows users to upload a .zip file containing:
+An [interactive dashboard](https://stroke-dashboard.db.neurolibre.org/) was developed using the Dash framework ([source code](https://github.com/moranebienvenu/stroke_dashboard)). The dashboard allows users to upload a .zip file containing:
 
 - individual **NeuroT-Map outputs** for each participant: 
   - ***output_les_dis_sub-XXX_ses-VX.csv*** and,
@@ -52,7 +52,7 @@ An interactive dashboard was developed using the Dash framework (available at ht
   - Demographic (e.g., age, sex) variables and, 
   - Linguistic variables (e.g., naming, repetition, comprehension, and composite scores).
 
-All files are automatically merged into a unified dataset linking clinical, demographic, and NeuroT-Map–derived metrics. The dataset can be filtered by **aphasia typ** (Global, Wernicke, Broca, Conduction, Anomic, Transcortical Motor, Transcortical Sensory, Transcortical Mixed, simply Aphasic or Non-aphasic), **sex** (all, men, or women), and **session** (V1–V3, corresponding to acute, subacute, and chronic post-stroke stages).
+All files are automatically merged into a unified dataset linking clinical, demographic, and NeuroT-Map–derived metrics. The dataset can be filtered by **aphasia type** (Global, Wernicke, Broca, Conduction, Anomic, Transcortical Motor, Transcortical Sensory, Transcortical Mixed, simply Aphasic or Non-aphasic), **sex** (all, men, or women), and **session** (V1–V3, corresponding to acute, subacute, and chronic post-stroke stages).
 The dashboard provides interactive visualizations including circular plots illustrating lesion effects on receptor/transporter density maps, tract projection maps, and pre/post-synaptic disruption ratios. These visualizations follow the same representation conventions as NeuroT-map. Users can overlay groups or individual subjects to enable direct visual comparisons.
 
 In addition, the application integrates statistical modules to perform analyses such as:
@@ -94,7 +94,7 @@ Explanatory figure summarizing the main points of the methodology.
 
 We first examined sex-related differences in neurotransmitter system disruption and language outcomes during the acute phase after stroke, and whether early post-stroke imbalance could predict long-term language recovery.
 
-To visualize disruptions, group-averaged male (n = 23) and female (n = 15) data were overlaid on circular graphs showing lesion effects on receptor/transporter density maps, tract projection maps, and derived synaptic disruption ratios [](#fig1), computed with the NeuroT-Map method by Alves et al.. Note that these sample sizes differ from those used for statistical analyses, as not all participants had clinical data but all had lesion masks.
+To visualize disruptions, group-averaged male (n = 23) and female (n = 15) data were overlaid on circular graphs showing lesion effects on receptor/transporter density maps, tract projection maps, and derived synaptic disruption ratios [](#fig1), computed with the NeuroT-Map method by [Alves et al.](https://doi.org/10.1038/s41467-025-57680-2). Note that these sample sizes differ from those used for statistical analyses, as not all participants had clinical data but all had lesion masks.
 
 :::{attention} Enable Computational Interactivity 
 
@@ -182,7 +182,7 @@ We then examined correlations between pre- and post-synaptic ratios in the acute
 :placeholder: ./static/fig3.png
 
 Interactive correlation heatmaps showing the relationship between pre- and post-synaptic ratios across location and projection maps in the acute phase separately for All participants, Men, and Women. Pearson’s r was used for normally distributed pairs (Shapiro-Wilk test, p > 0.05), Spearman’s rₛ otherwise. Colors indicate correlation (–1 = blue, +1 = red); only FDR-significant correlations (p < 0.05) are shown in bright colors, non-significant in grey. Panels: all participants (left, n=38), men (center, n=23), women (right, n=15). 
-Users can toggle the display of significant correlations in bright colors and adjust the p-value threshold with the slider to explore the data interactively.
+Users can toggle the display of correlations values and adjust the p-value threshold with the slider to explore the data interactively.
 :::
 
 
@@ -285,7 +285,7 @@ Correlation between pre- and post-synaptic ratios in acute and chronic phases (n
 :placeholder: ./static/fig5.png
 
 Interactive correlation heatmaps showing the relationship between pre- and post-synaptic ratios. 
-Users can select different sessions (V1, V2, V3) and sex filters (men, women, all) to explore the data interactively.
+Users can select different sessions (V1, V2, V3), sex filters (men, women, all) and variables (synaptic ratio, neurotransmitter (Loc),neurotransmitter (Tract), clinical outcomes) to explore the data interactively.
 :::
 
 Correlations between acute pre-synaptic ratios and chronic clinical outcomes were generally low and non-significant, likely due to the small sample size (n = 17; 8 men, 9 women; see Annex for details). 
