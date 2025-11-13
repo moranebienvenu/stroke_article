@@ -989,7 +989,7 @@ class DashNeuroTmapClient:
                 
                 fig_combined.update_layout(
                     height=550,
-                    width=1300,
+                    width=1100,
                     showlegend=False,
                     margin=dict(l=80, r=80, t=80, b=120),
                     title=dict(
@@ -1009,34 +1009,16 @@ class DashNeuroTmapClient:
                         showgrid=False,
                         row=1, col=i
                     )
-                    # fig_combined.update_yaxes(
-                    #     autorange='reversed',
-                    #     tickfont=dict(size=8),
-                    #     showgrid=False,
-                    #     row=1, col=i
-                    # )
-
-                if i == 1:
-                    # Première colonne: afficher l'axe Y
                     fig_combined.update_yaxes(
                         autorange='reversed',
                         tickfont=dict(size=8),
                         showgrid=False,
                         row=1, col=i
                     )
-                else:
-                    # Colonnes 2 et 3: MASQUER l'axe Y
-                    fig_combined.update_yaxes(
-                        autorange='reversed',
-                        tickfont=dict(size=8),
-                        showgrid=False,
-                        showticklabels=False,  # Masquer les labels
-                        row=1, col=i
-                    )
-
-                    
-                
-                fig_combined.update_annotations(font_size=10)
+                    if i == 1:
+                        fig_combined.update_yaxes(showticklabels=True, row=1, col=i)
+                    else:
+                        fig_combined.update_yaxes(showticklabels=False, row=1, col=i)              
 
                 with plot_output:
                     clear_output(wait=True) 
@@ -1182,9 +1164,9 @@ class DashNeuroTmapClient:
                 fig = go.FigureWidget(result['heatmap'])
 
                 fig.update_layout(
-                    width=800,   
-                    height=700, 
-                    margin=dict(l=50, r=50, t=50, b=50)  
+                    width=600,   
+                    height=600, 
+                    #margin=dict(l=50, r=50, t=50, b=50)  
                 )
             
                 # Créer le widget de statistiques
@@ -1204,15 +1186,21 @@ class DashNeuroTmapClient:
                 update_heatmap()
         
         # Organisation de l'interface
-        set1_controls = widgets.HBox([
+        set1_controls = widgets.VBox([ #widgets.HBox([
             widgets.HTML("<h3>Set 1</h3>"),
-            session1, sex1, outcome1
+            widgets.HBox([session1, sex1]),   # première ligne : session + sexe
+            widgets.HBox([outcome1])          # deuxième ligne : outcome
         ])
+        #     session1, sex1, outcome1
+        # ])
         
-        set2_controls = widgets.HBox([
+        set2_controls = widgets.VBox([ #widgets.HBox([
             widgets.HTML("<h3>Set 2</h3>"),
-            session2, sex2, outcome2
+            widgets.HBox([session2, sex2]),   # première ligne : session + sexe
+            widgets.HBox([outcome2])          # deuxième ligne : outcome
         ])
+        #     session2, sex2, outcome2
+        # ])
         
 
         # Créer le conteneur principal
