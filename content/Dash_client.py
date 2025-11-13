@@ -889,8 +889,8 @@ class DashNeuroTmapClient:
                         fig_combined.add_trace(trace, row=1, col=idx+1)
                 
                 fig_combined.update_layout(
-                    height=350,
-                    width=850,
+                    height=375,
+                    width=900,
                     showlegend=False,
                     #margin=dict(l=80, r=80, t=80, b=120),
                     title=dict(
@@ -1087,21 +1087,20 @@ class DashNeuroTmapClient:
                 update_heatmap()
         
         # Organisation de l'interface
-        set1_controls = widgets.HBox([
+        set1_controls = widgets.VBox([
             widgets.HTML("<h3>Set 1</h3>"),
-            
             # session1, sex1, outcome1
-            [session1, sex1],   # première ligne : session + sexe
-            outcome1         # deuxième ligne : outcome
+            widgets.HBox([session1, sex1]),   # première ligne : session + sexe
+            widgets.HBox([outcome1])        # deuxième ligne : outcome
              ])
         #     session1, sex1, outcome1
         # ])
         
-        set2_controls = widgets.HBox([
+        set2_controls = widgets.VBox([
             widgets.HTML("<h3>Set 2</h3>"),
             # session2, sex2, outcome2
-            [session2, sex2],   # première ligne : session + sexe
-            outcome2,          # deuxième ligne : outcome
+            widgets.HBox([session2, sex2]),   # première ligne : session + sexe
+            widgets.HBox([outcome2])       # deuxième ligne : outcome
         ])
         #     session2, sex2, outcome2
         # ])
