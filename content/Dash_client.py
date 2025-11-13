@@ -900,8 +900,8 @@ class DashNeuroTmapClient:
                     showlegend=False,
                     margin=dict(l=30, r=40, t=80, b=80), #test reduction marge avant fig 1
                     title=dict(
-                        text=f"Session {session} - {system_type}<br>"
-                            f"<sub>p-value threshold: {p_thresh:.3f}</sub>",
+                        text=f"Session {session} - {system_type}<br>",
+                            #f"<sub>p-value threshold: {p_thresh:.3f}</sub>",
                         x=0.5,
                         xanchor='center',
                         font=dict(size=14)
