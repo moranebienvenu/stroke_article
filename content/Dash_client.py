@@ -407,12 +407,6 @@ class DashNeuroTmapClient:
                 height=375,
                 width=820,
                 showlegend=True,
-                # title=dict( 
-                #         y=1,  
-                #         x=0.5,
-                #         xanchor='center',
-                #         yanchor='top'
-                #     ),
                 legend=dict(
                     orientation="h",
                     yanchor="top",
@@ -444,95 +438,6 @@ class DashNeuroTmapClient:
             display(fig)
             
             return fig
-
-            #code fonctionnant mais juste Fig1 et Fig 3 interactif legende pour base OU overlay
-            # Récupérer les informations de base et overlay
-            # base_title = combined_data.get('base_title', 'Base Plot')
-            # overlay_titles = combined_data.get('overlay_titles', [])
-            
-            # # Améliorer la légende
-            # # Filtrer les légendes au niveau des traces SEULEMENT
-            # for trace in fig1.data:
-            #     if hasattr(trace, 'name'):
-            #         # fig1: seulement les traces de base
-            #         trace.showlegend = not any(ov_title in trace.name for ov_title in overlay_titles)
-            
-            # for trace in fig3.data:
-            #     if hasattr(trace, 'name'):
-            #         # fig3: seulement les traces d'overlay
-            #         trace.showlegend = base_title not in trace.name
-            
-            # for trace in fig2.data:
-            #     if hasattr(trace, 'showlegend'):
-            #         # fig2: aucune légende
-            #         trace.showlegend = False
-            
-            # for fig in [fig1, fig2, fig3]:
-            #     fig.update_layout(
-            #         height=250, 
-            #         width=250,
-            #         title=dict(y=1, x=0.5, xanchor='center', yanchor='top')
-            #     )
-            
-            # for fig in [fig1, fig3]:
-            #     fig.update_layout(
-            #         legend=dict(
-            #             orientation="h",
-            #             yanchor="top", 
-            #             y=-0.2,
-            #             xanchor="center",
-            #             x=0
-            #         )
-            #     )
-
-            # display(GridBox(
-            #     children=[go.FigureWidget(fig1), go.FigureWidget(fig2), go.FigureWidget(fig3)],
-            #     layout=Layout(
-            #         grid_template_columns="repeat(3, 33%)",
-            #         justify_content='center', 
-            #         align_items='center'
-            #     )      
-            # ))
-            
-            # return fig1, fig2, fig3
-        
-
-
-
-            #code initial
-            #     fig.update_layout(
-            #         height=250,
-            #         width=250, 
-            #         #showlegend=False, 
-            #         margin=dict(l=20, r=20, t=20, b=40),
-            #         legend=dict(
-            #             orientation="h",
-            #             yanchor="top",
-            #             y=-0.1,
-            #             xanchor="center",
-            #             x=0.5
-            #         ), #essai 
-            #         title=dict( 
-            #             y=0.95,  
-            #             x=0.5,
-            #             xanchor='center',
-            #             yanchor='top'
-            #         )   )
-            
-            # # organisation en grille (3 colonnes) - identique à display_plots
-            # display(GridBox(
-            #     children=[
-            #         go.FigureWidget(fig1),
-            #         go.FigureWidget(fig2),
-            #         go.FigureWidget(fig3)
-            #     ],
-            #     layout=Layout(grid_template_columns="repeat(3, 33%)",
-            #     justify_content='center',
-            #     align_items='center')      
-            #     #width='100%')
-            # ))
-
-            # return fig1, fig2, fig3
             
         except Exception as e:
             print(f"Error displaying combined plots: {e}")
@@ -722,8 +627,8 @@ class DashNeuroTmapClient:
             
             # Mise en page globale
             fig_combined.update_layout(
-                height=450,
-                width=1300,  # Large pour 3 heatmaps à modifier si ca ne va pas
+                height=400,
+                width=900,  # Large pour 3 heatmaps à modifier si ca ne va pas
                 showlegend=False,
                 margin=dict(l=80, r=80, t=60, b=120),
                 xaxis=dict(showgrid=False),
@@ -856,8 +761,6 @@ class DashNeuroTmapClient:
         PAS de dropdowns pour session/system/groups (fixés à l'appel)
         """
         
-        #print(f"⏳ Loading data for {session} - {system_type}...")
-        
         # Générer les heatmaps UNE SEULE FOIS
         heatmaps_data = self.generate_correlation_heatmaps(
             dataset=dataset,
@@ -869,8 +772,6 @@ class DashNeuroTmapClient:
         if not heatmaps_data:
             print("❌ Failed to load heatmaps data")
             return None
-        
-        #print("✅ Data loaded successfully")
         
         # Slider pour p-value threshold
         p_threshold_slider = widgets.FloatSlider(
@@ -988,10 +889,10 @@ class DashNeuroTmapClient:
                         fig_combined.add_trace(trace, row=1, col=idx+1)
                 
                 fig_combined.update_layout(
-                    height=550,
-                    width=1100,
+                    height=250,
+                    width=700,
                     showlegend=False,
-                    margin=dict(l=80, r=80, t=80, b=120),
+                    #margin=dict(l=80, r=80, t=80, b=120),
                     title=dict(
                         text=f"Session {session} - {system_type}<br>"
                             f"<sub>p-value threshold: {p_thresh:.3f}</sub>",
@@ -1163,12 +1064,19 @@ class DashNeuroTmapClient:
                 # Créer un NOUVEAU FigureWidget à chaque mise à jour
                 fig = go.FigureWidget(result['heatmap'])
 
-                fig.update_layout(
-                    width=600,   
-                    height=600, 
-                    #margin=dict(l=50, r=50, t=50, b=50)  
-                )
+                # fig.update_layout(
+                #     width=600,   
+                #     height=600, 
+                #     #margin=dict(l=50, r=50, t=50, b=50)  
+                # )
             
+                fig.update_layout(
+                    title=dict(
+                        text="Titre de la heatmap",
+                        x=0.5,      # position horizontale
+                        xanchor='center'
+                    )
+                )
                 # Créer le widget de statistiques
                 stats_text = widgets.HTML(
                     value=f"<p><b>Set 1:</b> {result['subject_count_set1']} subjects | "
@@ -1207,7 +1115,8 @@ class DashNeuroTmapClient:
         main_container = widgets.VBox([
             widgets.HBox([set1_controls, set2_controls]),
             permanent_message,
-            output_container,
+            #output_container,
+            widgets.HBox([output_container], layout=widgets.Layout(justify_content='center'))
         ])
 
         # Affichage initial 
