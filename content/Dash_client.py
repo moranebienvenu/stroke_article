@@ -877,7 +877,7 @@ class DashNeuroTmapClient:
                 fig_combined = make_subplots(
                     rows=1, cols=3,
                     subplot_titles=titles,
-                    horizontal_spacing=0.02, #modification de 0.1 --> 0.02
+                    horizontal_spacing=0.01, #modification de 0.1 --> 0.02
                     vertical_spacing=0.05,
                     specs=[[{"type": "heatmap"}, {"type": "heatmap"}, {"type": "heatmap"}]]
                 )
@@ -889,8 +889,8 @@ class DashNeuroTmapClient:
                         fig_combined.add_trace(trace, row=1, col=idx+1)
                 
                 fig_combined.update_layout(
-                    height=250,
-                    width=700,
+                    height=350,
+                    width=850,
                     showlegend=False,
                     #margin=dict(l=80, r=80, t=80, b=120),
                     title=dict(
@@ -1065,8 +1065,8 @@ class DashNeuroTmapClient:
                 fig = go.FigureWidget(result['heatmap'])
 
                 fig.update_layout(
-                    width=600,   
-                    height=600, 
+                    width=500,   
+                    height=500, 
                     #margin=dict(l=50, r=50, t=50, b=50)  
                 )
             
@@ -1089,18 +1089,19 @@ class DashNeuroTmapClient:
         # Organisation de l'interface
         set1_controls = widgets.HBox([
             widgets.HTML("<h3>Set 1</h3>"),
-            session1, sex1, outcome1
-            # [session1, sex1],   # première ligne : session + sexe
-            # outcome1         # deuxième ligne : outcome
+            
+            # session1, sex1, outcome1
+            [session1, sex1],   # première ligne : session + sexe
+            outcome1         # deuxième ligne : outcome
              ])
         #     session1, sex1, outcome1
         # ])
         
         set2_controls = widgets.HBox([
             widgets.HTML("<h3>Set 2</h3>"),
-            session2, sex2, outcome2
-            # [session2, sex2],   # première ligne : session + sexe
-            # outcome2,          # deuxième ligne : outcome
+            # session2, sex2, outcome2
+            [session2, sex2],   # première ligne : session + sexe
+            outcome2,          # deuxième ligne : outcome
         ])
         #     session2, sex2, outcome2
         # ])
