@@ -326,4 +326,3 @@ In conclusion, age, sex and lesion location could possibly alter the direction a
 
 Our data are available on https://github.com/moranebienvenu/stroke_dashboard , it’s the ‘data_article.csv’ file.
 
-# References
