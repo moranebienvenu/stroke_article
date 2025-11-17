@@ -282,7 +282,7 @@ Mann–Whitney U tests showed chronic scores exceeded acute scores for the whole
 
 Correlation between pre- and post-synaptic ratios in acute and chronic phases (n=17) were strong for serotonergic ratios, pre-M1, pre-D2, and post-DAT (r > 0.55; p < 0.05; mean post-hoc power = 0.786). Also, early pre-M1 positively correlated with late serotonergic presynaptic ratios, while early pre-D2 showed negative correlations with late serotonergic presynaptic ratios and pre-M1 [](#fig5).
 
-:::{note} To activate Figure 5 interactivity: **<span style="color:red">click the play button `▶️`</span>** if available. If only the `⏻` icon is present, click it first to start the runtime, then click `▶️`.
+:::{note} To activate Figure 5 interactivity: **<span style="color:red">click the play button `▶️`</span>** if available. If only the `⏻` icon is present, click it first to start the runtime, then click `▶️`. 
 :::
 
 :::{figure} #fig5cell
