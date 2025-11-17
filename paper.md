@@ -98,7 +98,7 @@ To visualize disruptions, group-averaged male (n = 23) and female (n = 15) data 
 
 :::{attention} Enable Computational Interactivity 
 
-To enable interactivity, attach a runtime by **<span style="color:red">clicking the `⏻` icon in the top-right corner of the figure 2 panel</span>**. If no runtime is attached, the figure will remain in its default state: hover and basic interactions are available.
+**<span style="color:red">To enable interactivity, attach a runtime by clicking the `⏻` icon in the top-right corner of the figure 2 panel</span>**. If no runtime is attached, the figure will remain in its default state: hover and basic interactions are available.
 
 **<span style="color:red">Once loaded, three buttons appear in the corner. Click the middle play button `▶️` to activate figure 2.</span>** When the static figure is replaced by an interactive Plotly chart, use the toggles to modify the display. Use `↩` to revert to the original static figure.
 
@@ -111,7 +111,7 @@ To enable interactivity, attach a runtime by **<span style="color:red">clicking 
 :placeholder: ./static/fig2.png
 
 Interactive NeuroTmap analysis showing base and overlay comparisons. 
-**Left panel**: Proportion of each neurotransmitter system affected by the lesion based on receptor/transporter location density maps. **Middle panel**: Proportion of each neurotransmitter system affected by the lesion based on receptor/transporter tract projection maps. **Right panel**: Synaptic disruption ratios for men and women, shown in natural logarithmic scale. **Abbreviations**: 5HT1a serotonin receptor 1a, 5HT1b serotonin receptor 1b, 5HT2a serotonin receptor 2a, 5HT4 serotonin receptor 4, 5HT6 serotonin receptor 6, 5HTT serotonin transporter, α4β2 acetylcholine receptor α4β2, D1 dopamine receptor 1, D2 dopamine receptor 2, DAT dopamine transporter, M1 muscarinic 1 receptor, Nor noradrenaline transporter, VAChT acetylcholine vesicular transporter.
+Left panel: Proportion of each neurotransmitter system affected by the lesion based on receptor/transporter location density maps. Middle panel: Proportion of each neurotransmitter system affected by the lesion based on receptor/transporter tract projection maps. Right panel: Synaptic disruption ratios for men and women, shown in natural logarithmic scale. Abbreviations: 5HT1a serotonin receptor 1a, 5HT1b serotonin receptor 1b, 5HT2a serotonin receptor 2a, 5HT4 serotonin receptor 4, 5HT6 serotonin receptor 6, 5HTT serotonin transporter, α4β2 acetylcholine receptor α4β2, D1 dopamine receptor 1, D2 dopamine receptor 2, DAT dopamine transporter, M1 muscarinic 1 receptor, Nor noradrenaline transporter, VAChT acetylcholine vesicular transporter.
 ***Users can select different sessions (V1, V2, V3) and sex filters (men, women, all) to explore the data interactively.***
 
 :::
@@ -175,7 +175,7 @@ Global and sex-stratified GLM analyses, performed using the dashboard with a Twe
 
 We then examined correlations between pre- and post-synaptic ratios in the acute phase (n = 38) by selecting all subjects, men only, and women only for the V1 session and synaptic ratio variables in the dashboard. Several strong positive associations emerged across neurotransmitter systems (e.g., pre-M1 with pre-5HT1b/2a, r > 0.8, p < 0.05). Post-hoc power was high (mean = 0.904). Stratified analyses revealed sex-related differences: women exhibited more and stronger correlations, including strong positive associations between post-DAT and serotonergic presynaptic ratios, and strong negative associations between pre-D2 and both pre-M1 and serotonergic presynaptic ratios. These patterns were not observed in men. The mean post-hoc statistical power for all significant correlations remained high in both subgroups (0.948 in men, 0.927 in women) [](#fig3).
 
-:::{note} To activate Figure 3 interactivity: **<span style="color:red">click the play button `▶️`</span>** if available. If only the **<span style="color:red">`⏻` icon is present, click it first</span>** to start the runtime, then click `▶️`.
+:::{note} To activate Figure 3 interactivity: **<span style="color:red">click the play button `▶️`</span>** if available. If only the `⏻` icon is present, click it first to start the runtime, then click `▶️`.
 :::
 
 :::{figure} #fig3cell
@@ -235,7 +235,7 @@ We then applied linear mixed-effects modeling for each bounded clinical language
 
 To illustrate longitudinal changes in neurotransmitter system disruption and synaptic ratio imbalance, we overlaid acute (n=38) and chronic (n=17) group-averaged data in circular graphs as we did in [](#fig2), as shown in [](#fig4).
 
-:::{note} To activate Figure 4 interactivity: **<span style="color:red">click the play button `▶️`</span>** if available. If only the **<span style="color:red">`⏻` icon is present, click it first</span>** to start the runtime, then click `▶️`.
+:::{note} To activate Figure 4 interactivity: **<span style="color:red">click the play button `▶️`</span>** if available. If only the `⏻` icon is present, click it first to start the runtime, then click `▶️`.
 :::
 
 :::{figure} #fig4cell
@@ -282,7 +282,7 @@ Mann–Whitney U tests showed chronic scores exceeded acute scores for the whole
 
 Correlation between pre- and post-synaptic ratios in acute and chronic phases (n=17) were strong for serotonergic ratios, pre-M1, pre-D2, and post-DAT (r > 0.55; p < 0.05; mean post-hoc power = 0.786). Also, early pre-M1 positively correlated with late serotonergic presynaptic ratios, while early pre-D2 showed negative correlations with late serotonergic presynaptic ratios and pre-M1 [](#fig5).
 
-:::{note} To activate Figure 5 interactivity: **<span style="color:red">click the play button `▶️`</span>** if available. If only the **<span style="color:red">`⏻` icon is present, click it first</span>** to start the runtime, then click `▶️`.
+:::{note} To activate Figure 5 interactivity: **<span style="color:red">click the play button `▶️`</span>** if available. If only the `⏻` icon is present, click it first to start the runtime, then click `▶️`.
 :::
 
 :::{figure} #fig5cell
