@@ -917,7 +917,7 @@ class DashNeuroTmapClient:
         
         # Create the main container 
         main_container = widgets.VBox([
-            widgets.HTML(value=f"<h3>Session {session} - {system_type}</h3>"),
+            #widgets.HTML(value=f"<h3>Session {session} - {system_type}</h3>"),
             widgets.HTML(value="<hr style='margin: 10px 0;'>"),
             show_numbers_checkbox,
             p_threshold_slider,
