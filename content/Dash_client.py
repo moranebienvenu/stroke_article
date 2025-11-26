@@ -1031,6 +1031,7 @@ class DashNeuroTmapClient:
                 fig.update_layout(
                     width=500,   
                     height=500, 
+                    showlegend =False
                     #margin=dict(l=50, r=50, t=50, b=50)  
                 )
             

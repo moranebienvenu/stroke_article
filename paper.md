@@ -290,7 +290,7 @@ Correlation between pre- and post-synaptic ratios in acute and chronic phases (n
 :name: fig-cross-correlation-analysis
 :placeholder: ./static/fig5.png
 
-Interactive correlation heatmaps showing the relationship between pre- and post-synaptic ratios in the acute phase. 
+Interactive correlation heatmaps showing the relationship between pre- and post-synaptic ratios in the acute phase. The X-axis shows the variables from set 2, and the Y-axis shows the variables from set 1.
 ***Users can select different sessions (V1, V2, V3), sex filters (men, women, all) and variables (synaptic ratio, neurotransmitter (Loc),neurotransmitter (Tract), clinical outcomes) to explore the data interactively.***
 :::
 
