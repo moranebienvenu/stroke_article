@@ -12,27 +12,32 @@ project:
     kernel:
       name: python3
   authors:
-    - name: Agah Karakuzu
+   - name: Morane Bienvenu
+      affiliations: polymtl
+      corresponding: true
+      email: morane-cecile.bienvenu@etud.polymtl.ca
+     - name: Agah Karakuzu
       orcid: 0000-0001-7283-271X
       affiliations: polymtl; mhi
-      corresponding: true
-      email: agah.karakuzu@polymtl.ca
-      twitter: agahkarakuzu
-      equal_contributor: true
-      url: https://agah.dev
-      github: agahkarakuzu
-      roles:
-        - Conceptualization
-        - Software
-        - Writing – original draft
-    - name: Robo Neuro
-      affiliations: polymtl
-      equal_contributor: true
-      github: roboneurolibre
-      note: Roboneuro is a friendly publishing bot who fails the Turing test.
-      roles:
-        - Project administration
-        - Writing – review & editing
+    - name: Karine Marcotte
+      affiliations: CRIUGM; UdeMa
+      orcid: 0000-0002-3275-1154
+    - name: Michel Thiebaut de Schotten
+      affiliations: GIF; BCBL
+      orcid: https://orcid.org/0000-0002-0329-1814
+    - name: Pedro Nascimento Alves
+      affiliations: UL; ULSSM;
+      orcid: 0000-0001-5740-5904
+    - name: Christophe Bedetti
+      affiliations: CRIUGM
+      orcid: 0000-0002-1443-8922
+    - name: Simona Maria Brambati
+      affiliations: CRIUGM; UdeMp
+      orcid: 0000-0002-9227-1443
+    - name: Nikola Stikov
+      orcid: 0000-0002-8480-5230
+      affiliations: polymtl; mhi; macedonia
+
   affiliations:
     - id: polymtl
       institution: NeuroPoly Lab, Polytechnique Montreal
@@ -54,13 +59,62 @@ project:
       region: Quebec
       country: Canada
       postal_code: H1T 1C8
+    - id: UdeMa
+      institution: École d'orthophonie et d'audiologie, Faculté de médecine, Université de Montréal
+      address: 7077 Av. du Parc
+      city: Montreal
+      region: Quebec
+      country: Canada
+      postal_code: H3N 1X7
+    - id: UdeMp
+      institution: Département de psychologie, Faculté des arts et Sciences, Université de Montréal
+      address: 90, avenue Vincent d'Indy
+      city: Montreal
+      region: Quebec
+      country: Canada
+      postal_code: H2V 2S9
+    - id: CRIUGM
+      institution: Centre de Recherche de l'Institut Universitaire de Gériatrie de Montréal 
+      ror:  https://ror.org/031z68d90
+      isni: 0000 0000 9199 9374
+      address: 4545 Chemin Queen-Mary
+      city: Montreal
+      region: Quebec
+      country: Canada
+      postal_code: H3W 1W4
+    - id: BCBL
+      institution: Brain Connectivity and Behaviour Laboratory, Sorbonne Universities
+      city: Paris
+      country: France
+    - id: UL
+      institution: Laboratório de Estudos de Linguagem, Centro de Estudos Egas Moniz, Faculdade de Medicina, Universidade de Lisboa
+      address: Av. Prof. Egas Moniz
+      city: Lisbon
+      country: Portugal
+      postal_code: 1649-028
+    - id: ULSSM
+      institution: Unidade de Acidentes Vasculares Cerebrais, Serviço de Neurologia, Departamento de Neurociências e Saúde Mental, Hospital de Santa Maria, ULSSM
+      address: Av. Prof. Egas Moniz
+      city: Lisbon
+      country: Portugal
+      postal_code: 1649-035 
+    - id: GIF
+      institution: Groupe d’Imagerie Neurofonctionnelle, Institut des Maladies Neurodégénératives-UMR 5293, CNRS, CEA, University of Bordeaux, 
+      ror: https://ror.org/001695n52
+      isni: 0000 0004 6102 8699
+      address: 146 Rue Léo Saignat
+      city: Bordeaux
+      country: France
+      postal_code: 33000
+
+
   keywords:
-    - reproducible publishing
     - mystmd
     - next-gen preprints 
     - interactive 
     - neuroscience 
-  github: https://github.com/moranebienvenu/stroke_article #https://github.com/neurolibre/mystical-article 
+    - stroke
+  github: https://github.com/moranebienvenu/stroke_article 
   banner: featured.jpg
   venue: Neurolibre #Production will override this.
   subject: Living Preprint # Production will override this.

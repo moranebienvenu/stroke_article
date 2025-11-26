@@ -16,10 +16,10 @@ pio.renderers.default = "plotly_mimetype"
 class DashNeuroTmapClient:
     def __init__(self, dash_url="http://127.0.0.1:8050"):
         """
-        Client pour interagir avec l'application Dash
-        
+        Client for interacting with the Dash application.
+
         Args:
-            dash_url: URL de base de l'application Dash
+            dash_url: Base URL of the Dash application
         """
         self.base_url = dash_url
         self.api_url = f"{dash_url}/api"
@@ -27,12 +27,12 @@ class DashNeuroTmapClient:
         self.overlays = []
         
     def check_health(self):
-        """Vérifie si l'API Dash est accessible"""
+        """Check whether the Dash API is accessible."""
         try:
             response = requests.get(f"{self.api_url}/health", timeout=5)
             if response.status_code == 200:
                 data = response.json()
-                print("✅ Dash API is healthy!")
+                #print(" Dash API is healthy!")
                 #print(f"Available datasets: {data['available_datasets']}")
                 return True
             else:
@@ -44,7 +44,7 @@ class DashNeuroTmapClient:
             return False
     
     def get_available_subjects(self, dataset='master'):
-        """Récupère la liste des sujets disponibles"""
+        """Retrieve the list of available subjects."""
         try:
             response = requests.get(f"{self.api_url}/subjects", 
                                   params={'dataset': dataset}, timeout=10)
@@ -60,16 +60,16 @@ class DashNeuroTmapClient:
     def generate_plots(self, dataset='master', analysis_type='session_sex', 
                       session='V1', sex_filter='men', groups='A', subject=None, title=None):
         """
-        Génère des graphiques via l'API Dash
-        
+        Generate plots via the Dash API.
+
         Args:
-            dataset: 'master', 'dataset1', ou 'dataset2'
-            analysis_type: 'single' ou 'session_sex'
-            session: 'V1', 'V2', ou 'V3'
-            sex_filter: 'all', 'men', ou 'women'
-            groups: Liste des groupes (ex: ['A', 'B', 'C'])
-            subject: ID du sujet (requis pour analysis_type='single')
-            title: Titre personnalisé pour l'overlay
+            dataset: 'master', 'dataset1', or 'dataset2'
+            analysis_type: 'single' or 'session_sex'
+            session: 'V1', 'V2', or 'V3'
+            sex_filter: 'all', 'men', or 'women'
+            groups: List of groups (e.g., ['A', 'NA'])
+            subject: Subject ID (required if analysis_type='single')
+            title: Custom title for the overlay
         """
 
         payload = {
@@ -91,7 +91,7 @@ class DashNeuroTmapClient:
             if response.status_code == 200:
                 data = response.json()
                 self.current_plots = data['plots']
-                #print(f"✅ {data['message']}")
+                #print(f"{data['message']}")
                 return data['plots']
             else:
                 error_data = response.json()
@@ -103,7 +103,7 @@ class DashNeuroTmapClient:
             return None
     
     def update_plots(self, **kwargs):
-        """Met à jour les graphiques actuels avec de nouveaux paramètres"""
+        """Update the current plots with new parameters"""
         try:
             response = requests.put(f"{self.api_url}/update_plots", 
                                   json=kwargs, timeout=30)
@@ -111,7 +111,7 @@ class DashNeuroTmapClient:
             if response.status_code == 200:
                 data = response.json()
                 self.current_plots = data['plots']
-                #print(f"✅ Plots updated successfully")
+                #print(f" Plots updated successfully")
                 return data['plots']
             else:
                 error_data = response.json()
@@ -123,7 +123,7 @@ class DashNeuroTmapClient:
             return None
     
     def get_current_plots(self):
-        """Récupère les graphiques actuels"""
+        """Retrieve the current plots"""
         try:
             response = requests.get(f"{self.api_url}/get_plots", timeout=10)
             
@@ -141,7 +141,7 @@ class DashNeuroTmapClient:
             return None
     
     def display_plots(self, plots_data=None):
-        """Affiche les 3 graphiques Plotly côte à côte"""
+        """Display the 3 Plotly charts side by side"""
         if plots_data is None:
             plots_data = self.current_plots
             
@@ -203,17 +203,18 @@ class DashNeuroTmapClient:
                         session='V1', sex_filter='women', groups='A', 
                         subject=None, title=None):
         """
-        Génère un overlay avec état naturel
+        Generate an overlay in the natural state
         
         Args:
-            dataset: 'master', 'dataset1', ou 'dataset2'
-            analysis_type: 'single' ou 'session_sex' (défaut: session_sex)
-            session: 'V1', 'V2', ou 'V3' (défaut: V1)
-            sex_filter: 'all', 'men', ou 'women' (défaut: women)
-            groups: Liste des groupes
-            subject: ID du sujet (pour analysis_type='single')
-            title: Titre personnalisé pour l'overlay
+            dataset: 'master', 'dataset1', or 'dataset2'
+            analysis_type: 'single' or 'session_sex' (default: session_sex)
+            session: 'V1', 'V2', or 'V3' (default: V1)
+            sex_filter: 'all', 'men', or 'women' (default: women)
+            groups: List of groups (default: Aphasic (A))
+            subject: Subject ID (required for analysis_type='single')
+            title: Custom title for the overlay
         """
+
         if groups is None:
             groups = ['NA', 'A', 'B', 'W', 'G', 'C', 'AN', 'TCM', 'TCS', 'TCMix']
         
@@ -253,7 +254,7 @@ class DashNeuroTmapClient:
             return None
 
     def get_combined_plots(self):
-        """Récupère les graphiques combinés (base + overlays)"""
+        """Retrieve the combined plots, including the base and overlay plots."""
         try:
             response = requests.get(f"{self.api_url}/overlay/combine", timeout=10)
             if response.status_code == 200:
@@ -265,7 +266,7 @@ class DashNeuroTmapClient:
             return None
     
     def display_combined_plots(self):
-        """Affiche les graphiques combinés avec overlays"""
+        """Display the combined plots including overlays."""
         combined_data = self.get_combined_plots()
         if not combined_data:
             print("No combined plots available. Generate base plots and overlays first.")
@@ -286,7 +287,7 @@ class DashNeuroTmapClient:
                 vertical_spacing=0.05
                 )
         
-            # Collecter tous les noms de traces uniques
+            # Collect all unique trace names
             all_trace_names = set()
             for trace in fig1.data:
                 all_trace_names.add(trace.name)
@@ -295,7 +296,7 @@ class DashNeuroTmapClient:
             for trace in fig3.data:
                 all_trace_names.add(trace.name)
             
-            # Ajouter les traces de fig1 (colonne 1)
+            # Add traces from fig1 (column 1)
             for i, trace in enumerate(fig1.data):
                 fig.add_trace(
                     go.Barpolar(
@@ -304,7 +305,7 @@ class DashNeuroTmapClient:
                         marker_color=trace.marker.color,
                         name=trace.name,
                         legendgroup=trace.name,
-                        showlegend=True,  # Afficher la légende seulement pour fig1
+                        showlegend=True,  # Show legend only for fig1
                         hovertemplate=trace.hovertemplate,
                         width=trace.width,
                         base=trace.base if hasattr(trace, 'base') else None
@@ -312,7 +313,7 @@ class DashNeuroTmapClient:
                     row=1, col=1
                 )
             
-            # Ajouter les traces de fig2 (colonne 2)
+            # Add traces from fig2 (column 2)
             for i, trace in enumerate(fig2.data):
                 fig.add_trace(
                     go.Barpolar(
@@ -321,7 +322,7 @@ class DashNeuroTmapClient:
                         marker_color=trace.marker.color,
                         name=trace.name,
                         legendgroup=trace.name,
-                        showlegend=False,  # Pas de légende pour fig2
+                        showlegend=False,  # No legend for fig2
                         hovertemplate=trace.hovertemplate,
                         width=trace.width,
                         base=trace.base if hasattr(trace, 'base') else None
@@ -329,7 +330,7 @@ class DashNeuroTmapClient:
                     row=1, col=2
                 )
             
-            # Ajouter les traces de fig3 (colonne 3)
+            # Add traces from fig3 (column 3)
             for i, trace in enumerate(fig3.data):
                 fig.add_trace(
                     go.Barpolar(
@@ -338,7 +339,7 @@ class DashNeuroTmapClient:
                         marker_color=trace.marker.color,
                         name=trace.name,
                         legendgroup=trace.name,
-                        showlegend=False,  # Pas de légende pour fig3
+                        showlegend=False,  # No legend for fig3
                         hovertemplate=trace.hovertemplate,
                         width=trace.width,
                         base=trace.base if hasattr(trace, 'base') else None
@@ -346,7 +347,7 @@ class DashNeuroTmapClient:
                     row=1, col=3
                 )
             
-            # Copier les configurations polaires des figures originales
+            # Copy the polar settings from the original figures
             if hasattr(fig1.layout, 'polar'):
                 fig.update_polars(
                     angularaxis=fig1.layout.polar.angularaxis,
@@ -370,7 +371,7 @@ class DashNeuroTmapClient:
                     bargap=fig3.layout.polar.bargap if hasattr(fig3.layout.polar, 'bargap') else 0.1,
                     row=1, col=3
                 )
-            # Mise en page globale
+            # Overall layout
             fig.update_layout(
                 height=375,
                 width=820,
@@ -389,17 +390,17 @@ class DashNeuroTmapClient:
                 yanchor='bottom', 
                 font=dict(size=10, color='black'),
             )
-            # Pour 3 graphiques égaux SANS espace :
+            # Layout for 3 equal charts with no spacing
             fig.update_polars(
-                domain=dict(x=[0, 0.32], y=[0.1, 0.9]),  # Graphique 1
+                domain=dict(x=[0, 0.32], y=[0.1, 0.9]),  # Graph 1
                 row=1, col=1
             )
             fig.update_polars(
-                domain=dict(x=[0.34, 0.66], y=[0.1, 0.9]),  # Graphique 2
+                domain=dict(x=[0.34, 0.66], y=[0.1, 0.9]),  # Graph 2
                 row=1, col=2
             )
             fig.update_polars(
-                domain=dict(x=[0.66, 1.0], y=[0.1, 0.9]),   # Graphique 3
+                domain=dict(x=[0.66, 1.0], y=[0.1, 0.9]),   # Graph 3
                 row=1, col=3
             )
             
@@ -412,31 +413,31 @@ class DashNeuroTmapClient:
             return None
             
     def create_advanced_interface(self, base_session_default='V1', base_sex_default='men', overlay_session_default='V1', overlay_sex_default='women', groups_default=['A'], dataset ='master'):
-        """Interface avancée avec gestion des overlays"""
+        """Advanced interface with overlay management"""
         subjects_data = self.get_available_subjects(dataset="master")
         if not subjects_data:
             print("Cannot create interface: no subjects data available")
             return None
 
-        # Widgets pour la base
+        # Base widgets 
         base_session = Dropdown(options=['V1', 'V2', 'V3'], value=base_session_default, description='Base Session:')
         base_sex = Dropdown(options=['all', 'men', 'women'], value=base_sex_default, description='Base Sex:')
         
-        # Widgets pour l'overlay (seulement session et sexe)
+        # Overlay widgets 
         overlay_session = Dropdown(options=['V1', 'V2', 'V3'], value=overlay_session_default, description='Overlay Session:')
         overlay_sex = Dropdown(options=['all', 'men', 'women'], value=overlay_sex_default, description='Overlay Sex:')
         
-        # Container pour les graphiques
+        # Graph container
         plot_output = widgets.Output()
 
         observers_active = False
         
         def display_base_with_overlay():
-            """Affiche base + overlay (état par défaut)"""
+            """Display base + overlay (default state)"""
             with plot_output:
                 plot_output.clear_output(wait=True)
-                
-                # Effacer les overlays existants
+          
+                # Clear existing overlays
                 self.clear_overlays()
 
                 # Créer un titre personnalisé SANS les groupes pour la base
@@ -444,7 +445,7 @@ class DashNeuroTmapClient:
                 if base_sex.value != 'all':
                     base_title += f" ({'Men' if base_sex.value == 'men' else 'Women'})"
                 
-                # Générer la base
+                # Create a custom title for the base without groups
                 base_plots = self.generate_plots(
                     dataset=dataset,
                     analysis_type="session_sex",
@@ -455,34 +456,34 @@ class DashNeuroTmapClient:
                 )
                 
                 if base_plots:
-                    # Générer l'overlay (groupes fixes pour l'état naturel)
+                    # Generate the overlay (fixed groups for the natural state)
                     overlay_plots = self.generate_overlay(
                         dataset=dataset,
                         analysis_type="session_sex",
                         session=overlay_session.value,
                         sex_filter=overlay_sex.value,
-                        groups=groups_default  # Groupe fixe pour l'état naturel
+                        groups=groups_default  
                     )
                     
                     if overlay_plots:
-                        self.display_combined_plots()
+                       self.display_combined_plots()
                     else:
                         self.display_plots(base_plots)
          
         
         def reset_to_default():
-            """Réinitialise tous les widgets aux valeurs par défaut"""
+            """Reset all widgets to their default values"""
             base_session.value = base_session_default #'V1'
             base_sex.value = base_sex_default #'men'
             overlay_session.value = overlay_session_default #'V1'
             overlay_sex.value = overlay_sex_default #'women'
             
 
-        # Créer le bouton reset
+        # Create the reset button
         reset_btn = widgets.Button(description="🔄 Reset to Default", button_style='warning')
         reset_btn.on_click(lambda b: reset_to_default())
 
-        # Créer le conteneur principal
+        # Create the main container
         main_container = VBox([
             HBox([base_session, base_sex]),
             HBox([overlay_session, overlay_sex]),
@@ -490,25 +491,25 @@ class DashNeuroTmapClient:
             plot_output
         ])
 
-        # Premier affichage (base + overlay par défaut)
+        # Initial display (base + overlay by default)
         display_base_with_overlay()
 
-        # Lier les événements des widgets - mise à jour automatique
+        # Link widget events – automatic update
         def on_any_change(change):
-            """Quand un paramètre change, mettre à jour base + overlay"""
+            """When a parameter changes, update base + overlay"""
             if observers_active:
                 display_base_with_overlay()
 
         observers_active = True
-        # Tous les widgets déclenchent une mise à jour automatique
+        # All widgets trigger an automatic update
         for widget in [base_session, base_sex, overlay_session, overlay_sex]:
             widget.observe(on_any_change, names='value')
 
-        # Retourner le conteneur pour qu'il soit sauvegardé comme output du notebook
+        # Return the container so that it can be saved as the notebook output
         return main_container
         
     def clear_overlays(self):
-        """Efface tous les overlays localement et via l'API"""
+        """Clear all overlays locally and via the API"""
         self.overlays = []
         try:
             response = requests.delete(f"{self.api_url}/overlay/clear", timeout=10)
@@ -519,11 +520,11 @@ class DashNeuroTmapClient:
             return False
 
 
-   #Affichez 3 heatmaps côte à côte, "All", "Men" et "Women", pour même variable, même session
+    # Display 3 heatmaps side by side: ‘All’, ‘Men’, and ‘Women’, for the same variable and the same session
     def generate_correlation_heatmaps(self, dataset='master', session='V1', 
                                         system_type='Synaptic ratio', groups=['A']):
             """
-            Génère des heatmaps de corrélation identiques à celles du Dash
+            Generate correlation heatmaps identical to those in the Dash app.
             """
             payload = {
                 'dataset': dataset,
@@ -549,7 +550,7 @@ class DashNeuroTmapClient:
                 return None
 
     def display_correlation_heatmaps(self, heatmaps_data=None, system_type="Synaptic ratio"):
-        """Affiche les 3 heatmaps de corrélation identiques à Dash"""
+        """Display 3 heatmaps identical to those in the Dash app."""
         if heatmaps_data is None:
             return None
         
@@ -561,12 +562,12 @@ class DashNeuroTmapClient:
                 if (sex_filter in heatmaps_data and 
                     heatmaps_data[sex_filter]['status'] == 'success'):
                     
-                    # Utiliser directement la figure Plotly générée par Dash
+                    # Use the Plotly figure generated directly by the Dash app
                     fig_dict = heatmaps_data[sex_filter]['heatmap']
                     fig = go.Figure(fig_dict)
                     figures.append(fig)
                 else:
-                    # Créer une figure vide avec message d'erreur
+                    # Create an empty figure with an error message
                     fig = go.Figure()
                     fig.add_annotation(
                         text=f"No data for {titles[i]}",
@@ -577,7 +578,7 @@ class DashNeuroTmapClient:
                     )
                     figures.append(fig)
 
-            # Créer une figure avec 3 subplots
+            # Create a figure with 3 subplots
             fig_combined = make_subplots(
                 rows=1, cols=3,
                 subplot_titles=titles,
@@ -586,24 +587,24 @@ class DashNeuroTmapClient:
                 specs=[[{"type": "heatmap"}, {"type": "heatmap"}, {"type": "heatmap"}]]
             )
             
-            # Ajouter chaque heatmap
+            # Add each heatmap
             for idx, fig in enumerate(figures):
                 if len(fig.data) > 0:
                     trace = fig.data[0]
-                    trace.showscale = (idx == 2)  # Colorbar seulement sur la dernière
+                    trace.showscale = (idx == 2)  # Colorbar only for the last heatmap 
                     fig_combined.add_trace(trace, row=1, col=idx+1)
             
-            # Mise en page globale
+            # Global layout
             fig_combined.update_layout(
                 height=400,
-                width=900,  # Large pour 3 heatmaps à modifier si ca ne va pas
+                width=900,  
                 showlegend=False,
                 margin=dict(l=80, r=80, t=60, b=120),
                 xaxis=dict(showgrid=False),
                 yaxis=dict(showgrid=False)
             )
             
-            # Mettre à jour les axes pour chaque subplot
+            # Update axes for each subplot
             for i in range(1, 4):
                 fig_combined.update_xaxes(
                     tickangle=-45,
@@ -631,14 +632,14 @@ class DashNeuroTmapClient:
             return None
             
     def create_correlation_interface(self, dataset='master'):
-        """Interface interactive pour les heatmaps de corrélation """
+        """Interactive interface for correlation heatmaps """
         
         subjects_data = self.get_available_subjects(dataset)
         if not subjects_data:
             print("Cannot create interface: no subjects data available")
             return None
 
-        # Widgets de configuration 
+        # Parameters widgets 
         session_widget = widgets.Dropdown(
             options=['V1', 'V2', 'V3'],
             value='V1',
@@ -657,20 +658,20 @@ class DashNeuroTmapClient:
             description='Groups:'
         )
 
-        #  Bouton reset 
+        #  Reset button
         reset_btn = widgets.Button(
             description='🔄 Reset to Default',
             button_style='warning',
             layout=widgets.Layout(width='200px')
         )
 
-        # Container pour les graphiques 
+        # Graph container 
         plot_output = widgets.Output()
 
         observers_active = False
         
         def display_heatmaps():
-            """Affiche les 3 heatmaps côte à côte"""
+            """Display 3 heatmaps"""
             with plot_output:
                 plot_output.clear_output(wait=True)
                 
@@ -689,47 +690,44 @@ class DashNeuroTmapClient:
                     print(f"❌ Error displaying heatmaps: {e}")
         
         def reset_to_default(_=None):
-            """Réinitialise tous les widgets aux valeurs par défaut"""
+            """Reset all widgets to their default values for fig 2"""
             session_widget.value = 'V1'
             system_widget.value = 'Synaptic ratio'
             groups_widget.value = ['A']
         
-        # Configuration du bouton reset
+        # Reset button configuration
         reset_btn.on_click(reset_to_default)
 
-        # Créer le conteneur principal
+        # Create the main container
         main_container = widgets.VBox([
             widgets.HBox([session_widget, system_widget, groups_widget]),
             widgets.HBox([reset_btn]),
             plot_output
         ])
 
-        #  Lier les événements des widgets - mise à jour automatique
         def on_any_change(change):
             """Quand un paramètre change, mettre à jour les heatmaps"""
             if observers_active:
                 display_heatmaps()
 
         observers_active = True
-        # Tous les widgets déclenchent une mise à jour automatique
+  
         for widget in [session_widget, system_widget, groups_widget]:
             widget.observe(on_any_change, names='value')
 
-        # Premier affichage (comme create_advanced_interface)
         display_heatmaps()
 
-        # Retourner le conteneur pour qu'il soit sauvegardé comme output du notebook
         return main_container
    
     # plotly animation without dropdown
     def create_interactive_correlation_viewer(self, dataset='master', session='V1',
                                             system_type='Synaptic ratio', groups=['A']):
         """
-        Crée un visualiseur interactif UNIQUEMENT avec slider p-value
-        PAS de dropdowns pour session/system/groups (fixés à l'appel)
+        Create an interactive viewer with slider for p-value only
+        No dropdowns for session/system/groups (these are fixed at the time of the call)
         """
         
-        # Générer les heatmaps UNE SEULE FOIS
+        # Generate the heatmaps only once
         heatmaps_data = self.generate_correlation_heatmaps(
             dataset=dataset,
             session=session,
@@ -741,7 +739,7 @@ class DashNeuroTmapClient:
             print("❌ Failed to load heatmaps data")
             return None
         
-        # Slider pour p-value threshold
+        # Slider for p-value threshold
         p_threshold_slider = widgets.FloatSlider(
             value=0.05,
             min=0.001,
@@ -755,27 +753,25 @@ class DashNeuroTmapClient:
             layout=widgets.Layout(width='500px')
         )
         
-        # Checkbox pour AFFICHER/MASQUER les chiffres
+        # Checkbox to SHOW/HIDE the numbers
         show_numbers_checkbox = widgets.Checkbox(
-            value=True,  # Par défaut, afficher les chiffres
+            value=True,  # show by default
             description='Show correlation values on heatmap',
             style={'description_width': 'initial'},
             indent=False
         )
 
-        # Container pour les graphiques 
         plot_output = widgets.Output()
         
-        # Créer un FigureWidget pour mise à jour en place
         fig_widget_container = {'widget': None}
         
         def update_heatmap_display(change=None):
-            """Met à jour UNIQUEMENT l'affichage avec le threshold actuel"""
+            """Update ONLY the display with the current threshold"""
             try:
                 p_thresh = p_threshold_slider.value
                 show_numbers = show_numbers_checkbox.value
                 
-                # Recréer les figures avec le nouveau threshold
+                # Recreate the figures with the new threshold
                 figures = []
                 titles = ['All Subjects', 'Men Only', 'Women Only']
                 
@@ -791,7 +787,7 @@ class DashNeuroTmapClient:
                         
                         x_labels = [var.split('_', 1)[1] if '_' in var else var for var in display_vars]
                         y_labels = [var.split('_', 1)[1] if '_' in var else var for var in display_vars]
-                        # Convertir en arrays numpy
+                
                         corr_array = np.array([[corr_matrix_dict[row][col] 
                                             for col in vars_list] 
                                             for row in vars_list])
@@ -799,20 +795,18 @@ class DashNeuroTmapClient:
                                             for col in vars_list] 
                                             for row in vars_list])
                         
-                        # Appliquer le masque de p-value (toujours actif)
+                        # Apply the p-value mask (always active)
                         corr_display = np.where(pval_array < p_thresh, corr_array, None)
                         
-                        # Préparer le texte pour l'affichage des chiffres
                         if show_numbers:
-                            # Afficher les valeurs arrondies
                             text_array = np.round(corr_array, 1)
                             text_template = "%{text}"
                         else:
-                            # Masquer les chiffres
+                            # Hide the numbers
                             text_array = [["" for _ in range(len(vars_list))] for _ in range(len(vars_list))]
                             text_template = ""
                         
-                        # Créer la heatmap
+                        # Create heatmap
                         fig = go.Figure(data=go.Heatmap(
                             z=corr_display,
                             x= x_labels,#display_vars,
@@ -843,7 +837,7 @@ class DashNeuroTmapClient:
                         )
                         figures.append(fig)
                 
-                # Créer la figure combinée
+                # Create combined figure 
                 fig_combined = make_subplots(
                     rows=1, cols=3,
                     subplot_titles=titles,
@@ -866,10 +860,9 @@ class DashNeuroTmapClient:
                     height=375,
                     width=900,
                     showlegend=False,
-                    margin=dict(l=30, r=40, t=80, b=80), #test reduction marge avant fig 1
+                    margin=dict(l=30, r=40, t=80, b=80), 
                     title=dict(
                         text=f"Session {session} - {system_type}<br>",
-                            #f"<sub>p-value threshold: {p_thresh:.3f}</sub>",
                         x=0.5,
                         xanchor='center',
                         font=dict(size=14)
@@ -899,22 +892,18 @@ class DashNeuroTmapClient:
                 with plot_output:
                     clear_output(wait=True) 
                 
-                    # Mettre à jour le widget en place ou créer si première fois
+                    # Update the widget in place or create it if it’s the first time
                     if fig_widget_container['widget'] is None:
                         fig_widget = go.FigureWidget(fig_combined)
                         fig_widget_container['widget'] = fig_widget
                         display(fig_widget)
                     else:
-                        # Mettre à jour en place
                         with fig_widget_container['widget'].batch_update():
-                            # Mettre à jour les traces
                             for idx, trace in enumerate(fig_combined.data):
                                 if idx < len(fig_widget_container['widget'].data):
                                     fig_widget_container['widget'].data[idx].z = trace.z
                                     fig_widget_container['widget'].data[idx].text = trace.text
                                     fig_widget_container['widget'].data[idx].texttemplate = trace.texttemplate
-                            
-                            # Mettre à jour le titre
                             fig_widget_container['widget'].layout.title.text = fig_combined.layout.title.text
                 
             except Exception as e:
@@ -922,11 +911,11 @@ class DashNeuroTmapClient:
                 import traceback
                 traceback.print_exc()
         
-        # Lier les widgets
+        # Link the widgets
         p_threshold_slider.observe(update_heatmap_display, names='value')
         show_numbers_checkbox.observe(update_heatmap_display, names='value')
         
-        # Créer le conteneur principal
+        # Create the main container 
         main_container = widgets.VBox([
             widgets.HTML(value=f"<h3>Session {session} - {system_type}</h3>"),
             widgets.HTML(value="<hr style='margin: 10px 0;'>"),
@@ -936,16 +925,16 @@ class DashNeuroTmapClient:
             plot_output
         ])
         
-        # Affichage initial
+        # Initial display
         update_heatmap_display()
         
         return main_container
    
-    #Heatmap avec variables croisée et interactive  
+    # Interactive heatmap with cross-tabulated variables 
     def generate_cross_correlation_heatmap(self, dataset='master',
                                         session1='V1', sex_filter1='All', outcome1='Synaptic ratio', groups1=['A'],
                                         session2='V3', sex_filter2='All', outcome2='Synaptic ratio', groups2=['A']):
-        """Génère une heatmap de corrélation croisée entre deux sets"""
+        """Generate a cross-correlation heatmap within the same group using distinct or similar parameters."""
         payload = {
             'dataset': dataset,
             'session1': session1,
@@ -961,6 +950,7 @@ class DashNeuroTmapClient:
         try:
             response = requests.post(f"{self.api_url}/correlation/generate_cross_heatmaps", 
                                 json=payload, timeout=30)
+            #print(response.status_code, response.text)
             
             if response.status_code == 200:
                 data = response.json()
@@ -976,11 +966,9 @@ class DashNeuroTmapClient:
 
     def create_interactive_correlation_interface_auto(self):
 
-        """Interface interactive avec mise à jour automatique"""
-    
-        from IPython.display import clear_output
+        """Interactive interface with automatic updates"""
         
-        # Widgets pour Set 1
+        # Widgets for Set 1
         session1 = widgets.Dropdown(options=['V1', 'V2', 'V3'], value='V1', description='Session 1:')
         sex1 = widgets.Dropdown(options=['All', 'Men only', 'Women only'], value='Men only', description='Sex 1:')
         outcome1 = widgets.Dropdown(
@@ -990,7 +978,7 @@ class DashNeuroTmapClient:
             description='Outcome 1:'
         )
         
-        # Widgets pour Set 2
+        # Widgets for Set 2
         session2 = widgets.Dropdown(options=['V1', 'V2', 'V3'], value='V1', description='Session 2:')
         sex2 = widgets.Dropdown(options=['All', 'Men only', 'Women only'], value='Men only', description='Sex 2:')
         
@@ -1018,7 +1006,6 @@ class DashNeuroTmapClient:
             """
         )
 
-        # Container pour la figure et les stats
         output_container = widgets.VBox()
         observers_active = False
         
@@ -1036,24 +1023,23 @@ class DashNeuroTmapClient:
             )
 
             if result and result['status'] == 'success':
-                # Créer un NOUVEAU FigureWidget à chaque mise à jour
                 fig = go.FigureWidget(result['heatmap'])
 
-                fig.update_xaxes(side="bottom")   # forcer l’axe X en bas pour myst
-                fig.update_yaxes(side="left")     # forcer l’axe Y à gauche pour myst
+                fig.update_xaxes(side="bottom")   # Force the X-axis to appear at the bottom for myST
+                fig.update_yaxes(side="left")     # Force the Y-axis to appear at the left for myST
+
                 fig.update_layout(
                     width=500,   
                     height=500, 
                     #margin=dict(l=50, r=50, t=50, b=50)  
                 )
             
-                # Créer le widget de statistiques
+                # Statistic widget
                 stats_text = widgets.HTML(
-                    value=f"<p><b>Set 1:</b> {result['subject_count_set1']} subjects | "
-                        f"<b>Set 2:</b> {result['subject_count_set2']} subjects | "
+                    value=f"<p><b>1st selection:</b> {result['subject_count_set1']} subjects | "
+                        f"<b>2nd selection:</b> {result['subject_count_set2']} subjects | "
                         f"<b>Common:</b> {result['common_subjects']} subjects</p>"
                 )
-                # Mettre à jour le container avec la nouvelle figure 
                 output_container.children = [stats_text, fig]
             else:
                 error_text = widgets.HTML(value="<p style='color: red;'>Failed to generate heatmap</p>")
@@ -1063,42 +1049,27 @@ class DashNeuroTmapClient:
             if observers_active:
                 update_heatmap()
         
-        # Organisation de l'interface
-        set1_controls = widgets.VBox([
-            widgets.HTML("<h3>Set 1</h3>"),
-            # session1, sex1, outcome1
-            widgets.HBox([session1, sex1]),   # première ligne : session + sexe
-            widgets.HBox([outcome1])        # deuxième ligne : outcome
-             ])
-        #     session1, sex1, outcome1
-        # ])
-        
-        set2_controls = widgets.VBox([
-            widgets.HTML("<h3>Set 2</h3>"),
-            # session2, sex2, outcome2
-            widgets.HBox([session2, sex2]),   # première ligne : session + sexe
-            widgets.HBox([outcome2])       # deuxième ligne : outcome
-        ])
-        #     session2, sex2, outcome2
-        # ])
-        
 
-        # Créer le conteneur principal
+        set1_controls = widgets.VBox([
+            widgets.HBox([session1, sex1]),   
+            widgets.HBox([outcome1])     
+             ])
+     
+        set2_controls = widgets.VBox([
+            widgets.HBox([session2, sex2]),   
+            widgets.HBox([outcome2])     
+        ])
+     
         main_container = widgets.VBox([
             widgets.HBox([set1_controls, set2_controls]),
             permanent_message,
-            #output_container,
             widgets.HBox([output_container], layout=widgets.Layout(justify_content='center'))
         ])
 
-        # Affichage initial 
         update_heatmap()
 
-        # Activer les observers après le premier affichage
         observers_active = True
         for widget in [session1, sex1, outcome1, session2, sex2, outcome2]:
             widget.observe(on_change, names='value')
   
-
-        # Retourner le conteneur pour qu'il soit sauvegardé comme output du notebook
         return main_container
