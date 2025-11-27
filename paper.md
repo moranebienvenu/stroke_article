@@ -100,7 +100,7 @@ To visualize disruptions, group-averaged male (n = 23) and female (n = 15) data 
 
 **<span style="color:red">To enable interactivity, attach a runtime by clicking the `⏻` icon in the top-right corner of the figure 2 panel</span>**. If no runtime is attached, the figure will remain in its default state: hover and basic interactions are available.
 
-**<span style="color:red">Once loaded, three buttons appear in the corner. Click the middle play button `▶️` to activate figure 2.</span>** When the static figure is replaced by an interactive Plotly chart, use the toggles to modify the display. Use <span style="display:inline-block; transform: rotate(180deg);">↪️</span> to revert to the original static figure.
+**<span style="color:red">Once loaded, three buttons appear in the corner. Click the middle play button `▶️` to activate figure 2.</span>** When the static figure is replaced by an interactive Plotly chart, use the toggles to modify the display. Use <span style="display:inline-block; transform: scaleX(-1) scaleY(-1);">↪️</span> to revert to the original static figure.
 
 :::
 
