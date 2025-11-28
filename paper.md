@@ -108,6 +108,7 @@ To visualize disruptions, group-averaged male (n = 23) and female (n = 15) data 
 :::{figure} #fig2cell
 :label: fig2
 :name: fig-neurotmap-analysis
+:placeholder: ./static/fig2.png
 
 Interactive NeuroTmap analysis showing base and overlay comparisons. 
 Left panel: Proportion of each neurotransmitter system affected by the lesion based on receptor/transporter location density maps. Middle panel: Proportion of each neurotransmitter system affected by the lesion based on receptor/transporter tract projection maps. Right panel: Synaptic disruption ratios for men and women, shown in natural logarithmic scale. Abbreviations: 5HT1a serotonin receptor 1a, 5HT1b serotonin receptor 1b, 5HT2a serotonin receptor 2a, 5HT4 serotonin receptor 4, 5HT6 serotonin receptor 6, 5HTT serotonin transporter, α4β2 acetylcholine receptor α4β2, D1 dopamine receptor 1, D2 dopamine receptor 2, DAT dopamine transporter, M1 muscarinic 1 receptor, Nor noradrenaline transporter, VAChT acetylcholine vesicular transporter.
@@ -180,6 +181,7 @@ We then examined correlations between pre- and post-synaptic ratios in the acute
 :::{figure} #fig3cell
 :label: fig3
 :name: fig-correlation-analysis
+:placeholder: ./static/fig3.png
 
 Interactive correlation heatmaps showing the relationship between pre- and post-synaptic ratios across location and projection maps in the acute phase separately for All participants, Men, and Women. Pearson’s r was used for normally distributed pairs (Shapiro-Wilk test, p > 0.05), Spearman’s rₛ otherwise. Colors indicate correlation (–1 = blue, +1 = red); only FDR-significant correlations (p < 0.05) are shown in bright colors, non-significant in grey. Panels: all participants (left, n=38), men (center, n=23), women (right, n=15). 
 ***Users can toggle the display of correlations values and adjust the p-value threshold with the slider to explore the data interactively.***
@@ -239,6 +241,7 @@ To illustrate longitudinal changes in neurotransmitter system disruption and syn
 :::{figure} #fig4cell
 :label: fig4
 :name: fig-cross-correlation-analysis
+:placeholder: ./static/fig4.png
 
 Interactive NeuroTmap analysis showing base and overlay comparisons for all subjects in acute versus chronic phases. 
 Panels and Abbreviations as in Fig.1.
@@ -285,6 +288,7 @@ Correlation between pre- and post-synaptic ratios in acute and chronic phases (n
 :::{figure} #fig5cell
 :label: fig5
 :name: fig-cross-correlation-analysis
+:placeholder: ./static/fig5.png
 
 
 Interactive correlation heatmaps showing the relationship between pre- and post-synaptic ratios in the acute phase. The Y-axis shows the variables from the 1st selection, and the X-axis shows the variables from the 2nd seletion.

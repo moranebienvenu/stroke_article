@@ -916,148 +916,7 @@ class DashNeuroTmapClient:
                 print(f"❌ Error updating display: {e}")
                 import traceback
                 traceback.print_exc()
-            
-
-                # # Recreate the figures with the new threshold
-                # figures = []
-                # titles = ['All Subjects', 'Men Only', 'Women Only']
-                
-                # for i, sex_filter in enumerate(['all', 'men', 'women']):
-                #     if (sex_filter in heatmaps_data and 
-                #         heatmaps_data[sex_filter]['status'] == 'success'):
-                        
-                #         data = heatmaps_data[sex_filter]
-                #         corr_matrix_dict = data['correlation_matrix']
-                #         pval_matrix_dict = data['pvalue_matrix']
-                #         vars_list = data['corr_index']
-                #         display_vars = data['variables']
-                        
-                #         x_labels = [var.split('_', 1)[1] if '_' in var else var for var in display_vars]
-                #         y_labels = [var.split('_', 1)[1] if '_' in var else var for var in display_vars]
-                
-                #         corr_array = np.array([[corr_matrix_dict[row][col] 
-                #                             for col in vars_list] 
-                #                             for row in vars_list])
-                #         pval_array = np.array([[pval_matrix_dict[row][col] 
-                #                             for col in vars_list] 
-                #                             for row in vars_list])
-                        
-                #         # Apply the p-value mask (always active)
-                #         corr_display = np.where(pval_array < p_thresh, corr_array, None)
-                        
-                #         if show_numbers:
-                #             text_array = np.round(corr_array, 1)
-                #             text_template = "%{text}"
-                #         else:
-                #             # Hide the numbers
-                #             text_array = [["" for _ in range(len(vars_list))] for _ in range(len(vars_list))]
-                #             text_template = ""
-                        
-                #         # Create heatmap
-                #         fig = go.Figure(data=go.Heatmap(
-                #             z=corr_display,
-                #             x= x_labels,#display_vars,
-                #             y= y_labels,#display_vars,
-                #             colorscale='RdBu_r',
-                #             zmin=-1,
-                #             zmax=1,
-                #             text=text_array,
-                #             texttemplate=text_template,
-                #             textfont={"size": 8},
-                #             hovertemplate=(
-                #                 "Variable X: %{x}<br>"
-                #                 "Variable Y: %{y}<br>"
-                #                 "Correlation: %{z:.2f}<br>"
-                #                 "<extra></extra>"
-                #             )
-                #         ))
-                        
-                #         figures.append(fig)
-                #     else:
-                #         fig = go.Figure()
-                #         fig.add_annotation(
-                #             text=f"No data for {titles[i]}",
-                #             xref="paper", yref="paper",
-                #             x=0.5, y=0.5, xanchor='center', yanchor='middle',
-                #             showarrow=False,
-                #             font=dict(size=14, color="red")
-                #         )
-                #         figures.append(fig)
-                
-                # # Create combined figure 
-                # fig_combined = make_subplots(
-                #     rows=1, cols=3,
-                #     subplot_titles=titles,
-                #     horizontal_spacing=0.01, 
-                #     vertical_spacing=0.05,
-                #     specs=[[{"type": "heatmap"}, {"type": "heatmap"}, {"type": "heatmap"}]]
-                # )
-                
-                # for idx, fig in enumerate(figures):
-                #     if len(fig.data) > 0:
-                #         trace = fig.data[0]
-                #         if idx == 2:
-                #             trace.showscale = True
-                #         else:
-                #             trace.showscale = False
-                #         #trace.showscale = (idx == 2)
-                #         fig_combined.add_trace(trace, row=1, col=idx+1)
-                
-                # fig_combined.update_layout(
-                #     height=375,
-                #     width=900,
-                #     showlegend=False,
-                #     margin=dict(l=30, r=40, t=80, b=80), 
-                #     title=dict(
-                #         text=f"Session {session} - {system_type}<br>",
-                #         x=0.5,
-                #         xanchor='center',
-                #         font=dict(size=14)
-                #     )
-                # )
-                
-                # for i in range(1, 4):
-                #     fig_combined.update_xaxes(
-                #         tickangle=-45,
-                #         tickfont=dict(size=8),
-                #         automargin=False,
-                #         side='bottom',
-                #         showgrid=False,
-                #         row=1, col=i
-                #     )
-                #     fig_combined.update_yaxes(
-                #         autorange='reversed',
-                #         tickfont=dict(size=8),
-                #         showgrid=False,
-                #         row=1, col=i
-                #     )
-                #     if i == 1:
-                #         fig_combined.update_yaxes(showticklabels=True, row=1, col=i)
-                #     else:
-                #         fig_combined.update_yaxes(showticklabels=False, row=1, col=i)              
-
-            #     with plot_output:
-            #         clear_output(wait=True) 
-                
-            #         # Update the widget in place or create it if it’s the first time
-            #         if fig_widget_container['widget'] is None:
-            #             fig_widget = go.FigureWidget(fig_combined)
-            #             fig_widget_container['widget'] = fig_widget
-            #             display(fig_widget)
-            #         else:
-            #             with fig_widget_container['widget'].batch_update():
-            #                 for idx, trace in enumerate(fig_combined.data):
-            #                     if idx < len(fig_widget_container['widget'].data):
-            #                         fig_widget_container['widget'].data[idx].z = trace.z
-            #                         fig_widget_container['widget'].data[idx].text = trace.text
-            #                         fig_widget_container['widget'].data[idx].texttemplate = trace.texttemplate
-            #                 fig_widget_container['widget'].layout.title.text = fig_combined.layout.title.text
-                
-            # except Exception as e:
-            #     print(f"❌ Error updating display: {e}")
-            #     import traceback
-            #     traceback.print_exc()
-        
+                  
         # Link the widgets
         p_threshold_slider.observe(update_heatmap_display, names='value')
         show_numbers_checkbox.observe(update_heatmap_display, names='value')
@@ -1167,6 +1026,12 @@ class DashNeuroTmapClient:
             )
 
             if result and result['status'] == 'success':
+            #     for trace in result['heatmap']['data']:
+            #         for key in ['x', 'y', 'z']:
+            #             if key in trace:
+            #                 trace[key] = trace[key].tolist() if isinstance(trace[key], np.ndarray) else trace[key]
+
+            #     fig = go.FigureWidget(result['heatmap'])
                 fig = go.FigureWidget(result['heatmap'])
 
                 fig.update_xaxes(side="bottom")   # Force the X-axis to appear at the bottom for myST
