@@ -5,7 +5,10 @@ numbering:
     template: Fig. %s
 ---
 
-## Dashboard
+<p style="text-align: center; font-size: 1.4em; font-weight: bold;">
+Dashboard
+</p>
+
 :::{iframe} https://stroke-dashboard.db.neurolibre.org/
 :width: 100%
 :border: 0
