@@ -5,6 +5,7 @@ numbering:
     template: Fig. %s
 ---
 
+## Dashboard
 :::{iframe} https://stroke-dashboard.db.neurolibre.org/
 :width: 100%
 :border: 0
