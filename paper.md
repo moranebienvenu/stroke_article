@@ -5,6 +5,10 @@ numbering:
     template: Fig. %s
 ---
 
+:::{iframe} https://stroke-dashboard.db.neurolibre.org/
+:width: 100%
+:border: 0
+:::
 
 # Introduction
 
@@ -339,4 +343,4 @@ Our data are available on https://github.com/moranebienvenu/stroke_dashboard , i
 
 # Acknowledgements
 
-This work was supported by the Heart and Stroke Foundation of Canada [grant numbers G16-00014039 and G-19- 0026212] and Canadian Institutes of Health Research/ Instituts de recherche en santé du Canads [grant number 470371]. S.M.B. hold a CHAIRE COURTOIS EN RECHERCHE FONDAMENTALE III (NEUROSCIENCE) de la Faculté des Arts et des Sciences de l'Université de Montréal. 
+This work was supported by the Heart and Stroke Foundation of Canada [grant numbers G16-00014039 and G-19- 0026212] and Canadian Institutes of Health Research/ Instituts de recherche en santé du Canada [grant number 470371]. S.M.B. hold a CHAIRE COURTOIS EN RECHERCHE FONDAMENTALE III (NEUROSCIENCE) de la Faculté des Arts et des Sciences de l'Université de Montréal. 
