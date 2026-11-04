@@ -280,15 +280,32 @@ class DashNeuroTmapClient:
             return None
 
     def get_combined_plots(self):
-        """Retrieve the combined plots, including the base and overlay plots."""
-        try:
-            response = requests.get(f"{self.api_url}/overlay/combine", timeout=10)
-            if response.status_code == 200:
-                data = response.json()
-                return data['combined_plots']
+        """Combine the base plots and overlays this client received.
+
+        This does what the dashboard's GET /api/overlay/combine does, but on the
+        figures returned by generate_plots() and generate_overlay(), not on the
+        state the server keeps. The dashboard runs several worker processes that
+        do not share that state, so /overlay/combine can reach a worker that never
+        saw this client's base plots and answer "No base plots available".
+        """
+        if not self.current_plots:
+            print("No base plots available. Generate base plots first.")
             return None
+        try:
+            combined = {}
+            for key in ('fig1', 'fig2', 'fig3'):
+                fig = go.Figure(self.current_plots[key])
+                for overlay in self.overlays:
+                    for trace in go.Figure(overlay[key]).data:
+                        fig.add_trace(trace)
+                fig.update_layout(barmode='overlay', showlegend=True)
+                combined[key] = fig.to_dict()
+            combined['base_title'] = self.current_plots.get('title', 'Base Plot')
+            combined['overlay_count'] = len(self.overlays)
+            combined['overlay_titles'] = [ov.get('title', f'Overlay {i+1}') for i, ov in enumerate(self.overlays)]
+            return combined
         except Exception as e:
-            print(f"Error getting combined plots: {e}")
+            print(f"Error combining plots: {e}")
             return None
     
     def display_combined_plots(self, show=True):
