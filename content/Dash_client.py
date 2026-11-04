@@ -1,3 +1,4 @@
+import os
 import nbformat
 import requests
 import plotly.graph_objects as go
@@ -13,6 +14,31 @@ import plotly.io as pio
 
 
 pio.renderers.default = "plotly_mimetype"
+
+# True inside the Binder/JupyterHub session that the article's power button starts.
+LIVE_SESSION = any(k in os.environ for k in ("BINDER_LAUNCH_HOST", "BINDER_REQUEST", "JUPYTERHUB_USER"))
+
+
+def show_in_output(output, *objs, initial=False):
+    """Display objs inside the ipywidgets Output `output`.
+
+    MyST cannot render ipywidgets without a kernel, so for the first render outside
+    a live session (local runs, `myst build --execute`) the objects are displayed as
+    ordinary cell outputs instead. They are saved in the notebook and the article
+    shows the initial Plotly figure as an interactive chart before a kernel is
+    attached. Once a kernel is attached and the cell is run, everything is drawn
+    inside the widget.
+    """
+    if initial and not LIVE_SESSION:
+        for obj in objs:
+            display(obj)
+        return
+    with output:
+        clear_output(wait=True)
+        for obj in objs:
+            display(obj)
+
+
 class DashNeuroTmapClient:
     def __init__(self, dash_url="http://127.0.0.1:8050"):
         """
@@ -265,8 +291,8 @@ class DashNeuroTmapClient:
             print(f"Error getting combined plots: {e}")
             return None
     
-    def display_combined_plots(self):
-        """Display the combined plots including overlays."""
+    def display_combined_plots(self, show=True):
+        """Build (and by default display) the combined plots including overlays."""
         combined_data = self.get_combined_plots()
         if not combined_data:
             print("No combined plots available. Generate base plots and overlays first.")
@@ -403,9 +429,10 @@ class DashNeuroTmapClient:
                 domain=dict(x=[0.66, 1.0], y=[0.1, 0.9]),   # Graph 3
                 row=1, col=3
             )
-            
-            display(fig)
-            
+
+            if show:
+                display(fig)
+
             return fig
             
         except Exception as e:
@@ -432,42 +459,41 @@ class DashNeuroTmapClient:
 
         observers_active = False
         
-        def display_base_with_overlay():
+        def display_base_with_overlay(initial=False):
             """Display base + overlay (default state)"""
-            with plot_output:
-                plot_output.clear_output(wait=True)
-          
-                # Clear existing overlays
-                self.clear_overlays()
+            # Clear existing overlays
+            self.clear_overlays()
 
-                # Créer un titre personnalisé SANS les groupes pour la base
-                base_title = f"Session {base_session.value}"
-                if base_sex.value != 'all':
-                    base_title += f" ({'Men' if base_sex.value == 'men' else 'Women'})"
-                
-                # Create a custom title for the base without groups
-                base_plots = self.generate_plots(
+            # Create a custom title for the base without groups
+            base_title = f"Session {base_session.value}"
+            if base_sex.value != 'all':
+                base_title += f" ({'Men' if base_sex.value == 'men' else 'Women'})"
+
+            base_plots = self.generate_plots(
+                dataset=dataset,
+                analysis_type="session_sex",
+                session=base_session.value,
+                sex_filter=base_sex.value,
+                groups=groups_default,
+                title=base_title
+            )
+
+            if base_plots:
+                # Generate the overlay (fixed groups for the natural state)
+                overlay_plots = self.generate_overlay(
                     dataset=dataset,
                     analysis_type="session_sex",
-                    session=base_session.value,
-                    sex_filter=base_sex.value,
-                    groups=groups_default,
-                    title=base_title
+                    session=overlay_session.value,
+                    sex_filter=overlay_sex.value,
+                    groups=groups_default
                 )
-                
-                if base_plots:
-                    # Generate the overlay (fixed groups for the natural state)
-                    overlay_plots = self.generate_overlay(
-                        dataset=dataset,
-                        analysis_type="session_sex",
-                        session=overlay_session.value,
-                        sex_filter=overlay_sex.value,
-                        groups=groups_default  
-                    )
-                    
-                    if overlay_plots:
-                       self.display_combined_plots()
-                    else:
+
+                fig = self.display_combined_plots(show=False) if overlay_plots else None
+                if fig is not None:
+                    show_in_output(plot_output, fig, initial=initial)
+                else:
+                    with plot_output:
+                        plot_output.clear_output(wait=True)
                         self.display_plots(base_plots)
          
         
@@ -492,7 +518,7 @@ class DashNeuroTmapClient:
         ])
 
         # Initial display (base + overlay by default)
-        display_base_with_overlay()
+        display_base_with_overlay(initial=True)
 
         # Link widget events – automatic update
         def on_any_change(change):
@@ -882,36 +908,19 @@ class DashNeuroTmapClient:
         )
 
         plot_output = widgets.Output()
-        
-        
-        initial_fig = self.create_correlation_figure(heatmaps_data, 0.05, True, session, system_type)
-        fig_widget = go.FigureWidget(initial_fig)
-        with plot_output:
-            display(fig_widget)
-        #fig_widget_container = {'widget': fig_widget}
 
-        
-        def update_heatmap_display(change=None):
-            """Update ONLY the display with the current threshold"""     
+        def update_heatmap_display(change=None, initial=False):
+            """Redraw the heatmap with the current threshold and checkbox value.
+
+            A plain go.Figure is displayed rather than a FigureWidget, because only a
+            plain figure can be saved as a Plotly output that MyST renders without a
+            kernel (see show_in_output).
+            """
             try:
-                #plot_output.clear_output(wait=True)
                 p_thresh = p_threshold_slider.value
                 show_numbers = show_numbers_checkbox.value
-                new_fig  = self.create_correlation_figure(heatmaps_data, p_thresh, show_numbers, session, system_type)
-
-                with plot_output:
-                    clear_output(wait=True) 
-                   
-                    with fig_widget.batch_update():
-                        # Mettre à jour les données de chaque trace
-                        for idx, trace in enumerate(new_fig.data):
-                            if idx < len(fig_widget.data):
-                                fig_widget.data[idx].z = trace.z
-                                fig_widget.data[idx].text = trace.text
-                                fig_widget.data[idx].texttemplate = trace.texttemplate
-                        
-                        # Mettre à jour le layout
-                        fig_widget.layout.title.text = new_fig.layout.title.text
+                new_fig = self.create_correlation_figure(heatmaps_data, p_thresh, show_numbers, session, system_type)
+                show_in_output(plot_output, new_fig, initial=initial)
             except Exception as e:
                 print(f"❌ Error updating display: {e}")
                 import traceback
@@ -929,7 +938,7 @@ class DashNeuroTmapClient:
         ])
         
         # Initial display
-        update_heatmap_display()
+        update_heatmap_display(initial=True)
         
         return main_container
    
@@ -1009,10 +1018,13 @@ class DashNeuroTmapClient:
             """
         )
 
-        output_container = widgets.VBox()
+        # An Output widget holding a plain go.Figure (rather than a VBox holding a
+        # FigureWidget) so the initial heatmap can be saved as a regular Plotly
+        # output. See show_in_output.
+        output_container = widgets.Output()
         observers_active = False
-        
-        def update_heatmap():
+
+        def update_heatmap(initial=False):
             result = self.generate_cross_correlation_heatmap(
                 dataset='master',
                 session1=session1.value,
@@ -1031,8 +1043,7 @@ class DashNeuroTmapClient:
             #             if key in trace:
             #                 trace[key] = trace[key].tolist() if isinstance(trace[key], np.ndarray) else trace[key]
 
-            #     fig = go.FigureWidget(result['heatmap'])
-                fig = go.FigureWidget(result['heatmap'])
+                fig = go.Figure(result['heatmap'])
 
                 fig.update_xaxes(side="bottom")   # Force the X-axis to appear at the bottom for myST
                 fig.update_yaxes(side="left")     # Force the Y-axis to appear at the left for myST
@@ -1044,16 +1055,16 @@ class DashNeuroTmapClient:
                     #margin=dict(l=50, r=50, t=50, b=50)  
                 )
             
-                # Statistic widget
-                stats_text = widgets.HTML(
-                    value=f"<p><b>1st selection:</b> {result['subject_count_set1']} subjects | "
-                        f"<b>2nd selection:</b> {result['subject_count_set2']} subjects | "
-                        f"<b>Common:</b> {result['common_subjects']} subjects</p>"
+                stats_text = HTML(
+                    f"<p><b>1st selection:</b> {result['subject_count_set1']} subjects | "
+                    f"<b>2nd selection:</b> {result['subject_count_set2']} subjects | "
+                    f"<b>Common:</b> {result['common_subjects']} subjects</p>"
                 )
-                output_container.children = [stats_text, fig]
+                show_in_output(output_container, stats_text, fig, initial=initial)
             else:
-                error_text = widgets.HTML(value="<p style='color: red;'>Failed to generate heatmap</p>")
-                output_container.children = [error_text]
+                show_in_output(output_container,
+                               HTML("<p style='color: red;'>Failed to generate heatmap</p>"),
+                               initial=initial)
         
         def on_change(change):
             if observers_active:
@@ -1076,7 +1087,7 @@ class DashNeuroTmapClient:
             widgets.HBox([output_container], layout=widgets.Layout(justify_content='center'))
         ])
 
-        update_heatmap()
+        update_heatmap(initial=True)
 
         observers_active = True
         for widget in [session1, sex1, outcome1, session2, sex2, outcome2]:
