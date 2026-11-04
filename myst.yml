@@ -2,15 +2,12 @@
 version: 1
 project:
   title: 'Sex-specific early neurotransmitter dynamics and post-stroke aphasia recovery'
-  subtitle: A specific dashboard template for reproducible preprints
-  thebe:
-    enabled: true
+  subtitle: A dashboard template for reproducible preprints
+  jupyter:
     binder:
       url: https://terrarium.evidencepub.io
-      repo: moranebienvenu/stroke_article 
-      ref: HEAD # Production will override this.
-    kernel:
-      name: python3
+      ref: main
+      repo: moranebienvenu/stroke_article
   authors:
     - name: Morane Bienvenu
       affiliations: polymtl
@@ -106,8 +103,6 @@ project:
       city: Bordeaux
       country: France
       postal_code: 33000
-
-
   keywords:
     - mystmd
     - next-gen preprints 
