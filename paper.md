@@ -1,22 +1,9 @@
----
-numbering:
-  heading_2: false
-  figure:
-    template: Fig. %s
----
-
-<center>
-<div style="font-size: 1.5em; font-weight: bold; margin: 1em 0; text-align: center;">
-Dashboard
-</div>
-</center>
 
 :::{iframe} https://stroke-dashboard.db.neurolibre.org/
 :width: 100%
 :border: 0
 :::
 
-<br><br>
 
 # Introduction
 
