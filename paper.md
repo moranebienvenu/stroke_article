@@ -7,8 +7,7 @@
 
 # Introduction
 
-
-Stroke is a major global public health issue, severely affecting quality of life through a wide range of consequences, including aphasia, motor and sensory deficits, behavioral changes, and even death [@BrainInjuryCanada2024]. It is among the most devastating non-communicable diseases (NCDs), ranking second in global mortality and third in combined mortality and disability. In 2021, nearly 12 million people experienced a first-ever stroke, of which 65.3% were ischaemic, and 52.6% occurred in men [@Feigin2025]. This pattern remains broadly consistent from year to year.
+Stroke is a major global public health issue, severely affecting quality of life through a wide range of consequences, including aphasia, motor and sensory deficits, behavioral changes, and even death. It is among the most devastating non-communicable diseases (NCDs), ranking second in global mortality and third in combined mortality and disability. In 2021, nearly 12 million people experienced a first-ever stroke, of which 65.3% were ischaemic, and 52.6% occurred in men [@Feigin2025]. This pattern remains broadly consistent from year to year.
 
 Ischaemic stroke, caused by an obstruction of cerebral blood flow, is the most common type. The present study focuses on ischaemic strokes in the left middle artery leading to aphasia, which affects about one-third of patients [@Pedersen1995]. Aphasia is a disorder that impairs the production and comprehension of language, as well as reading and writing, due to brain damage. While stroke recovery has been widely studied, sex-specific mechanisms underlying aphasia recovery remain underexplored, especially in the acute phase (<72 hours post-stroke). 
 
